@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InitialWindowComponent } from './initial-window.component';
+import { AdministratorComponent } from './administrator.component';
 
-describe('InitialWindowComponent', () => {
-  let component: InitialWindowComponent;
-  let fixture: ComponentFixture<InitialWindowComponent>;
+describe('AdministratorComponent', () => {
+  let component: AdministratorComponent;
+  let fixture: ComponentFixture<AdministratorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ InitialWindowComponent ]
+      declarations: [ AdministratorComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(InitialWindowComponent);
+    fixture = TestBed.createComponent(AdministratorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
