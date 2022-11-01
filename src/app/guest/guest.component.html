@@ -1,1 +1,12 @@
-<p>guest works!</p>
+Page de connexion.
+
+<form [formGroup]="form" (ngSubmit)="emitLogin()">
+  <label>
+    Email : <input type="text" formControlName="email">
+  </label>
+  <label>
+    Password : <input type="text" formControlName="password">
+  </label>
+  <input type="submit" [disabled]="form.invalid">
+</form>
+
