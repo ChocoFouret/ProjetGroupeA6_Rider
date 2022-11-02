@@ -10,12 +10,11 @@ export class AdminGuard implements CanActivate {
 
   // @ts-ignore
   async canActivate(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    await this._serviceService.isAdmin().subscribe(key => {
-      if(key.ok){
-        console.log(key.ok)
-        return key.ok
+    await this._serviceService.isStatus().subscribe(key => {
+      if(key.admin){
+        return key.admin
       } else {
-        this.router.navigate(['./login'])
+        this.router.navigate(['./connected/director'])
         return false
       }
     })

@@ -10,12 +10,11 @@ export class DirectorGuard implements CanActivate {
 
   // @ts-ignore
   async canActivate(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    await this._serviceService.isDirector().subscribe(key => {
-      if(key.ok){
-        console.log(key.ok)
-        return key.ok
+    await this._serviceService.isStatus().subscribe(key => {
+      if(key.director){
+        return key.director
       } else {
-        this.router.navigate(['./login'])
+        this.router.navigate(['./connected/employee'])
         return false
       }
     })

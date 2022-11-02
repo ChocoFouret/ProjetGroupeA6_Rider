@@ -1,0 +1,7 @@
+<div *ngIf="employees.length">
+  <ul>
+    <li *ngFor="let employee of employees">
+      <a routerLink="detail/{{employee.id}}">{{employee.firstName}} {{employee.lastName}}</a>
+    </li>
+  </ul>
+</div>

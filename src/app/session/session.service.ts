@@ -28,6 +28,20 @@ export class SessionService {
   }
 
   // Check if is logged
+  isStatus(): Observable<any> {
+    return this._httpClient
+      .get(
+        SessionService.ENTRY_POINT_URL + "account/is/status",
+        {withCredentials: true})
+      .pipe(
+        catchError(
+          error => {
+            return of(error)
+          })
+      )
+  }
+
+  // Check if is logged
   isLogged(): Observable<any> {
     return this._httpClient
       .get(

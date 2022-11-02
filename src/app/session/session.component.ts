@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {DtoOutputLogin} from "./dtos/dto-output-login";
 import {SessionService} from "./session.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-session',
@@ -9,14 +10,14 @@ import {SessionService} from "./session.service";
 })
 export class SessionComponent implements OnInit {
 
-  constructor(private _sessionService: SessionService) { }
+  constructor(private _sessionService: SessionService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
   login(dto: DtoOutputLogin) {
     this._sessionService.login(dto).subscribe(
-      () => console.log(),
+      () => this.router.navigate(['connected']),
       error => console.error(error)
     );
   }

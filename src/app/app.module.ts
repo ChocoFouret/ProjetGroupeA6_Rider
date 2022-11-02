@@ -12,6 +12,8 @@ import {SessionComponent} from './session/session.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { EmployeeComponent } from './connected/employee/employee.component';
+import { EmployeeListComponent } from './connected/director/employee-list/employee-list.component';
+import { EmployeeDetailComponent } from './connected/director/employee-detail/employee-detail.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { EmployeeComponent } from './connected/employee/employee.component';
     AdministratorComponent,
     NotFoundComponent,
     SessionComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    EmployeeListComponent,
+    EmployeeDetailComponent
   ],
   imports: [
     BrowserModule,

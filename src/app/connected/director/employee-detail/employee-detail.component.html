@@ -1,0 +1,12 @@
+<div *ngIf="employee; else employeeNotFound">
+  <h2>Profile of {{employee.lastName}} {{employee.firstName}}</h2>
+
+  First name : {{employee.lastName}}<br>
+  Last name : {{employee.lastName}}<br>
+  Email : {{employee.email}}<br>
+  Function : {{employee.function}}<br>
+
+</div>
+<ng-template #employeeNotFound>
+  <img alt='' src="https://ih1.redbubble.net/image.3626851427.8200/st,small,507x507-pad,600x600,f8f8f8.jpg">
+</ng-template>

@@ -9,6 +9,7 @@ import {AuthGuard} from "./auth/auth.guard";
 import {EmployeeComponent} from "./connected/employee/employee.component";
 import {DirectorGuard} from "./auth/director.guard";
 import {AdminGuard} from "./auth/admin.guard";
+import {EmployeeDetailComponent} from "./connected/director/employee-detail/employee-detail.component";
 
 // Routes
 const routes: Routes = [
@@ -16,9 +17,16 @@ const routes: Routes = [
     path: '', redirectTo: 'login', pathMatch: 'full'
   },
   {
-    path: 'connected', component: ConnectedComponent, canActivate: [AuthGuard], children: [
+    path: 'connected', component: ConnectedComponent, canActivate: [AuthGuard],
+    children: [
       {path: 'administrator', component: AdministratorComponent, canActivate: [AdminGuard]},
-      {path: 'director', component: DirectorComponent, canActivate: [DirectorGuard]},
+      {path: 'director', component: DirectorComponent, canActivate: [DirectorGuard],
+        children : [
+          {
+            path: 'detail/:employeeid', component: EmployeeDetailComponent
+          }
+        ]
+      },
       {path: 'employee', component: EmployeeComponent}
     ]
   },
