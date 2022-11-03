@@ -1,5 +1,5 @@
-<p>Director page</p>
+<h1>Page directeur</h1>
 
-<h3>Lists employees</h3>
-<app-employee-list [employees]="employees"></app-employee-list>
+<app-employee-list [employees]="employees"
+                   (employeeUpdated)="update($event)"></app-employee-list>
 <router-outlet></router-outlet>

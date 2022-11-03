@@ -24,7 +24,6 @@ export class ConnectedComponent implements OnInit {
       this.isDirector = key.director
       this.isAdmin = key.admin
     })
-    console.log(this.isDirector)
   }
 
 }

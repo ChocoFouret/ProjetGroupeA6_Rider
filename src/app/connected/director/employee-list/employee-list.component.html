@@ -1,3 +1,4 @@
+<!--
 <div *ngIf="employees.length">
   <ul>
     <li *ngFor="let employee of employees">
@@ -5,3 +6,19 @@
     </li>
   </ul>
 </div>
+-->
+
+<h2>Nos employées</h2>
+<div>
+  <ng-container *ngIf="employees.length">
+    <input list="listEmployees" [(ngModel)]="selectedEmployee" (ngModelChange)="getDetail()"> <button (click)="selectedEmployee = ''">Réinitialiser</button>
+    <datalist id="listEmployees">
+      <ng-container *ngFor="let employee of employees">
+        <option *ngIf="employee.function == 'Employee'" value="{{employee.lastName}}, {{employee.firstName}}">{{employee.email}}</option>
+      </ng-container>
+    </datalist>
+  </ng-container>
+</div>
+
+<app-employee-detail [employee]="employee"
+                     (employeeUpdated)="update($event)"></app-employee-detail>

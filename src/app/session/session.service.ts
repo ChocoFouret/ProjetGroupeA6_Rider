@@ -17,7 +17,7 @@ export class SessionService {
   // Create session
   login(dto: DtoOutputLogin): Observable<any> {
     return this._httpClient.post(
-      SessionService.ENTRY_POINT_URL + "account/login",
+      SessionService.ENTRY_POINT_URL + "/login",
       {
         "email": dto.email,
         "password": dto.password
@@ -31,48 +31,7 @@ export class SessionService {
   isStatus(): Observable<any> {
     return this._httpClient
       .get(
-        SessionService.ENTRY_POINT_URL + "account/is/status",
-        {withCredentials: true})
-      .pipe(
-        catchError(
-          error => {
-            return of(error)
-          })
-      )
-  }
-
-  // Check if is logged
-  isLogged(): Observable<any> {
-    return this._httpClient
-      .get(
-        SessionService.ENTRY_POINT_URL + "account/is/employee",
-        {withCredentials: true})
-      .pipe(
-        catchError(
-          error => {
-            return of(error)
-          })
-      )
-  }
-  // Check if is director
-  isDirector(): Observable<any> {
-    return this._httpClient
-      .get(
-        SessionService.ENTRY_POINT_URL + "account/is/director",
-        {withCredentials: true})
-      .pipe(
-        catchError(
-          error => {
-            return of(error)
-          })
-      )
-  }
-
-  // Check if is admin
-  isAdmin(): Observable<any> {
-    return this._httpClient
-      .get(
-        SessionService.ENTRY_POINT_URL + "account/is/admin",
+        SessionService.ENTRY_POINT_URL + "/is/status",
         {withCredentials: true})
       .pipe(
         catchError(
