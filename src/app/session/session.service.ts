@@ -31,7 +31,7 @@ export class SessionService {
   isStatus(): Observable<any> {
     return this._httpClient
       .get(
-        SessionService.ENTRY_POINT_URL + "/is/status",
+        SessionService.ENTRY_POINT_URL + "/is/login",
         {withCredentials: true})
       .pipe(
         catchError(
