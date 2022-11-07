@@ -21,7 +21,7 @@ export class GuestComponent implements OnInit {
   ngOnInit(): void {
 
     let cookie=this.DecodeToken(this.getCookie("role"));
-    console.log(cookie.exp);
+    console.log(cookie);
   }
 
   emitLogin() {
