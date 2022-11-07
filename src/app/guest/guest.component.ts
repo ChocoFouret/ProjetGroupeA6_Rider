@@ -14,14 +14,13 @@ export class GuestComponent implements OnInit {
     password: this._fb.control("", Validators.required),
   });
   @Output() sessionLogin: EventEmitter<DtoOutputLogin> = new EventEmitter<DtoOutputLogin>();
-
   constructor(private _fb: FormBuilder) {
   }
 
   ngOnInit(): void {
-
-    let cookie=this.DecodeToken(this.getCookie("role"));
-    console.log(cookie);
+    let cookie = this.DecodeToken(this.getCookie("role"));
+    let result = Object.entries(cookie);
+    console.log(result[0][1]);
   }
 
   emitLogin() {
@@ -30,6 +29,7 @@ export class GuestComponent implements OnInit {
       password: this.form.value.password
     });
   }
+
   private getCookie(name: string) {
     let ca: Array<string> = document.cookie.split(';');
     let caLen: number = ca.length;
