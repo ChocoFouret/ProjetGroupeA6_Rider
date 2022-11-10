@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {catchError, Observable, of} from "rxjs";
 import {DtoOutputLogin} from "./dtos/dto-output-login";
+import * as jwt from "jwt-decode";
 
 @Injectable({
   providedIn: 'root'
@@ -27,17 +28,30 @@ export class SessionService {
       })
   }
 
-  // Check if is logged
-  isStatus(): Observable<any> {
-    return this._httpClient
-      .get(
-        SessionService.ENTRY_POINT_URL + "/is/login",
-        {withCredentials: true})
-      .pipe(
-        catchError(
-          error => {
-            return of(error)
-          })
-      )
+
+  private getCookie(name: string) {
+    let ca: Array<string> = document.cookie.split(';');
+    let caLen: number = ca.length;
+    let cookieName = `${name}=`;
+    let c: string;
+
+    for (let i: number = 0; i < caLen; i += 1) {
+      c = ca[i].replace(/^\s+/g, '');
+      if (c.indexOf(cookieName) == 0) {
+        return c.substring(cookieName.length, c.length);
+      }
+    }
+    return '';
+  }
+
+  private DecodeToken(token: string): string {
+    return jwt.default(token);
+  }
+
+  getFunction():string{
+    let cookie = this.DecodeToken(this.getCookie("role"));
+    let result = Object.entries(cookie);
+    console.log(result[0][1])
+    return(result[0][1]);
   }
 }

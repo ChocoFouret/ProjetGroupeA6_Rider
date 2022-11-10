@@ -10,13 +10,11 @@ export class AuthGuard implements CanActivate {
 
   // @ts-ignore
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    await this._serviceService.isStatus().subscribe(key => {
-      if(key.logged){
-        return key.logged
+      if(this._serviceService.getFunction()=="Employee"){
+        return true
       } else {
         this.router.navigate(['./login'])
         return false
       }
-    })
   }
 }

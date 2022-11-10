@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {DtoInputEmployee} from "../dtos/dto-input-employee";
 import {EmployeesService} from "../employees.service";
 import {ActivatedRoute} from "@angular/router";
-import {DtoOutputLogin} from "../../../session/dtos/dto-output-login";
+import {DtoOutputLogin} from "../../session/dtos/dto-output-login";
 import {DtoOutputUpdateEmployee} from "../dtos/dto-output-update-employee";
 
 @Component({

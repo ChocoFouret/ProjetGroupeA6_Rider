@@ -12,6 +12,7 @@ export class ConnectedComponent implements OnInit {
 
 
   constructor(private _serviceService: SessionService) {
+    console.log(this._serviceService.getFunction())
   }
 
   ngOnInit(): void {
@@ -20,10 +21,22 @@ export class ConnectedComponent implements OnInit {
 
   // @ts-ignore
   menus() {
-    this._serviceService.isStatus().subscribe(key => {
+    if(this._serviceService.getFunction()=="Administrator")
+    {
+      this.isAdmin=true;
+    }
+    else if(this._serviceService.getFunction()=="Director")
+    {
+      this.isDirector=true;
+    }
+    /*this._serviceService.isStatus().subscribe(key => {
       this.isDirector = key.director
       this.isAdmin = key.admin
-    })
+    })*/
+  }
+  getIsAdmin()
+  {
+    return this.isAdmin;
   }
 
 }
