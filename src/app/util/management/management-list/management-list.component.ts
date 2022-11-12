@@ -1,22 +1,19 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {DtoInputEmployee} from "../dtos/dto-input-employee";
-import {Router} from "@angular/router";
-import {last} from "rxjs";
 import {DtoOutputUpdateEmployee} from "../dtos/dto-output-update-employee";
 
 @Component({
-  selector: 'app-employee-list',
-  templateUrl: './employee-list.component.html',
-  styleUrls: ['./employee-list.component.css']
+  selector: 'app-management-list',
+  templateUrl: './management-list.component.html',
+  styleUrls: ['./management-list.component.css']
 })
-export class EmployeeListComponent implements OnInit {
+export class ManagementListComponent implements OnInit {
   @Input() employees: DtoInputEmployee[] = [];
   @Output() employee: DtoInputEmployee | undefined;
   @Output() employeeUpdated: EventEmitter<DtoOutputUpdateEmployee> = new EventEmitter<DtoOutputUpdateEmployee>();
   selectedEmployee = "";
 
-
-  constructor(private router: Router) {
+  constructor() {
   }
 
   ngOnInit(): void {

@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {catchError, Observable, of} from "rxjs";
 import {DtoOutputLogin} from "./dtos/dto-output-login";
 import * as jwt from "jwt-decode";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -51,7 +51,6 @@ export class SessionService {
   getFunction():string{
     let cookie = this.DecodeToken(this.getCookie("role"));
     let result = Object.entries(cookie);
-    console.log(result[0][1])
     return(result[0][1]);
   }
 }
