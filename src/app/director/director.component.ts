@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {EmployeesService} from "./employees.service";
+import {ManagementService} from "../util/management/management.service";
 
 @Component({
   selector: 'app-director',
@@ -8,7 +8,7 @@ import {EmployeesService} from "./employees.service";
 })
 export class DirectorComponent implements OnInit {
 
-    constructor(private _employeesService: EmployeesService) {
+    constructor(private _employeesService: ManagementService) {
     }
 
     ngOnInit(): void {
