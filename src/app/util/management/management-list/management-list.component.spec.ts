@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ConnectedComponent } from './connected.component';
+import { ManagementListComponent } from './management-list.component';
 
-describe('ConnectedComponent', () => {
-  let component: ConnectedComponent;
-  let fixture: ComponentFixture<ConnectedComponent>;
+describe('ManagementListComponent', () => {
+  let component: ManagementListComponent;
+  let fixture: ComponentFixture<ManagementListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ConnectedComponent ]
+      declarations: [ ManagementListComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ConnectedComponent);
+    fixture = TestBed.createComponent(ManagementListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
