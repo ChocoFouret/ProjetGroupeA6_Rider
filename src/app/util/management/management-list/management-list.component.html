@@ -1,14 +1,36 @@
 <h2>Nos employées</h2>
 <div>
+  <!--
+    <ng-container *ngIf="employees.length">
+      <input list="listEmployees" [(ngModel)]="selectedEmployee" (ngModelChange)="getDetail()"> <button (click)="selectedEmployee = ''">Réinitialiser</button>
+      <datalist id="listEmployees">
+        <ng-container *ngFor="let employee of employees">
+          <option value="{{employee.email}}">{{employee.lastName}}, {{employee.firstName}}</option>
+        </ng-container>
+      </datalist>
+    </ng-container>
+  -->
   <ng-container *ngIf="employees.length">
-    <input list="listEmployees" [(ngModel)]="selectedEmployee" (ngModelChange)="getDetail()"> <button (click)="selectedEmployee = ''">Réinitialiser</button>
-    <datalist id="listEmployees">
-      <ng-container *ngFor="let employee of employees">
-        <option value="{{employee.lastName}}, {{employee.firstName}}">{{employee.email}}</option>
-      </ng-container>
-    </datalist>
+    <select list="listEmployees" [(ngModel)]="selectedEmployee" (ngModelChange)="getDetail()">
+      <optgroup label="Administrateurs" *ngIf="administrators">
+        <ng-container *ngFor="let employee of employees">
+          <option *ngIf="employee.function == 'Administrator'" value="{{employee.id}}">{{employee.lastName}}, {{employee.firstName}}</option>
+        </ng-container>
+      </optgroup>
+      <optgroup label="Directeurs" *ngIf="directors">
+        <ng-container *ngFor="let employee of employees">
+          <option *ngIf="employee.function == 'Director'" value="{{employee.id}}">{{employee.lastName}}, {{employee.firstName}}</option>
+        </ng-container>
+      </optgroup>
+      <optgroup label="Employés">
+        <ng-container *ngFor="let employee of employees">
+          <option *ngIf="employee.function == 'Employee'" value="{{employee.id}}">{{employee.lastName}}, {{employee.firstName}}</option>
+        </ng-container>
+      </optgroup>
+    </select>
+    <button (click)="selectedEmployee = 0">Réinitialiser</button>
   </ng-container>
 </div>
 
 <app-management-detail [employee]="employee"
-                     (employeeUpdated)="update($event)"></app-management-detail>
+                       (employeeUpdated)="update($event)" (employeeUpdatedPassword)="updatePassword($event)" (employeeDeleted)="delete($event)"></app-management-detail>

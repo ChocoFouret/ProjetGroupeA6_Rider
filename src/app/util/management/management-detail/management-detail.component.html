@@ -1,31 +1,41 @@
 <div *ngIf="employee; else employeeNotFound">
-  <h2>{{employee.lastName}}, {{employee.firstName}} : {{employee.id}}</h2>
-  <p>Verrouillage des données : <input type="checkbox" [(ngModel)]="isLocked" (change)="emitUpdate(employee)"> </p>
-  <p>Sauvegarde des données au verrouillage.</p>
+  <h2>{{employee.lastName}}, {{employee.firstName}}</h2>
+  <h3>Informations personnelles</h3>
   <table>
     <tr>
-      <td>Identification</td>
+      <td>Numéro de personnel :</td>
       <td>{{employee.id}}</td>
     </tr>
     <tr>
-      <td>Nom : </td>
+      <td>Nom :</td>
       <td><input [(ngModel)]="employee.lastName" [disabled]="isLocked"></td>
     </tr>
     <tr>
-      <td>Prénom : </td>
+      <td>Prénom :</td>
       <td><input [(ngModel)]="employee.firstName" [disabled]="isLocked"></td>
     </tr>
     <tr>
-      <td>E-Mail : </td>
+      <td>E-Mail :</td>
       <td><input [(ngModel)]="employee.email" [disabled]="isLocked"></td>
     </tr>
     <tr>
-      <td>Fonction : </td>
+      <td>Fonction :</td>
       <td>
-        <p>{{employee.function}}</p>
+        <select [(ngModel)]="employee.function" [disabled]="isLocked">
+          <option value="Employee">Employé</option>
+          <option value="Director">Directeur</option>
+          <option *ngIf="isAdmin" value="Administrator">Administrateur</option>
+        </select>
       </td>
     </tr>
   </table>
+  <p>Verrouillage des données* : <input type="checkbox" [(ngModel)]="isLocked" (change)="emitUpdate(employee)"><br>
+    *Les données verrouillées sont sauvegardées.</p>
+
+  <button (click)="emitUpdatePassword(employee)">Nouveau mot de passe</button>
+
+  <button (click)="emitDelete(employee)">Supprimer</button>
+
 </div>
 
 <ng-template #employeeNotFound>
