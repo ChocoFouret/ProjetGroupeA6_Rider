@@ -13,8 +13,6 @@ export class SessionComponent implements OnInit {
   constructor(private _sessionService: SessionService, private router: Router) { }
 
   ngOnInit(): void {
-
-
   }
 
   login(dto: DtoOutputLogin) {

@@ -1,8 +1,9 @@
-Page de connexion.
-
+<body>
+<div>
 <form [formGroup]="form" (ngSubmit)="emitLogin()">
   <label>
     Email :
+    <br>
     <input type="text" formControlName="email" placeholder="Nom">
     <select formControlName="address">
       <option value="">autre domaine</option>
@@ -13,8 +14,11 @@ Page de connexion.
   </label>
   <br>
   <label>
-    Password : <input type="password" formControlName="password" placeholder="Mot de passe">
+    Password :
+    <br>
+    <input type="password" formControlName="password" placeholder="Mot de passe">
   </label>
   <input type="submit" [disabled]="form.invalid">
 </form>
-
+</div>
+</body>
