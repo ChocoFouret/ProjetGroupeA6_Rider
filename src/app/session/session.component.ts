@@ -17,8 +17,7 @@ export class SessionComponent implements OnInit {
 
   login(dto: DtoOutputLogin) {
     this._sessionService.login(dto).subscribe(
-      v => {
-        console.log(v.a)
+      () => {
         this.router.navigate(['administrator'])
       },
       error => console.error(error)

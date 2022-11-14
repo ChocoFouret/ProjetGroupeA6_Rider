@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {DtoInputEmployee} from "./dtos/dto-input-employee";
+import {DtoInputEmployee} from "../util/management/dtos/dto-input-employee";
 import {Observable} from "rxjs";
-import {DtoOutputUpdateEmployee} from "./dtos/dto-output-update-employee";
+import {DtoOutputUpdateEmployee} from "../util/management/dtos/dto-output-update-employee";
 
 @Injectable({
   providedIn: 'root'

@@ -1,5 +1,4 @@
 import {NgModule} from '@angular/core';
-import {ConnectedComponent} from "./connected/connected.component";
 import {DirectorComponent} from "./director/director.component";
 import {AdministratorComponent} from "./administrator/administrator.component";
 import {RouterModule, Routes} from "@angular/router";
@@ -9,27 +8,29 @@ import {AuthGuard} from "./auth/auth.guard";
 import {EmployeeComponent} from "./employee/employee.component";
 import {DirectorGuard} from "./auth/director.guard";
 import {AdminGuard} from "./auth/admin.guard";
-import {EmployeeDetailComponent} from "./director/employee-detail/employee-detail.component";
+import {ManagementComponent} from "./util/management/management.component";
+import {LeaveComponent} from "./util/leave/leave.component";
 
 // Routes
 const routes: Routes = [
-  {
-    path: '', redirectTo: 'login', pathMatch: 'full'
-  },
-
-  {path: 'administrator', component: AdministratorComponent, canActivate: [AdminGuard]},
-  {path: 'director', component: DirectorComponent, canActivate: [DirectorGuard]},
-  {path: 'employee',component: EmployeeComponent, canActivate: [AuthGuard]},
-        /*children : [
-          {
-            path: 'detail/:employeeid', component: EmployeeDetailComponent
-          }
-        ]
-      },
-      {path: 'employee', component: EmployeeComponent}
+  {path: '', redirectTo: 'login', pathMatch: 'full'},
+  {path: 'administrator', component: AdministratorComponent, canActivate: [AdminGuard],
+    children : [
+      {
+        path: 'employee-management', component: ManagementComponent, canActivate: [AdminGuard]
+      }
     ]
-  },*/
+  },
+  {path: 'director', component: DirectorComponent, canActivate: [DirectorGuard],
+    children : [
+      {
+        path: 'employee-management', component: ManagementComponent, canActivate: [DirectorGuard]
+      }
+    ]
+  },
+  {path: 'employee',component: EmployeeComponent, canActivate: [AuthGuard]},
   {path: 'login', component: SessionComponent},
+  {path: 'leave', component: LeaveComponent},
   {path: "**", component: NotFoundComponent}
 ]
 
