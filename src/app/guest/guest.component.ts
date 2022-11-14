@@ -11,6 +11,7 @@ import * as jwt from "jwt-decode";
 export class GuestComponent implements OnInit {
   form: FormGroup = this._fb.group({
     email: this._fb.control("", Validators.required),
+    address: this._fb.control(""),
     password: this._fb.control("", Validators.required),
   });
   @Output() sessionLogin: EventEmitter<DtoOutputLogin> = new EventEmitter<DtoOutputLogin>();
@@ -22,7 +23,7 @@ export class GuestComponent implements OnInit {
 
   emitLogin() {
     this.sessionLogin.next({
-      email: this.form.value.email,
+      email: this.form.value.email + this.form.value.address,
       password: this.form.value.password
     });
   }
