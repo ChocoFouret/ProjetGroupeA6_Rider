@@ -28,7 +28,6 @@ export class SessionService {
       })
   }
 
-
   private getCookie(name: string) {
     let ca: Array<string> = document.cookie.split(';');
     let caLen: number = ca.length;
@@ -49,7 +48,13 @@ export class SessionService {
   }
 
   getFunction():string{
-    let cookie = this.DecodeToken(this.getCookie("role"));
+    let cookie = this.DecodeToken(this.getCookie("public"));
+    let result = Object.entries(cookie);
+    return(result[1][1]);
+  }
+
+  getEmail():string{
+    let cookie = this.DecodeToken(this.getCookie("public"));
     let result = Object.entries(cookie);
     return(result[0][1]);
   }
