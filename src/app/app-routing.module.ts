@@ -10,10 +10,11 @@ import {DirectorGuard} from "./auth/director.guard";
 import {AdminGuard} from "./auth/admin.guard";
 import {ManagementComponent} from "./util/management/management.component";
 import {LeaveComponent} from "./util/leave/leave.component";
+import {HomeComponent} from "./home/home.component";
 
 // Routes
 const routes: Routes = [
-  {path: '', redirectTo: 'login', pathMatch: 'full'},
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'administrator', component: AdministratorComponent, canActivate: [AdminGuard],
     children : [
       {
@@ -30,6 +31,7 @@ const routes: Routes = [
   },
   {path: 'employee',component: EmployeeComponent, canActivate: [AuthGuard]},
   {path: 'login', component: SessionComponent},
+  {path: 'home', component: HomeComponent},
   {path: 'leave', component: LeaveComponent},
   {path: "**", component: NotFoundComponent}
 ]
