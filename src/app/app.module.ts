@@ -15,6 +15,7 @@ import {ManagementComponent} from './util/management/management.component';
 import {ManagementDetailComponent} from './util/management/management-detail/management-detail.component';
 import {ManagementListComponent} from './util/management/management-list/management-list.component';
 import {LeaveComponent} from './util/leave/leave.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {LeaveComponent} from './util/leave/leave.component';
     ManagementComponent,
     ManagementDetailComponent,
     ManagementListComponent,
-    LeaveComponent
+    LeaveComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
