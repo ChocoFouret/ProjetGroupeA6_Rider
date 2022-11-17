@@ -10,7 +10,7 @@ import {Observable} from "rxjs";
 })
 export class SessionService {
   // Entries from C#
-  private static readonly ENTRY_POINT_URL = environment.apiUrl
+  private static readonly ENTRY_POINT_URL = environment.apiUrlAccount
 
   constructor(private _httpClient: HttpClient) {
   }

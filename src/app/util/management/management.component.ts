@@ -35,7 +35,7 @@ export class ManagementComponent implements OnInit {
         })
 
         this.employees = this.employees.filter((item) => {
-          return this._serviceService.getFunction() == "Administrator"
+          return this._serviceService.getFunction() == "True"
             ? item.function === "Employee" || item.function === "Director" || item.function === "Administrator"
             : item.function === "Employee" || item.function === "Director";
         });
