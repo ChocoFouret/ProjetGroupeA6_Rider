@@ -1,4 +1,4 @@
 export interface DtoOutputDeleteEmployee {
   // Identification
-  id: number;
+  idAccount: number;
 }

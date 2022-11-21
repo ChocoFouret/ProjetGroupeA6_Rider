@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SessionService} from "../../session/session.service";
 import {DtoInputEmployee} from "./dtos/dto-input-employee";
 import {DtoOutputUpdateEmployee} from "./dtos/dto-output-update-employee";
@@ -36,8 +36,8 @@ export class ManagementComponent implements OnInit {
 
         this.employees = this.employees.filter((item) => {
           return this._serviceService.getFunction() == "True"
-            ? item.function === "Employee" || item.function === "Director" || item.function === "Administrator"
-            : item.function === "Employee" || item.function === "Director";
+            ? item.isAdmin === false || item.isAdmin === true
+            : item.isAdmin === false;
         });
 
         this.employees.sort((a, b) => {

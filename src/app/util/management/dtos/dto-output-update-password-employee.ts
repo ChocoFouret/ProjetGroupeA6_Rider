@@ -1,4 +1,4 @@
 export interface DtoOutputUpdatePasswordEmployee {
   // Identification
-  id: number;
+  idAccount: number;
 }

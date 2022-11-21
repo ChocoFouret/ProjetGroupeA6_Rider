@@ -1,6 +1,6 @@
 export interface DtoOutputUpdateEmployee {
   // Identification
-  id: number;
+  idAccount: number;
 
   // Personal
   firstName: string;

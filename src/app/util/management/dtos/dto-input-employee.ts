@@ -1,6 +1,6 @@
 export interface DtoInputEmployee {
   // Identification
-  id: number;
+  idAccount: number;
 
   // Personal
   firstName: string;
@@ -17,7 +17,7 @@ export interface DtoInputEmployee {
 
   // Work
   function: string;
-  isChief: boolean;
+  isAdmin: boolean;
 
   // Other
   pictureURL:string;

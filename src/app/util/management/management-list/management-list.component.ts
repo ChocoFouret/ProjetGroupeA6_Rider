@@ -37,19 +37,24 @@ export class ManagementListComponent implements OnInit {
   }
 
   getDetail = () => {
-//    If datalist
-//    let lastName = this.selectedEmployee.substring(0, this.selectedEmployee.indexOf(","));
-//    let firstName = this.selectedEmployee.substring(this.selectedEmployee.indexOf(",") + 2);
+    console.log(
+      this.employees.find(e =>
+        e.idAccount == this.selectedEmployee
+      )
+    )
+
+    console.log(this.employees[0])
+
 
     this.employee = this.employees.find(e =>
-      e.id == this.selectedEmployee
+      e.idAccount == this.selectedEmployee
     );
   }
 
   update(dto: DtoOutputUpdateEmployee) {
     this.selectedEmployee = 0;
     this.employeeUpdated.next({
-      id: dto.id,
+      idAccount: dto.idAccount,
       firstName: dto.firstName,
       lastName: dto.lastName,
 
@@ -69,15 +74,15 @@ export class ManagementListComponent implements OnInit {
 
   updatePassword(dto: DtoOutputUpdatePasswordEmployee){
     this.employeeUpdatedPassword.next({
-      id: dto.id
+      idAccount: dto.idAccount
     })
   }
 
   delete(dto: DtoOutputDeleteEmployee) {
-    this.employees = this.employees.filter(e => e.id != dto.id);
+    this.employees = this.employees.filter(e => e.idAccount != dto.idAccount);
     this.getDetail();
     this.employeeDeleted.next({
-      id: dto.id
+      idAccount: dto.idAccount
     })
   }
 }

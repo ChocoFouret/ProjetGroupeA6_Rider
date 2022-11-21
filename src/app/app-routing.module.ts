@@ -9,18 +9,22 @@ import {AdminGuard} from "./auth/admin.guard";
 import {ManagementComponent} from "./util/management/management.component";
 import {LeaveComponent} from "./util/leave/leave.component";
 import {HomeComponent} from "./home/home.component";
+import {CompanyComponent} from "./company/company.component";
 
 // Routes
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'administrator', component: AdministratorComponent, canActivate: [AdminGuard],
     children : [
-      {
-        path: 'employee-management', component: ManagementComponent, canActivate: [AdminGuard]
-      }
+      {path: 'employee-management', component: ManagementComponent, canActivate: [AdminGuard]}
     ]
   },
-  {path: 'employee',component: EmployeeComponent, canActivate: [AuthGuard]},
+  {path: 'employee',component: EmployeeComponent, canActivate: [AuthGuard],
+    children : [
+
+    ]
+  },
+  {path:'company', component: CompanyComponent},
   {path: 'login', component: SessionComponent},
   {path: 'home', component: HomeComponent},
   {path: 'leave', component: LeaveComponent},

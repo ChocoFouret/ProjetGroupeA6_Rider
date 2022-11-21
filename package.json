@@ -18,6 +18,7 @@
     "@angular/platform-browser": "^14.2.0",
     "@angular/platform-browser-dynamic": "^14.2.0",
     "@angular/router": "^14.2.0",
+    "daypilot-pro-angular": "https://npm.daypilot.org/daypilot-pro-angular/trial/2022.4.5465.tar.gz",
     "jwt-decode": "^3.1.2",
     "ngx-cookie-service": "^14.0.1",
     "rxjs": "~7.5.0",

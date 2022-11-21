@@ -49,7 +49,7 @@ export class ManagementDetailComponent implements OnInit {
 
   emitUpdate(dto: DtoInputEmployee) {
     this.employeeUpdated.next({
-      id: dto.id,
+      idAccount: dto.idAccount,
       firstName: dto.firstName,
       lastName: dto.lastName,
 
@@ -61,7 +61,7 @@ export class ManagementDetailComponent implements OnInit {
       city : dto.city,
 
       function: dto.function,
-      isChief : dto.isChief,
+      isChief : dto.isAdmin,
 
       pictureURL: dto.pictureURL
     })
@@ -69,13 +69,13 @@ export class ManagementDetailComponent implements OnInit {
 
   emitUpdatePassword(dto: DtoOutputUpdatePasswordEmployee){
     this.employeeUpdatedPassword.next({
-      id: dto.id
+      idAccount: dto.idAccount
     })
   }
 
   emitDelete(dto: DtoInputEmployee) {
     this.employeeDeleted.next({
-      id: dto.id
+      idAccount: dto.idAccount
     })
   }
 }

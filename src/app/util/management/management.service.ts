@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
-import {Observable, of} from "rxjs";
+import {Observable} from "rxjs";
 import {DtoInputEmployee} from "./dtos/dto-input-employee";
 import {DtoOutputUpdateEmployee} from "./dtos/dto-output-update-employee";
 import {DtoOutputDeleteEmployee} from "./dtos/dto-output-delete-employee";
@@ -31,6 +31,6 @@ export class ManagementService {
   }
 
   delete(dto: DtoOutputDeleteEmployee): Observable<any>{
-    return this._httpClient.delete(`${ManagementService.ENTRY_POINT}/delete/` + dto.id)
+    return this._httpClient.delete(`${ManagementService.ENTRY_POINT}/delete/` + dto.idAccount)
   }
 }
