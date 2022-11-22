@@ -18,7 +18,7 @@ import {HomeComponent} from './home/home.component';
 import {CompanyComponent} from './company/company.component';
 import {CalendarComponent} from './company/calendar/calendar.component';
 import {DayPilotModule} from "daypilot-pro-angular";
-
+import { TimesheetComponent } from './company/timesheet/timesheet.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +34,8 @@ import {DayPilotModule} from "daypilot-pro-angular";
     LeaveComponent,
     HomeComponent,
     CompanyComponent,
-    CalendarComponent
+    CalendarComponent,
+    TimesheetComponent
   ],
   imports: [
     BrowserModule,

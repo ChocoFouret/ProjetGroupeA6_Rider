@@ -1,0 +1,13 @@
+<div class="toolbar">
+  <div class="toolbar-item">
+    Employee: &nbsp;
+    <select [(ngModel)]="employee" (change)="employeeSelected($event)">
+      <option *ngFor="let e of employees" [value]="e.id">{{e.name}}</option>
+    </select>
+  </div>
+  <div class="toolbar-item">
+    <input type="checkbox" id="nonbusiness" [(ngModel)]="config.showNonBusiness"> <label for="nonbusiness">Show non-business days and hours</label>
+  </div>
+</div>
+<daypilot-scheduler [config]="config" #timesheet></daypilot-scheduler>
+<button (click)="debug()">debug</button>
