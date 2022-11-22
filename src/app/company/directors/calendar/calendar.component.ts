@@ -1,6 +1,7 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ComponentRef, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
 import {DayPilot, DayPilotSchedulerComponent} from "daypilot-pro-angular";
-import {DataService} from "./data.service";
+import {EventService} from "./event.service";
+import {InfoEventComponent} from "./info-event/info-event.component";
 
 @Component({
   selector: 'app-calendar',
@@ -8,13 +9,6 @@ import {DataService} from "./data.service";
   styleUrls: ['./calendar.component.css']
 })
 
-/*
-@Component({
-  selector: 'scheduler-component',
-  template: `<daypilot-scheduler [config]="config" [events]="events" #scheduler></daypilot-scheduler>`,
-  styles: [``]
-})
-*/
 export class CalendarComponent implements OnInit {
 
   @ViewChild('scheduler')
@@ -22,7 +16,18 @@ export class CalendarComponent implements OnInit {
 
   events: DayPilot.EventData[] = [];
 
-  constructor(private ds: DataService) {
+  constructor(private ds: EventService,
+              private viewContainerRef: ViewContainerRef) {
+  }
+
+  createLinkComponent(text: string, data?: any): ComponentRef<InfoEventComponent> {
+    const component: ComponentRef<InfoEventComponent> = this.viewContainerRef.createComponent(InfoEventComponent);
+
+    component.instance.text = text;
+    component.instance.data = data;
+    component.changeDetectorRef.detectChanges();
+
+    return component;
   }
 
   ngOnInit(): void {
@@ -30,17 +35,12 @@ export class CalendarComponent implements OnInit {
 
   // themes :             https://javascript.daypilot.org/demo/scheduler/themetraditional.html
 
-  // move date :          https://javascript.daypilot.org/demo/scheduler/nextprevious.html
-  //                      https://code.daypilot.org/47840/angular-scheduler-next-previous-buttons
-
   // highlighting date :  https://code.daypilot.org/38541/angular-scheduler-highlighting-holidays
 
   // Phases :             https://code.daypilot.org/82163/angular-scheduler-displaying-event-phases
 
   // Read only :          https://code.daypilot.org/25443/angular-scheduler-read-only-and-edit-mode-switching
-
-  // Modal event :        https://code.daypilot.org/22738/angular-scheduler-rendering-angular-components-inside-events
-
+  // https://code.daypilot.org/64510/angular-timesheet-quick-start-project
   config: DayPilot.SchedulerConfig = {
     locale: "fr-be",
     timeHeaders: [
@@ -98,15 +98,45 @@ export class CalendarComponent implements OnInit {
         { text: "Delete", onClick: (args) => { const dp = args.source.calendar; dp.events.remove(args.source); } }
       ]
     }),
+    onBeforeEventDomAdd: args => {
+      console.log("Creating LinkComponent for " + args.e.text());
+      const component = this.createLinkComponent('details', args.e.data);
+      args.element = component.location.nativeElement;
+      (<any>args).component = component;
+    },
+    onBeforeEventDomRemove: args => {
+      console.log("Destroying LinkComponent for " + args.e.text());
+      const component = (<any>args).component;
+      component.destroy();
+    },
   }
-
   ngAfterViewInit(): void {
     this.ds.getResources().subscribe(result => this.config.resources = result);
-    const from = this.scheduler.control.visibleStart();
-    const to = this.scheduler.control.visibleEnd();
-    this.ds.getEvents(from, to).subscribe(result => {
-      this.events = result;
-    });
+  }
+
+  previous(): void {
+    this.config.startDate = new DayPilot.Date(this.config.startDate).addMonths(-1);
+    this.config.days = this.config.startDate.daysInMonth();
+  }
+
+  today(): void {
+    this.config.startDate = DayPilot.Date.today().firstDayOfMonth();
+    this.config.days = this.config.startDate.daysInMonth();
+  }
+
+  next(): void {
+    this.config.startDate = new DayPilot.Date(this.config.startDate).addMonths(1);
+    this.config.days = this.config.startDate.daysInMonth();
+  }
+
+  schedulerViewChanged(args: any) {
+    if (args.visibleRangeChanged) {
+      const from = this.scheduler.control.visibleStart();
+      const to = this.scheduler.control.visibleEnd();
+      this.ds.getEvents(from, to).subscribe(result => {
+        this.events = result;
+      });
+    }
   }
 
   debug() {
