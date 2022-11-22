@@ -31,24 +31,16 @@ export class ManagementListComponent implements OnInit {
 
   ngOnChanges(changes: any) {
     if (changes.employees != null) {
-      this.administrators = this.employees.filter(employee => employee.function === "Administrator").length;
-      this.directors = this.employees.filter(employee => employee.function === "Director").length;
+      this.administrators = this.employees.filter(employee => employee.isAdmin).length;
+      this.directors = this.employees.filter(employee => !employee.isAdmin).length;
     }
   }
 
   getDetail = () => {
-    console.log(
-      this.employees.find(e =>
-        e.idAccount == this.selectedEmployee
-      )
-    )
-
-    console.log(this.employees[0])
-
-
     this.employee = this.employees.find(e =>
       e.idAccount == this.selectedEmployee
     );
+    console.log(this.employee)
   }
 
   update(dto: DtoOutputUpdateEmployee) {
@@ -60,15 +52,14 @@ export class ManagementListComponent implements OnInit {
 
       email: dto.email,
 
-      street : dto.street,
-      number : dto.number,
-      postCode : dto.postCode,
-      city : dto.city,
+//      street : dto.street,
+//      number : dto.number,
+//      postCode : dto.postCode,
+//      city : dto.city,
 
-      function: dto.function,
-      isChief : dto.isChief,
+      isAdmin : dto.isAdmin,
 
-      pictureURL: dto.pictureURL
+//      pictureURL: dto.pictureURL
     })
   }
 
