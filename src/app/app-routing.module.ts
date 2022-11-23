@@ -11,9 +11,10 @@ import {LeaveComponent} from "./util/leave/leave.component";
 import {HomeComponent} from "./home/home.component";
 import {CompanyComponent} from "./company/company.component";
 
+
 // Routes
 const routes: Routes = [
-  {path: '', redirectTo: 'login', pathMatch: 'full'},
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'administrator', component: AdministratorComponent, canActivate: [AdminGuard],
     children : [
       {path: 'employee-management', component: ManagementComponent, canActivate: [AdminGuard]}
@@ -21,12 +22,10 @@ const routes: Routes = [
   },
   {path: 'employee',component: EmployeeComponent, canActivate: [AuthGuard],
     children : [
-
     ]
   },
   {path:'company', component: CompanyComponent},
-  {path: 'login', component: SessionComponent},
-  {path: 'home', component: HomeComponent},
+  {path: 'home', component: HomeComponent, children:[{path: 'login', component: SessionComponent}]},
   {path: 'leave', component: LeaveComponent},
   {path: "**", component: NotFoundComponent}
 ]

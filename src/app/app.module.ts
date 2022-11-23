@@ -21,7 +21,6 @@ import {DayPilotModule} from "daypilot-pro-angular";
 import {TimesheetComponent} from './company/employee/timesheet/timesheet.component';
 import {InfoEventComponent} from './company/directors/calendar/info-event/info-event.component';
 import {DirectorsComponent} from './company/directors/directors.component';
-import {EmployeeComponent} from './company/employee/employee.component';
 
 @NgModule({
   declarations: [
@@ -40,8 +39,7 @@ import {EmployeeComponent} from './company/employee/employee.component';
     CalendarComponent,
     TimesheetComponent,
     InfoEventComponent,
-    DirectorsComponent,
-    EmployeeComponent
+    DirectorsComponent
   ],
   imports: [
     BrowserModule,
