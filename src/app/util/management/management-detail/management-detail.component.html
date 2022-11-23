@@ -21,10 +21,9 @@
     <tr>
       <td>Fonction :</td>
       <td>
-        <select [(ngModel)]="employee.function" [disabled]="isLocked">
-          <option value="Employee">Employé</option>
-          <option value="Director">Directeur</option>
-          <option *ngIf="isAdmin" value="Administrator">Administrateur</option>
+        <select [(ngModel)]="employee.isAdmin" [disabled]="isLocked">
+          <option [ngValue]="false">Employé</option>
+          <option *ngIf="isAdmin" [ngValue]="true">Administrateur</option>
         </select>
       </td>
     </tr>

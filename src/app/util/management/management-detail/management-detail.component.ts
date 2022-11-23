@@ -55,15 +55,14 @@ export class ManagementDetailComponent implements OnInit {
 
       email: dto.email,
 
-      street : dto.street,
-      number : dto.number,
-      postCode : dto.postCode,
-      city : dto.city,
+      // street : dto.street,
+      // number : dto.number,
+      // postCode : dto.postCode,
+      // city : dto.city,
 
-      function: dto.function,
-      isChief : dto.isAdmin,
+      isAdmin : dto.isAdmin,
 
-      pictureURL: dto.pictureURL
+      // pictureURL: dto.pictureURL
     })
   }
 

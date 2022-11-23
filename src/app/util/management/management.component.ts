@@ -36,14 +36,14 @@ export class ManagementComponent implements OnInit {
 
         this.employees = this.employees.filter((item) => {
           return this._serviceService.getFunction() == "True"
-            ? item.isAdmin === false || item.isAdmin === true
-            : item.isAdmin === false;
+            ? !item.isAdmin || item.isAdmin
+            : !item.isAdmin;
         });
 
         this.employees.sort((a, b) => {
-          if (a.function > b.function) {
+          if (a.isAdmin > b.isAdmin) {
             return 1;
-          } else if (a.function == b.function) {
+          } else if (a.isAdmin == b.isAdmin) {
             if (a.lastName > b.lastName) {
               return 1;
             }

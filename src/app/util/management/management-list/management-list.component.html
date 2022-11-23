@@ -1,15 +1,15 @@
 <h2>Nos employées</h2>
 <div>
   <ng-container *ngIf="employees.length">
-    <select list="listEmployees" [(ngModel)]="selectedEmployee" (ngModelChange)="getDetail()">
+    <select [(ngModel)]="selectedEmployee" (ngModelChange)="getDetail()">
       <optgroup label="Admins">
         <ng-container *ngFor="let employee of employees">
-          <option *ngIf="employee.isAdmin == true" value="{{employee.idAccount}}">{{employee.lastName}}, {{employee.firstName}}</option>
+          <option *ngIf="employee.isAdmin" value="{{employee.idAccount}}">{{employee.lastName}}, {{employee.firstName}}</option>
         </ng-container>
       </optgroup>
       <optgroup label="Employés">
         <ng-container *ngFor="let employee of employees">
-          <option *ngIf="employee.isAdmin == false" value="{{employee.idAccount}}">{{employee.lastName}}, {{employee.firstName}}</option>
+          <option *ngIf="!employee.isAdmin" value="{{employee.idAccount}}">{{employee.lastName}}, {{employee.firstName}}</option>
         </ng-container>
       </optgroup>
     </select>

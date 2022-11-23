@@ -6,18 +6,17 @@ export interface DtoOutputUpdateEmployee {
   firstName: string;
   lastName: string;
 
-  street: string;
-  number: string;
-  postCode: number;
-  city: string;
+//  street: string;
+//  number: string;
+//  postCode: number;
+//  city: string;
 
   // Connection
   email: string;
 
   // Work
-  function: string;
-  isChief: boolean;
+  isAdmin: boolean;
 
   // Other
-  pictureURL:string;
+//  pictureURL:string;
 }
