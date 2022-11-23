@@ -1,16 +1,13 @@
-export interface DtoInputEvent {
+export interface DtoOutputDeleteEvents {
   // Date de début, contient également l'heure
-  start: string;
+  startDate: string;
 
   // Date de fin, contient également l'heure
-  end: string;
+  endDate: string;
 
   // Numéro unique de l'événement
-  id: number;
+  idEventsEmployee: number;
 
   // Numéro de l'employé
-  ressource: number;
-
-  // Texte spécifié sur le calendrier
-  text:string;
+  idAccount: number;
 }

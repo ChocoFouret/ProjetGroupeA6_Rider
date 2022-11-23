@@ -14,9 +14,6 @@ import {DtoOutputUpdatePasswordEmployee} from "./dtos/dto-output-update-password
 export class ManagementComponent implements OnInit {
   employees: DtoInputEmployee[] = [];
 
-  isDirector: boolean = false;
-  isAdmin: boolean = false;
-
   constructor(private _employeesService: ManagementService, private _serviceService: SessionService) {
   }
 
@@ -28,7 +25,7 @@ export class ManagementComponent implements OnInit {
     this._employeesService
       .fetchAll()
       .subscribe(employees => {
-        this.employees = employees;
+        this.employees = employees
 
         this.employees = this.employees.filter((item) => {
           return this._serviceService.getEmail() != item.email;

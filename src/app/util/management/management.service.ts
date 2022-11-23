@@ -11,7 +11,7 @@ import {DtoOutputUpdatePasswordEmployee} from "./dtos/dto-output-update-password
   providedIn: 'root'
 })
 export class ManagementService {
-  private static readonly ENTRY_POINT = environment.apiUrlAccount;
+  static readonly ENTRY_POINT = environment.apiUrlAccount;
   constructor(private _httpClient: HttpClient) { }
 
   fetchAll(): Observable<DtoInputEmployee[]> {

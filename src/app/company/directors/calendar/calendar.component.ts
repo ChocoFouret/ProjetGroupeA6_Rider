@@ -13,25 +13,9 @@ export class CalendarComponent implements OnInit {
 
   @ViewChild('scheduler')
   scheduler!: DayPilotSchedulerComponent;
-
   events: DayPilot.EventData[] = [];
+  employees: any[] = [];
 
-  constructor(private ds: EventService,
-              private viewContainerRef: ViewContainerRef) {
-  }
-
-  createLinkComponent(text: string, data?: any): ComponentRef<InfoEventComponent> {
-    const component: ComponentRef<InfoEventComponent> = this.viewContainerRef.createComponent(InfoEventComponent);
-
-    component.instance.text = text;
-    component.instance.data = data;
-    component.changeDetectorRef.detectChanges();
-
-    return component;
-  }
-
-  ngOnInit(): void {
-  }
 
   // themes :             https://javascript.daypilot.org/demo/scheduler/themetraditional.html
 
@@ -63,7 +47,9 @@ export class CalendarComponent implements OnInit {
       const dp = args.control;
       const modal = await DayPilot.Modal.prompt("Create a new event:", "Event 1");
       dp.clearSelection();
-      if (modal.canceled) { return; }
+      if (modal.canceled) {
+        return;
+      }
       dp.events.add({
         start: args.start,
         end: args.end,
@@ -95,12 +81,17 @@ export class CalendarComponent implements OnInit {
     }),
     contextMenu: new DayPilot.Menu({
       items: [
-        { text: "Delete", onClick: (args) => { const dp = args.source.calendar; dp.events.remove(args.source); } }
+        {
+          text: "Delete", onClick: (args) => {
+            const dp = args.source.calendar;
+            dp.events.remove(args.source);
+          }
+        }
       ]
     }),
     onBeforeEventDomAdd: args => {
       console.log("Creating LinkComponent for " + args.e.text());
-      const component = this.createLinkComponent('details', args.e.data);
+      const component = this.createLinkComponent(args.e.text(), args.e.data);
       args.element = component.location.nativeElement;
       (<any>args).component = component;
     },
@@ -110,8 +101,39 @@ export class CalendarComponent implements OnInit {
       component.destroy();
     },
   }
+
+  constructor(private ds: EventService,
+              private viewContainerRef: ViewContainerRef) {
+  }
+
+  ngOnInit(): void {
+  }
+
+  createLinkComponent(text: string, data?: any): ComponentRef<InfoEventComponent> {
+    const component: ComponentRef<InfoEventComponent> = this.viewContainerRef.createComponent(InfoEventComponent);
+    component.instance.text = text;
+    component.instance.data = data;
+    component.changeDetectorRef.detectChanges();
+    return component;
+  }
+
   ngAfterViewInit(): void {
-    this.ds.getResources().subscribe(result => this.config.resources = result);
+    this.ds
+      .fetchAllEmployees(2)
+      .subscribe(employees => {
+        for (let employee of employees) {
+          this.ds.fetchEmployeeById(employee.idAccount).subscribe(employee => {
+            this.employees.push({
+              "name": employee.lastName.toString() + " " + employee.firstName.toString(),
+              "id": employee.idAccount
+            });
+            this.employees.sort((a: any, b: any) => {
+              return a.name.localeCompare(b.name);
+            });
+          });
+        }
+        this.config.resources = this.employees;
+      })
   }
 
   previous(): void {
@@ -133,13 +155,24 @@ export class CalendarComponent implements OnInit {
     if (args.visibleRangeChanged) {
       const from = this.scheduler.control.visibleStart();
       const to = this.scheduler.control.visibleEnd();
-      this.ds.getEvents(from, to).subscribe(result => {
-        this.events = result;
-      });
+      this.ds
+        .fetchFromTo(from, to)
+        .subscribe(events => {
+          this.events = [];
+          for (let event of events) {
+            this.events.push({
+              "start": event.startDate,
+              "end": event.endDate,
+              "id": event.idEventsEmployee,
+              "resource": event.idAccount,
+              "text": event.idAccount + " " + event.idEventsEmployee
+            });
+          }
+        })
     }
   }
 
   debug() {
-    console.log(this.events);
+    console.log("Aucun debug")
   }
 }
