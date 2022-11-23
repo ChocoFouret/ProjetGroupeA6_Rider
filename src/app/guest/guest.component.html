@@ -1,24 +1,25 @@
 <body>
 
 <div>
-Page de connexion.
-
-<form [formGroup]="form" (ngSubmit)="emitLogin()">
-  <label>
-    Email :
-    <input type="text" formControlName="email" placeholder="Nom">
-    <select formControlName="address">
-      <option value="">autre domaine</option>
-      <option value="@employee.planit.be">@employee.planit.be</option>
-      <option value="@admin.planit.be">@admin.planit.be</option>
-      <option value="@hotmail.com"> @hotmail.com</option>
-    </select>
-  </label>
-  <br>
-  <label>
-    Password : <input type="password" formControlName="password" placeholder="Mot de passe">
-  </label>
-  <input type="submit" [disabled]="form.invalid">
-</form>
+  !Page de connexion!
+  <form [formGroup]="form" (ngSubmit)="emitLogin()">
+    <label>
+      Email :
+      <input type="text" formControlName="email" placeholder="Nom">
+      <select formControlName="address">
+        <option value="">autre domaine</option>
+        <option value="@employee.planit.be">@employee.planit.be</option>
+        <option value="@admin.planit.be">@admin.planit.be</option>
+        <option value="@hotmail.com"> @hotmail.com</option>
+      </select>
+    </label>
+    <br>
+    <label>
+      Password : <input type="password" formControlName="password" placeholder="Mot de passe">
+    </label>
+    <input type="submit" [disabled]="form.invalid">
+  </form>
 </div>
 </body>
+
+

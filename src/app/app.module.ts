@@ -9,6 +9,7 @@ import {NotFoundComponent} from './not-found/not-found.component';
 import {SessionComponent} from './session/session.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import {EmployeeComponent} from './employee/employee.component';
 import {ManagementComponent} from './util/management/management.component';
 import {ManagementDetailComponent} from './util/management/management-detail/management-detail.component';
 import {ManagementListComponent} from './util/management/management-list/management-list.component';
@@ -20,8 +21,6 @@ import {DayPilotModule} from "daypilot-pro-angular";
 import {TimesheetComponent} from './company/employee/timesheet/timesheet.component';
 import {InfoEventComponent} from './company/directors/calendar/info-event/info-event.component';
 import {DirectorsComponent} from './company/directors/directors.component';
-import {EmployeeComponent} from "./company/employee/employee.component";
-import {AccountComponent} from './account/account.component';
 
 @NgModule({
   declarations: [
@@ -40,9 +39,7 @@ import {AccountComponent} from './account/account.component';
     CalendarComponent,
     TimesheetComponent,
     InfoEventComponent,
-    DirectorsComponent,
-    EmployeeComponent,
-    AccountComponent
+    DirectorsComponent
   ],
   imports: [
     BrowserModule,

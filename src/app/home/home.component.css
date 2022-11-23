@@ -6,7 +6,6 @@
   width: 100px;
   box-sizing: border-box;
   align-items: center;
-
 }
 
 .navbar a{
@@ -29,3 +28,5 @@
 .navbar .nav-links ul li.active a{
   color: blue;
 }
+
+
