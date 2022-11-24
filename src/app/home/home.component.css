@@ -10,23 +10,19 @@ body{
 }
 
 header{
-  height: 100vh;
+  height: 5vw;
   width: 100vw;
   background-size: cover;
 }
-
-
 
 .navbar{
   position: absolute;
   padding: 50px;
   display: flex;
   justify-content: space-between;
-  width: 100px;
+  width: 100%;
   box-sizing: border-box;
 }
-
-
 
 .navbar a{
   color: black;
@@ -41,7 +37,6 @@ header{
   display: flex;
 }
 
-
 .navbar .nav-links li{
   margin:0 30px;
 }
@@ -51,4 +46,6 @@ header{
   font-weight: 600;
 }
 
-
+.navbar .nav-links ul il{
+  margin: 0 30px;
+}
