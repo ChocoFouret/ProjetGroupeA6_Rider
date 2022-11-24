@@ -9,5 +9,5 @@ export interface DtoOutputUpdateEvents {
   idEventsEmployee: number;
 
   // Numéro de l'employé
-  idAccount: number;
+  idAccount?: number;
 }

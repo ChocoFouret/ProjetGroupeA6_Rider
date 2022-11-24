@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DayPilot} from "daypilot-pro-angular";
 import {CalendarComponent} from "../calendar.component";
 
@@ -34,10 +34,10 @@ export class InfoEventComponent implements OnInit {
 
     if(modal.result.start <= modal.result.end) {
       this.data = ({
-        start: modal.result.start,
-        end: modal.result.end,
-        id: modal.result.id,
-        resource: modal.result.resource,
+        startDate: modal.result.start,
+        endDate: modal.result.end,
+        idEventsEmployee: modal.result.id,
+        idAccount: modal.result.resource,
       })
       this.component?.updateEvent(this.data);
     } else {

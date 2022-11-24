@@ -1,8 +1,10 @@
-import {Component, ComponentRef, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef} from '@angular/core';
-import {DayPilot, DayPilotQueueComponent, DayPilotSchedulerComponent} from "daypilot-pro-angular";
+import {Component, ComponentRef, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
+import {DayPilot, DayPilotSchedulerComponent} from "daypilot-pro-angular";
 import {EventService} from "./event.service";
 import {InfoEventComponent} from "./info-event/info-event.component";
 import {DtoOutputCreateEvents} from "./dtos/dto-output-create-events";
+import {DtoOutputUpdateEvents} from "./dtos/dto-output-update-events";
+import {DtoOutputDeleteEvents} from "./dtos/dto-output-delete-events";
 
 @Component({
   selector: 'app-calendar',
@@ -77,34 +79,33 @@ export class CalendarComponent implements OnInit {
           args.start.addHours(modal.result.end.split(":")[0]).addMinutes(modal.result.end.split(":")[1]).toString().split("T")[1].slice(0, -3),
       });
 
-      this.ds.create(this.events.pop());
+      let dto: DtoOutputCreateEvents = {
+        startDate: this.events[this.events.length - 1].start.toString().slice(0, 19),
+        endDate: this.events[this.events.length - 1].end.toString().slice(0, 19),
+        idEventsEmployee: 0,
+        idSchedule: 1,
+        idAccount: parseInt(args.resource.toString()),
+        idWork: null,
+        idAbsents: null,
+        idHolidays: null
+      }
+
+      this.ds
+        .create(dto)
+        .subscribe();
     },
     eventMoveHandling: "Update",
     onEventMoved: (args) => {
-      args.control.message("Event moved: " + args.e.id());
+      args.control.message("Évènement déplacé : " + args.e.id());
       this.events.find(event => {
         if (event.id === args.e.id()) {
-
-          /*
-          const eventUpdate = {
-            "startDate": event.start.toString().slice(0, 19),
-            "endDate": event.end.toString().slice(0, 19),
-            "idEventsEmployee": event.id,
-            "idSchedule": 1,
-            "idAccount": event.resource
+          let dto: DtoOutputUpdateEvents = {
+            startDate: args.e.start().toString().slice(0, 19),
+            endDate: args.e.end().toString().slice(0, 19),
+            idEventsEmployee: parseInt(args.e.id().toString()),
+            idAccount: parseInt(args.e.resource().toString()),
           }
-          */
-/*
-          this.eventCreate = {
-            startDate: event.start.toString().slice(0, 19),
-            endDate: event.end.toString().slice(0, 19),
-            idEventsEmployee: event.id,
-            idSchedule: 1,
-            idAccount: event.resource.toString()
-          }
-        */
-
-          // this.ds.update().subscribe();
+          this.ds.update(dto).subscribe();
         }
       })
     },
@@ -128,9 +129,14 @@ export class CalendarComponent implements OnInit {
     contextMenu: new DayPilot.Menu({
       items: [
         {
-          text: "Delete", onClick: (args) => {
+          text: "Supprimer", onClick: (args) => {
             const dp = args.source.calendar;
             dp.events.remove(args.source);
+
+            let dto: DtoOutputDeleteEvents = {
+              idEventsEmployee: parseInt(args.source.id().toString()),
+            }
+            this.ds.delete(dto).subscribe();
           }
         }
       ]
@@ -225,19 +231,17 @@ export class CalendarComponent implements OnInit {
     console.log(this.events)
   }
 
-  public updateEvent(dto: any) {
+  public updateEvent(dto: DtoOutputUpdateEvents) {
     this.events.forEach(event => {
-      if (event.id == dto.id) {
-        event.start = dto.start;
-        event.end = dto.end;
-        event.text = dto.start.toString().split("T")[1].slice(0, -3)
+      if (event.id == dto.idEventsEmployee) {
+        event.start = dto.startDate;
+        event.end = dto.endDate;
+        event.resource = dto.idAccount;
+        event.text = dto.startDate.toString().split("T")[1].slice(0, -3)
           + " - " +
-          dto.end.toString().split("T")[1].slice(0, -3);
+          dto.endDate.toString().split("T")[1].slice(0, -3);
       }
     })
-
-
-
     this.ds.update(dto).subscribe();
   }
 }

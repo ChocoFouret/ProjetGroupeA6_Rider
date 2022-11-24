@@ -11,6 +11,9 @@ export interface DtoInputEvents {
   // Numéro de l'employé
   idAccount: number;
 
-  // Texte spécifié sur le calendrier
-  text:string;
+  idSchedule: number;
+
+  idWork: number | null;
+  idAbsents: number | null;
+  idHolidays: number | null;
 }

@@ -10,4 +10,10 @@ export interface DtoOutputCreateEvents {
 
   // Numéro de l'employé
   idAccount: number;
+
+  idSchedule: number;
+
+  idWork: number | null;
+  idAbsents: number | null;
+  idHolidays: number | null;
 }
