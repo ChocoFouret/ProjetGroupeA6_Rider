@@ -2,8 +2,7 @@ import {Component, ComponentRef, EventEmitter, Input, OnInit, Output, ViewChild,
 import {DayPilot, DayPilotQueueComponent, DayPilotSchedulerComponent} from "daypilot-pro-angular";
 import {EventService} from "./event.service";
 import {InfoEventComponent} from "./info-event/info-event.component";
-import {DtoOutputUpdateEvents} from "./dtos/dto-output-update-events";
-import {DtoInputEvents} from "./dtos/dto-input-events";
+import {DtoOutputCreateEvents} from "./dtos/dto-output-create-events";
 
 @Component({
   selector: 'app-calendar',
@@ -17,6 +16,7 @@ export class CalendarComponent implements OnInit {
   public events: DayPilot.EventData[] = [];
   employees: any[] = [];
   idSchedule: number = 1;
+  // eventCreate: DtoOutputCreateEvents = [];
 
   // idCompany:number = 2;
 
@@ -73,14 +73,40 @@ export class CalendarComponent implements OnInit {
         id: DayPilot.guid(),
         resource: args.resource,
         text: args.start.addHours(modal.result.start.split(":")[0]).addMinutes(modal.result.start.split(":")[1]).toString().split("T")[1].slice(0, -3)
-              + " - " +
-              args.start.addHours(modal.result.end.split(":")[0]).addMinutes(modal.result.end.split(":")[1]).toString().split("T")[1].slice(0, -3),
+          + " - " +
+          args.start.addHours(modal.result.end.split(":")[0]).addMinutes(modal.result.end.split(":")[1]).toString().split("T")[1].slice(0, -3),
       });
 
+      this.ds.create(this.events.pop());
     },
     eventMoveHandling: "Update",
     onEventMoved: (args) => {
-      args.control.message("Event moved: " + args.e.text());
+      args.control.message("Event moved: " + args.e.id());
+      this.events.find(event => {
+        if (event.id === args.e.id()) {
+
+          /*
+          const eventUpdate = {
+            "startDate": event.start.toString().slice(0, 19),
+            "endDate": event.end.toString().slice(0, 19),
+            "idEventsEmployee": event.id,
+            "idSchedule": 1,
+            "idAccount": event.resource
+          }
+          */
+/*
+          this.eventCreate = {
+            startDate: event.start.toString().slice(0, 19),
+            endDate: event.end.toString().slice(0, 19),
+            idEventsEmployee: event.id,
+            idSchedule: 1,
+            idAccount: event.resource.toString()
+          }
+        */
+
+          // this.ds.update().subscribe();
+        }
+      })
     },
     eventResizeHandling: "Update",
     onEventResized: (args) => {
@@ -187,8 +213,8 @@ export class CalendarComponent implements OnInit {
               "id": event.idEventsEmployee,
               "resource": event.idAccount,
               "text": event.startDate.split("T")[1].slice(0, -3)
-                      + " - " +
-                      event.endDate.split("T")[1].slice(0, -3)
+                + " - " +
+                event.endDate.split("T")[1].slice(0, -3)
             });
           }
         })
@@ -199,17 +225,19 @@ export class CalendarComponent implements OnInit {
     console.log(this.events)
   }
 
-  public updateEvent(dto:any){
+  public updateEvent(dto: any) {
     this.events.forEach(event => {
-      console.log(dto)
-      if(event.id == dto.id){
+      if (event.id == dto.id) {
         event.start = dto.start;
         event.end = dto.end;
         event.text = dto.start.toString().split("T")[1].slice(0, -3)
-                      + " - " +
-                      dto.end.toString().split("T")[1].slice(0, -3);
+          + " - " +
+          dto.end.toString().split("T")[1].slice(0, -3);
       }
     })
+
+
+
     this.ds.update(dto).subscribe();
   }
 }

@@ -49,7 +49,7 @@ export class TimesheetComponent implements OnInit {
       }
     ],
     scale: "CellDuration",
-    cellDuration: 30,
+    cellDuration: 60,
     days: 7,
     viewType: "Days",
     startDate: DayPilot.Date.today().firstDayOfWeek(),
