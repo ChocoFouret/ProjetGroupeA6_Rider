@@ -1,7 +1,9 @@
-import {Component, ComponentRef, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
-import {DayPilot, DayPilotSchedulerComponent} from "daypilot-pro-angular";
+import {Component, ComponentRef, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef} from '@angular/core';
+import {DayPilot, DayPilotQueueComponent, DayPilotSchedulerComponent} from "daypilot-pro-angular";
 import {EventService} from "./event.service";
 import {InfoEventComponent} from "./info-event/info-event.component";
+import {DtoOutputUpdateEvents} from "./dtos/dto-output-update-events";
+import {DtoInputEvents} from "./dtos/dto-input-events";
 
 @Component({
   selector: 'app-calendar',
@@ -10,12 +12,13 @@ import {InfoEventComponent} from "./info-event/info-event.component";
 })
 
 export class CalendarComponent implements OnInit {
-
   @ViewChild('scheduler')
   scheduler!: DayPilotSchedulerComponent;
-  events: DayPilot.EventData[] = [];
+  public events: DayPilot.EventData[] = [];
   employees: any[] = [];
+  idSchedule: number = 1;
 
+  // idCompany:number = 2;
 
   // themes :             https://javascript.daypilot.org/demo/scheduler/themetraditional.html
 
@@ -27,6 +30,8 @@ export class CalendarComponent implements OnInit {
   // https://code.daypilot.org/64510/angular-timesheet-quick-start-project
   config: DayPilot.SchedulerConfig = {
     locale: "fr-be",
+    cellWidthSpec: "Fixed",
+    cellWidth: 100,
     timeHeaders: [
       {
         "groupBy": "Month"
@@ -45,18 +50,33 @@ export class CalendarComponent implements OnInit {
     timeRangeSelectedHandling: "Enabled",
     onTimeRangeSelected: async (args) => {
       const dp = args.control;
-      const modal = await DayPilot.Modal.prompt("Create a new event:", "Event 1");
+
+      const form = [
+        {name: "Heure de début", id: "start", type: "hour"},
+        {name: "Heure de fin", id: "end", type: "hour"},
+      ];
+
+      const data = {
+        start: "08:00",
+        end: "16:00"
+      };
+
+      const modal = await DayPilot.Modal.form(form, data);
       dp.clearSelection();
       if (modal.canceled) {
         return;
       }
+
       dp.events.add({
-        start: args.start,
-        end: args.end,
+        start: args.start.addHours(modal.result.start.split(":")[0]).addMinutes(modal.result.start.split(":")[1]).toString(),
+        end: args.start.addHours(modal.result.end.split(":")[0]).addMinutes(modal.result.end.split(":")[1]).toString(),
         id: DayPilot.guid(),
         resource: args.resource,
-        text: modal.result
+        text: args.start.addHours(modal.result.start.split(":")[0]).addMinutes(modal.result.start.split(":")[1]).toString().split("T")[1].slice(0, -3)
+              + " - " +
+              args.start.addHours(modal.result.end.split(":")[0]).addMinutes(modal.result.end.split(":")[1]).toString().split("T")[1].slice(0, -3),
       });
+
     },
     eventMoveHandling: "Update",
     onEventMoved: (args) => {
@@ -113,6 +133,7 @@ export class CalendarComponent implements OnInit {
     const component: ComponentRef<InfoEventComponent> = this.viewContainerRef.createComponent(InfoEventComponent);
     component.instance.text = text;
     component.instance.data = data;
+    component.instance.component = this;
     component.changeDetectorRef.detectChanges();
     return component;
   }
@@ -156,7 +177,7 @@ export class CalendarComponent implements OnInit {
       const from = this.scheduler.control.visibleStart();
       const to = this.scheduler.control.visibleEnd();
       this.ds
-        .fetchFromTo(from, to)
+        .fetchFromTo(this.idSchedule, from, to)
         .subscribe(events => {
           this.events = [];
           for (let event of events) {
@@ -165,7 +186,9 @@ export class CalendarComponent implements OnInit {
               "end": event.endDate,
               "id": event.idEventsEmployee,
               "resource": event.idAccount,
-              "text": event.idAccount + " " + event.idEventsEmployee
+              "text": event.startDate.split("T")[1].slice(0, -3)
+                      + " - " +
+                      event.endDate.split("T")[1].slice(0, -3)
             });
           }
         })
@@ -173,6 +196,20 @@ export class CalendarComponent implements OnInit {
   }
 
   debug() {
-    console.log("Aucun debug")
+    console.log(this.events)
+  }
+
+  public updateEvent(dto:any){
+    this.events.forEach(event => {
+      console.log(dto)
+      if(event.id == dto.id){
+        event.start = dto.start;
+        event.end = dto.end;
+        event.text = dto.start.toString().split("T")[1].slice(0, -3)
+                      + " - " +
+                      dto.end.toString().split("T")[1].slice(0, -3);
+      }
+    })
+    this.ds.update(dto).subscribe();
   }
 }
