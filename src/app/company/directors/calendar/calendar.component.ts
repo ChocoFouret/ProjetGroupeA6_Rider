@@ -16,10 +16,11 @@ import {CompanyComponent} from "../../company.component";
 })
 
 export class CalendarComponent implements OnInit {
-  @Input() homePage : CompanyComponent | undefined;
+  @Input() homePage: CompanyComponent | undefined;
   @Input() employees: any[] = [];
   @Input() events: DayPilot.EventData[] = [];
   @Output() eventsChanges: EventEmitter<any> = new EventEmitter<any>();
+  @Input() colors: any = {};
 
   @ViewChild('scheduler')
   scheduler!: DayPilotSchedulerComponent;
@@ -27,17 +28,12 @@ export class CalendarComponent implements OnInit {
   formEventTypes: ModalFormItem[] = [];
 
   // themes :             https://javascript.daypilot.org/demo/scheduler/themetraditional.html
-
-  // highlighting date :  https://code.daypilot.org/38541/angular-scheduler-highlighting-holidays
-
-  // Phases :             https://code.daypilot.org/82163/angular-scheduler-displaying-event-phases
-
-  // Read only :          https://code.daypilot.org/25443/angular-scheduler-read-only-and-edit-mode-switching
-  // https://code.daypilot.org/64510/angular-timesheet-quick-start-project
+  // https://themes.daypilot.org/scheduler/create#cdu5so
   config: DayPilot.SchedulerConfig = {
     locale: "fr-be",
     cellWidthSpec: "Fixed",
     cellWidth: 100,
+    crosshairType: "Full",
     timeHeaders: [
       {
         "groupBy": "Month"
@@ -57,6 +53,11 @@ export class CalendarComponent implements OnInit {
     onTimeRangeSelected: async (args) => {
       const dp = args.control;
 
+      if (args.resource == undefined) {
+        dp.clearSelection();
+        return;
+      }
+
       let formEventTypes: any[] = [];
       this.eventTypes.forEach(eventType => {
         formEventTypes.push({
@@ -67,21 +68,21 @@ export class CalendarComponent implements OnInit {
 
       function validateYears(args: any) {
         let value = args.value.toString() || "";
-        if (!value.includes(String((new Date()).getFullYear()))){
-          if((!value.includes(String((new Date()).getFullYear() + 1)))){
+        if (!value.includes(String((new Date()).getFullYear()))) {
+          if ((!value.includes(String((new Date()).getFullYear() + 1)))) {
             args.valid = false;
             args.message = "Seuls les années " + (new Date()).getFullYear() + " et " + ((new Date()).getFullYear() + 1) + " sont autorisées";
           }
         }
-        if(value.split(":")[0] == "" || value.split(":")[1] == ""){
+        if (value.split(":")[0] == "" || value.split(":")[1] == "") {
           args.valid = false;
           args.message = "L'heure de début est obligatoire";
         }
       }
 
       let data = {
-        isValid : true,
-        types : "Travail",
+        isValid: true,
+        types: "Travail",
         start: args.start.addHours(8).toString(),
         end: args.end.addDays(-1).addHours(16).toString(),
       }
@@ -90,8 +91,22 @@ export class CalendarComponent implements OnInit {
         {name: "Type d'évènement", id: "types", type: "select", options: formEventTypes},
         {name: "Validé", id: "isValid", type: "checkbox"},
         {name: "Demandes", id: "comments", type: "text"},
-        {name: "Du", id: "start", type: "datetime", dateFormat: "d-M-yyyy", timeFormat: "HH:mm", onValidate: validateYears},
-        {name: "Au", id: "end", type: "datetime", dateFormat: "d-M-yyyy", timeFormat: "HH:mm", onValidate: validateYears}
+        {
+          name: "Du",
+          id: "start",
+          type: "datetime",
+          dateFormat: "d-M-yyyy",
+          timeFormat: "HH:mm",
+          onValidate: validateYears
+        },
+        {
+          name: "Au",
+          id: "end",
+          type: "datetime",
+          dateFormat: "d-M-yyyy",
+          timeFormat: "HH:mm",
+          onValidate: validateYears
+        }
       ]
 
       const modal = await DayPilot.Modal.form(form, data);
@@ -103,7 +118,7 @@ export class CalendarComponent implements OnInit {
       let backColor = "";
       let barColor = "";
       if (!modal.result.isValid) {
-        backColor = "#894f4f";
+        backColor = this.colors.notValid;
       }
 
       this.eventTypes.forEach((eventTypes) => {
@@ -112,9 +127,9 @@ export class CalendarComponent implements OnInit {
         }
       })
 
-      if(modal.result.types == "Congé" || modal.result.types == "Vacances" || modal.result.types == "Absence"){
+      if (modal.result.types == "Congé" || modal.result.types == "Vacances" || modal.result.types == "Absence") {
         modal.result.start = args.start.toString();
-        if(modal.result.start != modal.result.end.addDays(-1)){
+        if (modal.result.start != modal.result.end.addDays(-1)) {
           modal.result.end = args.end.toString();
         } else {
           modal.result.end = args.start.addDays(1).toString();
@@ -131,15 +146,11 @@ export class CalendarComponent implements OnInit {
         end: modal.result.end,
         id: DayPilot.guid(),
         resource: args.resource,
-        text: modal.result.start.toString().split("T")[1].slice(0, -3)
+        text: modal.result.types != "Travail" ? modal.result.types :
+          modal.result.start.toString().split("T")[1].slice(0, -3)
           + " - " +
-          modal.result.end.toString().split("T")[1].slice(0, -3),
+          modal.result.end.toString().split("T")[1].slice(0, -3)
       });
-
-      let event = this.events[this.events.length - 1];
-      if (event['types'] != "Travail") {
-        this.events[this.events.length - 1].text = event['types'];
-      }
 
       let dto: DtoOutputCreateEvents = {
         startDate: this.events[this.events.length - 1].start.toString().slice(0, 19),
@@ -169,15 +180,19 @@ export class CalendarComponent implements OnInit {
       let oldMinuteStart = args.e.data.start.toString().split("T")[1].slice(3, 5);
       let oldMinuteEnd = args.e.data.end.toString().split("T")[1].slice(3, 5);
 
-      if(oldStartDate != args.newStart){
+      if (oldStartDate != args.newStart) {
         args.newStart = args.newStart.addHours(oldHourStart);
         args.newStart = args.newStart.addMinutes(oldMinuteStart);
       }
-      if(oldEndDate != args.newEnd){
+      if (oldEndDate != args.newEnd) {
         args.newEnd = args.newEnd.addDays(-1);
         args.newEnd = args.newEnd.addHours(oldHourEnd);
         args.newEnd = args.newEnd.addMinutes(oldMinuteEnd);
       }
+
+      args.e.data.start = args.newStart;
+      args.e.data.end = args.newEnd;
+
       this.updateEventFromEventId(args.e);
     },
     eventDeleteHandling: "Update",
@@ -221,7 +236,37 @@ export class CalendarComponent implements OnInit {
       const component = (<any>args).component;
       component.destroy();
     },
+    beforeCellRenderCaching: false,
+    onBeforeRowHeaderRender: (args) => {
+      if (args.row.data["idGroup"] != undefined) {
+        // Couleur header des groupes
+        // args.row.backColor = this.colors.rowGroup;;
+      } else {
+        // Couleur header des employés
+        args.row.backColor = this.colors.rowEmployee;
+      }
+    },
+    onBeforeCellRender: (args) => {
+      if (args.cell.resource == undefined) {
+        if(args.cell.properties.business){
+          // Couleur lignes des employés
+          args.cell.properties.backColor = this.colors.rowGroup;
+        } else {
+          // Couleur lignes des employés
+          args.cell.properties.backColor = this.colors.rowGroupWk;
+        }
+      } else {
+        if(args.cell.properties.business){
+          // Couleur lignes des employés
+          args.cell.properties.backColor = this.colors.rowEmployee;
+        } else {
+          // Couleur lignes des employés
+          args.cell.properties.backColor = this.colors.rowEmployeeWk;
+        }
+      }
+    },
   }
+
 
   constructor(private ds: EventService,
               private viewContainerRef: ViewContainerRef) {
@@ -285,6 +330,7 @@ export class CalendarComponent implements OnInit {
           types: args.data.types,
           isValid: args.data.isValid,
           comments: args.data.comments,
+          eventTypes: args.data.eventTypes,
         }
         this.update(dto);
       }
@@ -301,12 +347,9 @@ export class CalendarComponent implements OnInit {
         event.start = dto.startDate;
         event.end = dto.endDate;
         event.resource = dto.resource;
-        event.text = dto.startDate.toString().split("T")[1].slice(0, -3)
-          + " - " +
-          dto.endDate.toString().split("T")[1].slice(0, -3);
-      }
-      if (event['types'] != "Travail") {
-        event.text = event['types'];
+        event.text = event['types'] != "Travail" ? event['types'] :
+          dto.startDate.toString().split("T")[1].slice(0, -3)
+          + " - " + dto.endDate.toString().split("T")[1].slice(0, -3)
       }
     })
 
@@ -321,6 +364,7 @@ export class CalendarComponent implements OnInit {
       types: dto.types,
       isValid: dto.isValid,
       comments: dto.comments,
+      eventTypes: dto.eventTypes,
     })
   }
 }

@@ -12,6 +12,7 @@ export class DirectorsComponent implements OnInit {
   @Input() employees: any[] = [];
   @Input() events: DayPilot.EventData[] = [];
   @Output() eventsChanges: EventEmitter<any> = new EventEmitter<any>();
+  @Input() colors: any = {};
 
   constructor() {
   }
@@ -31,6 +32,7 @@ export class DirectorsComponent implements OnInit {
       types: dto.types,
       isValid: dto.isValid,
       comments: dto.comments,
+      eventTypes: dto.eventTypes,
     })
   }
 }

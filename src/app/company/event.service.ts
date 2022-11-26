@@ -31,6 +31,10 @@ export class EventService {
     return this._httpClient.delete(`${EventService.ENTRY_POINT}/delete/` + dto.idEventsEmployee);
   }
 
+  fetchById(id: string): Observable<DtoInputEvents> {
+    return this._httpClient.get<DtoInputEvents>(EventService.ENTRY_POINT + "/fetch/" + id);
+  }
+
   fetchAllEventTypes(): Observable<DtoInputEventTypes[]> {
     return this._httpClient.get<DtoInputEventTypes[]>(environment.apiUrlEventTypes + "/fetch/all");
   }

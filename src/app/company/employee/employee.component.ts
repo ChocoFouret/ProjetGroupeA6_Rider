@@ -8,14 +8,16 @@ import {DayPilot} from "daypilot-pro-angular";
   styleUrls: ['./employee.component.css']
 })
 export class EmployeeComponent implements OnInit {
-  @Input() homePage : CompanyComponent | undefined;
+  @Input() homePage: CompanyComponent | undefined;
   @Input() employees: any[] = [];
   @Input() employee: any;
   @Input() events: DayPilot.EventData[] = [];
+  @Input() colors: any = {};
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor() {
   }
 
+  ngOnInit(): void {
+
+  }
 }

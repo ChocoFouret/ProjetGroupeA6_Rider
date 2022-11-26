@@ -14,6 +14,7 @@ export class TimesheetComponent implements OnInit {
   @Input() employees: any[] = [];
   @Input() employee: any;
   @Input() events: DayPilot.EventData[] = [];
+  @Input() colors: any = {};
 
   @ViewChild('timesheet')
   timesheet!: DayPilotSchedulerComponent;
@@ -89,7 +90,4 @@ export class TimesheetComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  debug() {
-    console.log(this.timesheet.control.events.list);
-  }
 }

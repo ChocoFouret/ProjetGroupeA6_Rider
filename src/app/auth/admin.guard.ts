@@ -13,7 +13,7 @@ export class AdminGuard implements CanActivate {
     if(this._serviceService.getFunction()=="True"){
         return true;
       } else {
-        this.router.navigate(['./employee'])
+        this.router.navigate(['./account'])
         return false
       }
   }

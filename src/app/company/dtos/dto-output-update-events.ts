@@ -1,3 +1,5 @@
+import {DtoInputEventTypes} from "./dto-input-eventTypes";
+
 export interface DtoOutputUpdateEvents {
   // Date de début, contient également l'heure
   startDate: string;
@@ -17,4 +19,5 @@ export interface DtoOutputUpdateEvents {
 
   barColor: string;
   backColor: string;
+  eventTypes: DtoInputEventTypes;
 }

@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  apiUrlServer: 'https://localhost:7119',
   apiUrlAccount : "https://localhost:7119/api/v1/Account",
   apiUrlEvents : "https://localhost:7119/api/v1/Events",
   apiUrlHas : "https://localhost:7119/api/v1/Has",

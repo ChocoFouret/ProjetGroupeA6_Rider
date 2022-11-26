@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {EventService} from "./event.service";
 import {DayPilot} from "daypilot-pro-angular";
+import {HubConnection, HubConnectionBuilder} from "@microsoft/signalr";
+import {environment} from "../../environments/environment";
+import {DtoInputEvents} from "./dtos/dto-input-events";
 
 @Component({
   selector: 'app-company',
@@ -11,14 +14,50 @@ export class CompanyComponent implements OnInit {
   employeesGroup: any[] = [];
   employees: any[] = [];
   employee: any;
-
-  public events: DayPilot.EventData[] = [];
-  public eventsEmployee: DayPilot.EventData[] = [];
+  colors = {
+    valid: "",
+    notValid: "#fa8989",
+    rowGroup: "#d0cec7",
+    rowGroupWk: "#c2b2b2",
+    rowEmployee: "",
+    rowEmployeeWk: "#fddada",
+    borderColor: "#ff0000"
+  }
+  e: DayPilot.EventData = {id: 0, start: "", end: "", text: "", resource: 0};
+  copyE: DayPilot.EventData = {id: 0, start: "", end: "", text: "", employee: 0};
+  show: boolean = true;
+  events: DayPilot.EventData[] = [];
+  eventsEmployee: DayPilot.EventData[] = [];
+  private connection: HubConnection | undefined;
 
   constructor(private ds: EventService) {
   }
 
+  initWebSocket() {
+    this.connection = new HubConnectionBuilder()
+      .withUrl(environment.apiUrlServer + '/EventHub')
+      .build();
+
+    this.connection.on('updated', (dto) => {
+      this.localUpdate(dto);
+    });
+
+    this.connection.on('deleted', (id) => {
+      this.localDelete(id);
+    });
+
+    this.connection.on('created', (dto) => {
+      this.localCreate(dto);
+    });
+
+    this.connection.start().then(() => {
+      console.log('Hub connection started');
+    });
+  }
+
   ngOnInit(): void {
+    this.initWebSocket();
+
     this.ds
       .fetchAllEmployees(2)
       .subscribe(employees => {
@@ -73,26 +112,19 @@ export class CompanyComponent implements OnInit {
         tmp.push({
           types: event.types,
           eventTypes: event.eventTypes,
+          backColor: event.isValid ? this.colors.valid : this.colors.notValid,
           barColor: event.eventTypes.barColor,
           start: event.startDate,
           end: event.endDate,
           id: event.idEventsEmployee,
           isValid: event.isValid,
           comments: event.comments,
-          text: event.startDate.split("T")[1].slice(0, -3)
-            + " - " +
-            event.endDate.split("T")[1].slice(0, -3)
+          text: event.types != "Travail" ? event.types : event.startDate.split("T")[1].slice(0, -3) + " - " + event.endDate.split("T")[1].slice(0, -3)
         });
         if (idAccount != 0) {
           tmp[tmp.length - 1]['employee'] = event.idAccount
         } else {
           tmp[tmp.length - 1]['resource'] = event.idAccount
-        }
-        if (!event.isValid) {
-          tmp[tmp.length - 1].backColor = "#894f4f";
-        }
-        if (event.types != "Travail") {
-          tmp[tmp.length - 1].text = event.types;
         }
       }
       if (idAccount != 0) {
@@ -103,11 +135,74 @@ export class CompanyComponent implements OnInit {
     })
   }
 
-  debug() {
-    console.log(this.events);
+  localUpdate(dto: DtoInputEvents) {
+    this.createE(dto);
+    this.events = this.events.map((event: DayPilot.EventData) => {
+      this.e.resource = dto.idAccount;
+      if (event.id === this.e.id) {
+        return this.e;
+      } else {
+        return event;
+      }
+    })
+
+    this.eventsEmployee = this.eventsEmployee.map((event: DayPilot.EventData) => {
+      this.copyE['employee'] = dto.idAccount;
+      if (event.id === this.copyE.id) {
+        return this.copyE;
+      } else {
+        return event;
+      }
+    })
   }
 
   updateEvent(dto: any) {
     this.ds.update(dto).subscribe();
+  }
+
+  private localDelete(id: any) {
+    this.events = this.events.filter((event: DayPilot.EventData) => event.id !== id);
+    this.eventsEmployee = this.eventsEmployee.filter((event: DayPilot.EventData) => event.id !== id);
+  }
+
+  private localCreate(dto: any) {
+    this.ds.fetchById(dto.events.idEventsEmployee).subscribe(event => {
+      this.createE(event);
+      if (!this.events.map((e: any) => e.id).includes(this.e.id)) {
+        this.e.resource = event.idAccount;
+        this.events.push(this.e);
+      } else {
+        this.events = this.events.map((e: any) => {
+          if (e.id === this.e.id) {
+            this.e.resource = event.idAccount;
+            return this.e;
+          } else {
+            return e;
+          }
+        })
+      }
+      if (this.employee == event.idAccount) {
+        if (!this.events.map((e: any) => e.id).includes(this.e.id)) {
+          this.copyE['employee'] = event.idAccount;
+          this.eventsEmployee.push(this.copyE);
+        }
+      }
+    })
+  }
+
+  createE(dto: any) {
+    this.e = {
+      id: dto.idEventsEmployee,
+      start: dto.startDate,
+      end: dto.endDate,
+      text: dto.types != "Travail" ? dto.types : dto.startDate.split("T")[1].slice(0, -3) + " - " + dto.endDate.split("T")[1].slice(0, -3),
+      backColor: dto.isValid ? this.colors.valid : this.colors.notValid,
+      isValid: dto.isValid,
+      comments: dto.comments,
+      types: dto.types,
+      barColor: dto.eventTypes.barColor,
+      eventTypes: dto.eventTypes,
+    }
+    this.copyE = Object.assign({}, this.e);
   }
 }
