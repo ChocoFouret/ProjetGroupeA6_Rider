@@ -1,4 +1,4 @@
 export interface DtoOutputDeleteEvents {
    // Numéro unique de l'événement
-  idEventsEmployee: number;
+  idEventsEmployee: string;
 }

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DayPilot} from "daypilot-pro-angular";
 import {CalendarComponent} from "../calendar.component";
-import {DtoInputEventTypes} from "../dtos/dto-input-eventTypes";
+import {DtoInputEventTypes} from "../../../dtos/dto-input-eventTypes";
 
 @Component({
   selector: 'app-info-event',

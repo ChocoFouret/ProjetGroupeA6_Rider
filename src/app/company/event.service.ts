@@ -3,14 +3,14 @@ import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {DayPilot} from "daypilot-pro-angular";
 import {environment} from "../../environments/environment";
-import {DtoInputEvents} from "./directors/calendar/dtos/dto-input-events";
+import {DtoInputEvents} from "./dtos/dto-input-events";
 import {ManagementService} from "../util/management/management.service";
-import {DtoOutputUpdateEvents} from "./directors/calendar/dtos/dto-output-update-events";
-import {DtoOutputCreateEvents} from "./directors/calendar/dtos/dto-output-create-events";
+import {DtoOutputUpdateEvents} from "./dtos/dto-output-update-events";
+import {DtoOutputCreateEvents} from "./dtos/dto-output-create-events";
 import {DtoInputEmployee} from "../util/management/dtos/dto-input-employee";
-import {DtoOutputDeleteEvents} from "./directors/calendar/dtos/dto-output-delete-events";
-import {DtoInputEventTypes} from "./directors/calendar/dtos/dto-input-eventTypes";
-import {DtoInputEmployeeOfCompany} from "./directors/calendar/dtos/dto-input-employee-of-company";
+import {DtoOutputDeleteEvents} from "./dtos/dto-output-delete-events";
+import {DtoInputEventTypes} from "./dtos/dto-input-eventTypes";
+import {DtoInputEmployeeOfCompany} from "./dtos/dto-input-employee-of-company";
 
 @Injectable({
   providedIn: 'root'

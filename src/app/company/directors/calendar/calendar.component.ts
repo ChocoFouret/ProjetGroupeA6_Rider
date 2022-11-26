@@ -2,10 +2,10 @@ import {Component, ComponentRef, EventEmitter, Input, OnInit, Output, ViewChild,
 import {DayPilot, DayPilotSchedulerComponent} from "daypilot-pro-angular";
 import {EventService} from "../../event.service";
 import {InfoEventComponent} from "./info-event/info-event.component";
-import {DtoOutputCreateEvents} from "./dtos/dto-output-create-events";
-import {DtoOutputUpdateEvents} from "./dtos/dto-output-update-events";
-import {DtoOutputDeleteEvents} from "./dtos/dto-output-delete-events";
-import {DtoInputEventTypes} from "./dtos/dto-input-eventTypes";
+import {DtoOutputCreateEvents} from "../../dtos/dto-output-create-events";
+import {DtoOutputUpdateEvents} from "../../dtos/dto-output-update-events";
+import {DtoOutputDeleteEvents} from "../../dtos/dto-output-delete-events";
+import {DtoInputEventTypes} from "../../dtos/dto-input-eventTypes";
 import ModalFormItem = DayPilot.ModalFormItem;
 import {CompanyComponent} from "../../company.component";
 
@@ -184,7 +184,7 @@ export class CalendarComponent implements OnInit {
     onEventDeleted: (args) => {
       args.control.message("Évènement supprimé : " + args.e.text());
       let dto: DtoOutputDeleteEvents = {
-        idEventsEmployee: parseInt(args.e.id().toString()),
+        idEventsEmployee: args.e.id().toString(),
       }
       this.ds.delete(dto).subscribe();
     },
@@ -197,6 +197,7 @@ export class CalendarComponent implements OnInit {
         args.html = "Détails de l'évènement."
       }
     }),
+    treeEnabled: true,
     contextMenu: new DayPilot.Menu({
       items: [
         {
@@ -204,7 +205,7 @@ export class CalendarComponent implements OnInit {
             const dp = args.source.calendar;
             dp.events.remove(args.source);
             let dto: DtoOutputDeleteEvents = {
-              idEventsEmployee: parseInt(args.source.id().toString()),
+              idEventsEmployee: args.source.id().toString(),
             }
             this.ds.delete(dto).subscribe();
           }

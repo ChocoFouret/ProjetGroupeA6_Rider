@@ -1,6 +1,8 @@
 import {Component, Input, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {DayPilot, DayPilotSchedulerComponent} from "daypilot-pro-angular";
 import {CompanyComponent} from "../../company.component";
+import ModalFormItem = DayPilot.ModalFormItem;
+import {DtoInputEventTypes} from "../../dtos/dto-input-eventTypes";
 
 @Component({
   selector: 'app-timesheet',
@@ -15,6 +17,8 @@ export class TimesheetComponent implements OnInit {
 
   @ViewChild('timesheet')
   timesheet!: DayPilotSchedulerComponent;
+  eventTypes: DtoInputEventTypes[] = [];
+  formEventTypes: ModalFormItem[] = [];
 
   config: DayPilot.SchedulerConfig = {
     locale: "fr-be",
@@ -46,55 +50,12 @@ export class TimesheetComponent implements OnInit {
     groupConcurrentEvents: false,
     eventStackingLineHeight: 100,
     allowEventOverlap: true,
-    timeRangeSelectedHandling: "Enabled",
-    onTimeRangeSelected: async (args) => {
-      const dp = args.control;
-      console.log(args);
-      const modal = await DayPilot.Modal.prompt("Create a new event:", "Event 1");
-      dp.clearSelection();
-      if (modal.canceled) {
-        return;
-      }
-      dp.events.add({
-        start: args.start,
-        end: args.end,
-        id: DayPilot.guid(),
-        resource: this.employee,
-        employee: this.employee,
-        text: modal.result
-      });
-    },
-    eventMoveHandling: "Update",
-    onEventMoved: (args) => {
-      args.control.message("Event moved: " + args.e.text());
-    },
-    eventResizeHandling: "Update",
-    onEventResized: (args) => {
-      args.control.message("Event resized: " + args.e.text());
-    },
-    eventDeleteHandling: "Update",
-    onEventDeleted: (args) => {
-      args.control.message("Event deleted: " + args.e.text());
-    },
+    timeRangeSelectedHandling: "Disabled",
+    eventMoveHandling: "Disabled",
+    eventResizeHandling: "Disabled",
+    eventDeleteHandling: "Disabled",
     eventClickHandling: "Disabled",
-    eventHoverHandling: "Bubble",
-    contextMenu: new DayPilot.Menu({
-      items: [
-        {
-          text: "Delete", onClick: (args) => {
-            const dp = args.source.calendar;
-            dp.events.remove(args.source);
-          }
-        }
-      ]
-    }),
-    bubble: new DayPilot.Bubble({
-      onLoad: (args) => {
-        // if event object doesn't specify "bubbleHtml" property
-        // this onLoad handler will be called to provide the bubble HTML
-        args.html = "Event details";
-      }
-    })
+    eventHoverHandling: "Disabled"
   };
 
   constructor() {
