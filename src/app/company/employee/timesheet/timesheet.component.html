@@ -1,7 +1,7 @@
 <div class="toolbar">
   <div class="toolbar-item">
     Employee: &nbsp;
-    <select [(ngModel)]="employee" (change)="employeeSelected($event)">
+    <select [(ngModel)]="employee" (change)="employeeSelected()">
       <option *ngFor="let e of employees" [selected]="true" [value]="e.id">{{e.name}}</option>
     </select>
   </div>
