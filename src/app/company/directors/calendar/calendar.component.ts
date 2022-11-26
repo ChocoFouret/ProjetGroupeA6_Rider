@@ -1,4 +1,4 @@
-import {Component, ComponentRef, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
+import {Component, ComponentRef, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef} from '@angular/core';
 import {DayPilot, DayPilotSchedulerComponent} from "daypilot-pro-angular";
 import {EventService} from "../../event.service";
 import {InfoEventComponent} from "./info-event/info-event.component";
@@ -7,6 +7,7 @@ import {DtoOutputUpdateEvents} from "./dtos/dto-output-update-events";
 import {DtoOutputDeleteEvents} from "./dtos/dto-output-delete-events";
 import {DtoInputEventTypes} from "./dtos/dto-input-eventTypes";
 import ModalFormItem = DayPilot.ModalFormItem;
+import {CompanyComponent} from "../../company.component";
 
 @Component({
   selector: 'app-calendar',
@@ -15,12 +16,15 @@ import ModalFormItem = DayPilot.ModalFormItem;
 })
 
 export class CalendarComponent implements OnInit {
+  @Input() homePage : CompanyComponent | undefined;
+  @Input() employees: any[] = [];
+  @Input() events: DayPilot.EventData[] = [];
+  @Output() eventsChanges: EventEmitter<any> = new EventEmitter<any>();
+
   @ViewChild('scheduler')
   scheduler!: DayPilotSchedulerComponent;
-  public events: DayPilot.EventData[] = [];
   eventTypes: DtoInputEventTypes[] = [];
   formEventTypes: ModalFormItem[] = [];
-  employees: any[] = [];
 
   // themes :             https://javascript.daypilot.org/demo/scheduler/themetraditional.html
 
@@ -157,8 +161,23 @@ export class CalendarComponent implements OnInit {
       this.updateEventFromEventId(args.e);
     },
     eventResizeHandling: "Update",
-    onEventResized: (args) => {
-      args.control.message("Évènement redimensionné : " + args.e.text());
+    onEventResize: (args) => {
+      let oldStartDate = args.e.data.start;
+      let oldEndDate = args.e.data.end;
+      let oldHourStart = args.e.data.start.toString().split("T")[1].slice(0, 2);
+      let oldHourEnd = args.e.data.end.toString().split("T")[1].slice(0, 2);
+      let oldMinuteStart = args.e.data.start.toString().split("T")[1].slice(3, 5);
+      let oldMinuteEnd = args.e.data.end.toString().split("T")[1].slice(3, 5);
+
+      if(oldStartDate != args.newStart){
+        args.newStart = args.newStart.addHours(oldHourStart);
+        args.newStart = args.newStart.addMinutes(oldMinuteStart);
+      }
+      if(oldEndDate != args.newEnd){
+        args.newEnd = args.newEnd.addDays(-1);
+        args.newEnd = args.newEnd.addHours(oldHourEnd);
+        args.newEnd = args.newEnd.addMinutes(oldMinuteEnd);
+      }
       this.updateEventFromEventId(args.e);
     },
     eventDeleteHandling: "Update",
@@ -226,22 +245,7 @@ export class CalendarComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.ds
-      .fetchAllEmployees(2)
-      .subscribe(employees => {
-        this.employees = [];
-        for (let employee of employees) {
-          this.employees.push({
-            "name": employee['account'].lastName + ", " + employee['account'].firstName,
-            "id": employee.idAccount
-          });
-        }
-        this.employees.sort((a: any, b: any) => {
-          return a.name.localeCompare(b.name);
-        });
-        this.config.resources = this.employees;
-      })
-
+    this.config.resources = this.employees;
   }
 
   previous(): void {
@@ -263,38 +267,8 @@ export class CalendarComponent implements OnInit {
     if (args.visibleRangeChanged) {
       const from = this.scheduler.control.visibleStart();
       const to = this.scheduler.control.visibleEnd();
-      this.ds
-        .fetchFromTo(this.ds.idSchedule, from, to)
-        .subscribe(events => {
-          this.events = [];
-          for (let event of events) {
-            this.events.push({
-              "types": event.types,
-              "eventTypes": event.eventTypes,
-              "barColor": event.eventTypes.barColor,
-              "start": event.startDate,
-              "end": event.endDate,
-              "id": event.idEventsEmployee,
-              "isValid": event.isValid,
-              "comments": event.comments,
-              "resource": event.idAccount,
-              "text": event.startDate.split("T")[1].slice(0, -3)
-                + " - " +
-                event.endDate.split("T")[1].slice(0, -3)
-            });
-            if (!event.isValid) {
-              this.events[this.events.length - 1].backColor = "#894f4f";
-            }
-            if (event.types != "Travail") {
-              this.events[this.events.length - 1].text = event.types;
-            }
-          }
-        })
+      this.homePage?.loadEvents(from, to, 0);
     }
-  }
-
-  debug() {
-    console.log(this.events)
   }
 
   public updateEventFromEventId(args: DayPilot.Event) {
@@ -311,31 +285,41 @@ export class CalendarComponent implements OnInit {
           isValid: args.data.isValid,
           comments: args.data.comments,
         }
-        this.ds.update(dto).subscribe();
+        this.update(dto);
       }
     })
   }
 
-  public updateEvent(dto: DtoOutputUpdateEvents) {
+  update(dto: any) {
     this.events.forEach(event => {
-      if (event.id == dto.idEventsEmployee) {
+      if (event.id == dto.id) {
         event['isValid'] = dto.isValid;
         event['types'] = dto.types;
         event.barColor = dto.barColor;
         event.backColor = dto.backColor;
         event.start = dto.startDate;
         event.end = dto.endDate;
-        event.resource = dto.idAccount;
+        event.resource = dto.resource;
         event.text = dto.startDate.toString().split("T")[1].slice(0, -3)
           + " - " +
           dto.endDate.toString().split("T")[1].slice(0, -3);
       }
-
       if (event['types'] != "Travail") {
         event.text = event['types'];
       }
-
     })
-    this.ds.update(dto).subscribe();
+
+    this.eventsChanges.next({
+      idSchedule: this.ds.idSchedule,
+      backColor: dto.backColor,
+      barColor: dto.barColor,
+      startDate: dto.startDate,
+      endDate: dto.endDate,
+      idEventsEmployee: dto.idEventsEmployee,
+      idAccount: dto.idAccount,
+      types: dto.types,
+      isValid: dto.isValid,
+      comments: dto.comments,
+    })
   }
 }

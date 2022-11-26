@@ -1,6 +1,14 @@
 <!--Si directeur, accès à ce menu supplémentaire-->
-<app-directors></app-directors>
+<app-directors
+  [homePage]="this"
+  [employees]="employees"
+  [events]="events"
+  (eventsChanges)="updateEvent($event)"></app-directors>
 
 
 <!--Si employé, accès à ceci, à ajouter avec les autres menus par la suite ... -->
-<app-timesheet></app-timesheet>
+<app-employee
+  [homePage]="this"
+  [employees]="employees"
+  [employee]="employee"
+  [events]="eventsEmployee"></app-employee>

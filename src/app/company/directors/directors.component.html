@@ -10,4 +10,8 @@
 -->
 
 <!-- A REMPLACER PAR LES ROUTES -->
-<app-calendar></app-calendar>
+<app-calendar
+  [homePage]="homePage"
+  [employees]="employees"
+  [events]="events"
+  (eventsChanges)="updateEvent($event)"></app-calendar>

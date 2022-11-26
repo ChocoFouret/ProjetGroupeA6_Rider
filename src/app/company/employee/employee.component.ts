@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {CompanyComponent} from "../company.component";
+import {DayPilot} from "daypilot-pro-angular";
 
 @Component({
   selector: 'app-employee',
@@ -6,6 +8,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./employee.component.css']
 })
 export class EmployeeComponent implements OnInit {
+  @Input() homePage : CompanyComponent | undefined;
+  @Input() employees: any[] = [];
+  @Input() employee: any;
+  @Input() events: DayPilot.EventData[] = [];
 
   constructor() { }
 

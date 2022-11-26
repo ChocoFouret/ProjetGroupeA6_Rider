@@ -63,19 +63,15 @@ export class InfoEventComponent implements OnInit {
       }
     }
 
+    modal.result.barColor = barColor;
+    modal.result.backColor = backColor;
+    modal.result.startDate = modal.result.start;
+    modal.result.endDate = modal.result.end;
+    modal.result.idEventsEmployee = modal.result.id;
+    modal.result.idAccount = modal.result.resource;
+
     if (modal.result.start <= modal.result.end) {
-      this.data = ({
-        barColor: barColor,
-        backColor: backColor,
-        isValid: modal.result.isValid,
-        types: modal.result.types,
-        comments: modal.result.comments,
-        startDate: modal.result.start,
-        endDate: modal.result.end,
-        idEventsEmployee: modal.result.id,
-        idAccount: modal.result.resource,
-      })
-      this.component?.updateEvent(this.data);
+      this.component?.update(modal.result);
     } else {
       alert("La date de début doit être inférieure à la date de fin.");
     }

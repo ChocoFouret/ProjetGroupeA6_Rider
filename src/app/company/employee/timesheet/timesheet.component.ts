@@ -1,6 +1,6 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {DayPilot, DayPilotSchedulerComponent} from "daypilot-pro-angular";
-import {EventService} from "../../event.service";
+import {CompanyComponent} from "../../company.component";
 
 @Component({
   selector: 'app-timesheet',
@@ -8,10 +8,13 @@ import {EventService} from "../../event.service";
   styleUrls: ['./timesheet.component.css']
 })
 export class TimesheetComponent implements OnInit {
+  @Input() homePage: CompanyComponent | undefined;
+  @Input() employees: any[] = [];
+  @Input() employee: any;
+  @Input() events: DayPilot.EventData[] = [];
+
   @ViewChild('timesheet')
   timesheet!: DayPilotSchedulerComponent;
-  events: any[] = [];
-  employees: any = [];
 
   config: DayPilot.SchedulerConfig = {
     locale: "fr-be",
@@ -46,16 +49,17 @@ export class TimesheetComponent implements OnInit {
     timeRangeSelectedHandling: "Enabled",
     onTimeRangeSelected: async (args) => {
       const dp = args.control;
+      console.log(args);
       const modal = await DayPilot.Modal.prompt("Create a new event:", "Event 1");
       dp.clearSelection();
       if (modal.canceled) {
         return;
       }
-      console.log(this.employee);
       dp.events.add({
         start: args.start,
         end: args.end,
         id: DayPilot.guid(),
+        resource: this.employee,
         employee: this.employee,
         text: modal.result
       });
@@ -93,48 +97,25 @@ export class TimesheetComponent implements OnInit {
     })
   };
 
-  constructor(private ds: EventService) {
+  constructor() {
   }
 
-  employee: any;
-
-  employeeSelected($event: Event) {
+  employeeSelected() {
     const from = this.timesheet.control.visibleStart();
     const to = this.timesheet.control.visibleEnd();
-    this.ds
-      .fetchFromToAccount(this.ds.idSchedule, this.employee, from, to)
-      .subscribe(events => {
-        this.events = [];
-        for (let event of events) {
-          this.events.push({
-            types: event.types,
-            eventTypes: event.eventTypes,
-            barColor: event.eventTypes.barColor,
-            start: event.startDate,
-            end: event.endDate,
-            id: event.idEventsEmployee,
-            isValid: event.isValid,
-            comments: event.comments,
-            employee: event.idAccount,
-            text: event.startDate.split("T")[1].slice(0, -3)
-              + " - " +
-              event.endDate.split("T")[1].slice(0, -3)
-          });
-          if (!event.isValid) {
-            this.events[this.events.length - 1].backColor = "#894f4f";
-          }
-          if (event.types != "Travail") {
-            this.events[this.events.length - 1].text = event.types;
-          }
-        }
+    this.homePage?.loadEvents(from, to, this.employee);
+  }
 
-        // Reset
-        let tmp:any = []
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['events']) {
+      if(this.timesheet != undefined) {
+        let tmp: any = []
         this.timesheet.control.update(tmp);
-        for(let event of this.events) {
+        for (let event of this.events) {
           this.timesheet.control.events.add(event);
         }
-      })
+      }
+    }
   }
 
   ngAfterViewInit(): void {
@@ -142,24 +123,7 @@ export class TimesheetComponent implements OnInit {
     const businessStart = this.timesheet.control.businessBeginsHour || 9;
     const scrollToTarget = firstDay.addHours(businessStart);
     this.timesheet.control.scrollTo(scrollToTarget);
-    this.ds
-      .fetchAllEmployees(2)
-      .subscribe(employees => {
-        this.employees = [];
-        for (let employee of employees) {
-          this.employees.push({
-            "name": employee['account'].lastName + ", " + employee['account'].firstName,
-            "id": employee.idAccount
-          });
-        }
-        this.employees.sort((a: any, b: any) => {
-          return a.name.localeCompare(b.name);
-        });
-        this.employee = this.employees[0].id;
-        this.employeeSelected(new Event("change"));
-      })
   }
-
 
   ngOnInit(): void {
   }
