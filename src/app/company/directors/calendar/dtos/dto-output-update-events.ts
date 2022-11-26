@@ -6,8 +6,15 @@ export interface DtoOutputUpdateEvents {
   endDate: string;
 
   // Numéro unique de l'événement
-  idEventsEmployee: number;
+  idEventsEmployee: string;
 
   // Numéro de l'employé
-  idAccount?: number;
+  idAccount: number;
+
+  types: string;
+  isValid: boolean;
+  comments: string;
+
+  barColor: string;
+  backColor: string;
 }

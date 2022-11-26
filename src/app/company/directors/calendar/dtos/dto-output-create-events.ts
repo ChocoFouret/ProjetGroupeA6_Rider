@@ -6,14 +6,14 @@ export interface DtoOutputCreateEvents {
   endDate: string;
 
   // Numéro unique de l'événement
-  idEventsEmployee: number;
+  idEventsEmployee: string;
 
   // Numéro de l'employé
   idAccount: number;
 
   idSchedule: number;
 
-  idWork: number | null;
-  idAbsents: number | null;
-  idHolidays: number | null;
+  types: string;
+  isValid: boolean;
+  comments: string;
 }
