@@ -11,11 +11,11 @@ export class AdminGuard implements CanActivate {
   // @ts-ignore
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if(this._serviceService.getFunction()=="True"){
-        return true;
-      } else {
-        this.router.navigate(['./account'])
-        return false
-      }
+      return true;
+    } else {
+      this.router.navigate(['./employee'])
+      return false
+    }
   }
 
 }
