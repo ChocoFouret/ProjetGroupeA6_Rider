@@ -59,10 +59,10 @@ export class CompanyComponent implements OnInit {
     this.initWebSocket();
 
     this.ds
-      .fetchAllEmployees(2)
+      .fetchAllEmployees(this.ds.idCompanies)
       .subscribe(employees => {
         for (let employee of employees) {
-          if (!(employee.idFunctions in this.employeesGroup)) {
+          if(!this.employeesGroup.map(e => e.idGroup).includes(employee.idFunctions)) {
             this.employeesGroup.push({
               "name": employee.function.title,
               "idGroup": employee.idFunctions,

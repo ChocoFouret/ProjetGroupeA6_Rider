@@ -16,18 +16,20 @@ import {DtoInputEmployeeOfCompany} from "./dtos/dto-input-employee-of-company";
   providedIn: 'root'
 })
 export class EventService {
-  idSchedule: number = 1;
+  idSchedule: number = 2;   // Calendrier avec nous 4 : id 2
+  idCompanies: number = 2; // Société avec nous 4 : id 2
+
   events: any[] = [];
   private static readonly ENTRY_POINT = environment.apiUrlEvents;
 
   constructor(private _httpClient: HttpClient) {
   }
 
-  create(dto: DtoOutputCreateEvents): Observable<DtoInputEvents>{
+  create(dto: DtoOutputCreateEvents): Observable<DtoInputEvents> {
     return this._httpClient.post<DtoInputEvents>(`${EventService.ENTRY_POINT}/create`, {events: dto});
   }
 
-  delete(dto: DtoOutputDeleteEvents): Observable<any>{
+  delete(dto: DtoOutputDeleteEvents): Observable<any> {
     return this._httpClient.delete(`${EventService.ENTRY_POINT}/delete/` + dto.idEventsEmployee);
   }
 
