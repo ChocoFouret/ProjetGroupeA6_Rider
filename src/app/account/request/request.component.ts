@@ -6,6 +6,7 @@ import {SessionService} from "../../session/session.service";
 import {DtoInputEvents} from "../../company/dtos/dto-input-events";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
+import {EventService} from "../../company/event.service";
 
 @Component({
   selector: 'app-request',
@@ -15,8 +16,10 @@ import {environment} from "../../../environments/environment";
 export class RequestComponent implements OnInit {
   // A CHANGER LORSQU'ON VA RECUPERER LES CALENDRIERS
   idSchedule: number = 1;
-  isVisible: boolean = false;
   request: DtoOutputCreateEvents | undefined;
+  event: any;
+  isVisibleForm : boolean = false;
+  isVisibleList : boolean = false;
 
   form: FormGroup = new FormGroup({
     type: new FormControl("", Validators.required),
@@ -26,10 +29,14 @@ export class RequestComponent implements OnInit {
   });
 
   constructor(private _session: SessionService,
-              private _httpClient: HttpClient) {
+              private _httpClient: HttpClient, private _requests : EventService) {
   }
 
   ngOnInit(): void {
+    this._requests.fetchByEmployee(parseInt(this._session.getID())).subscribe(event =>{
+      console.log(event)
+      this.event=event
+    })
   }
 
   send() {
@@ -58,4 +65,18 @@ export class RequestComponent implements OnInit {
       return true
     }
   }
+
+  visible(id:number){
+    if(id ==  1){
+      this.isVisibleForm =true
+      this.isVisibleList = false;
+    }
+    if(id ==  2){
+      this.isVisibleList =true
+      this.isVisibleForm = false;
+    }
+
+  }
+
+
 }

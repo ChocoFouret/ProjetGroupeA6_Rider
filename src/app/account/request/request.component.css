@@ -19,3 +19,18 @@ button {
   cursor: pointer;
   margin: 30px;
 }
+
+#global{
+  width: 900px;
+}
+
+#menu{
+  width: 250px;
+  float: left; }
+
+
+#corps{
+  margin-left: 250px;
+  background-color: rgba(0, 0, 0, 0.47);
+  margin-top:20%;
+}

@@ -61,4 +61,8 @@ export class EventService {
     return this._httpClient.put(EventService.ENTRY_POINT + "/update/", dto);
   }
 
+  fetchByEmployee(id: number): Observable<DtoInputEvents> {
+    return this._httpClient.get<DtoInputEvents>(EventService.ENTRY_POINT + "/fetch/employee/" + id);
+  }
+
 }

@@ -1,7 +1,14 @@
 <html>
   <body>
-  <button (click)="isVisible = true" >Faire une demande</button>
-  <form *ngIf="isVisible" [formGroup]="form" (ngSubmit)="send()">
+  <div id = "global">
+  <div id="menu">
+    <button (click)="visible(1) " >Faire une demande</button>
+    <button (click)="visible(2) " > Voir mes demandes</button>
+  </div>
+
+  <div id="corps">
+    <div id="forms">
+  <form *ngIf="isVisibleForm" [formGroup]="form" (ngSubmit)="send()">
     <fieldset>
       <legend>Complétez votre demande </legend>
         <p>Type d'évènement </p>
@@ -26,6 +33,20 @@
       <input type="submit" value="Valider" [disabled]="check()">
     </fieldset>
   </form>
+    </div>
+
+    <div id="list" *ngIf="isVisibleList">
+      <h3> Mes demandes </h3>
+      <ul *ngFor="let e of event">
+        <li> {{e.comments}} </li>
+      </ul>
+
+
+    </div>
+  </div>
+  </div>
+
+
 
   </body>
 </html>
