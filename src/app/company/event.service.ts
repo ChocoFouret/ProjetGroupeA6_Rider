@@ -16,8 +16,8 @@ import {DtoInputEmployeeOfCompany} from "./dtos/dto-input-employee-of-company";
   providedIn: 'root'
 })
 export class EventService {
-  idSchedule: number = 2;   // Calendrier avec nous 4 : id 2
-  idCompanies: number = 2; // Société avec nous 4 : id 2
+  idSchedule: number = 1;   // Calendrier avec nous 4 : id 2
+  idCompanies: number = 1; // Société avec nous 4 : id 2
 
   events: any[] = [];
   private static readonly ENTRY_POINT = environment.apiUrlEvents;

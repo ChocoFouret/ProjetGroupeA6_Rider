@@ -16,8 +16,9 @@ import {RequestComponent} from "./account/request/request.component";
 // Routes
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
-  {path: 'administrator', component: AdministratorComponent, canActivate: [AdminGuard],
-    children : [
+  {
+    path: 'administrator', component: AdministratorComponent, canActivate: [AdminGuard],
+    children: [
       {path: 'employee-management', component: ManagementComponent, canActivate: [AdminGuard]}
     ]
   },

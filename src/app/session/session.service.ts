@@ -50,12 +50,18 @@ export class SessionService {
   getFunction():string{
     let cookie = this.DecodeToken(this.getCookie("public"));
     let result = Object.entries(cookie);
-    return(result[1][1]);
+    return(result[1][1].toString().split(',')[0]);
   }
 
   getEmail():string{
     let cookie = this.DecodeToken(this.getCookie("public"));
     let result = Object.entries(cookie);
     return(result[0][1]);
+  }
+
+  getID():string{
+    let cookie = this.DecodeToken(this.getCookie("public"));
+    let result = Object.entries(cookie);
+    return(result[1][1].toString().split(',')[1]);
   }
 }
