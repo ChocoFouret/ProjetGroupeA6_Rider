@@ -22,6 +22,7 @@ import {InfoEventComponent} from './company/directors/calendar/info-event/info-e
 import {DirectorsComponent} from './company/directors/directors.component';
 import {AccountComponent} from "./account/account.component";
 import {EmployeeComponent} from "./company/employee/employee.component";
+import { RequestComponent } from './account/request/request.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import {EmployeeComponent} from "./company/employee/employee.component";
     InfoEventComponent,
     AccountComponent,
     DirectorsComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    RequestComponent
   ],
   imports: [
     BrowserModule,

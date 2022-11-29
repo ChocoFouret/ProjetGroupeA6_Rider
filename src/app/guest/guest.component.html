@@ -1,7 +1,8 @@
 <body>
 
 <div>
-  !Page de connexion!
+  <h3> Connexion </h3>
+  <br> <br>
   <form [formGroup]="form" (ngSubmit)="emitLogin()">
     <label>
       Email :
@@ -13,13 +14,16 @@
         <option value="@hotmail.com"> @hotmail.com</option>
       </select>
     </label>
-    <br>
+    <br><br><br>
     <label>
       Password : <input type="password" formControlName="password" placeholder="Mot de passe">
     </label>
+    <br><br><br><br>
     <input type="submit" [disabled]="form.invalid">
   </form>
 </div>
 </body>
+<h4>En vous connectant, vous accpetez notre Politique Générales et Conditions d'utilisation  </h4>
+
 
 

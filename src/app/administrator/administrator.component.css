@@ -2,9 +2,57 @@
   color: lightgreen;
 }
 
-ul{
-  display: flex;
+*{
+  margin:  0;
+  padding: 0;
+  text-decoration: none;
   list-style: none;
-  justify-content: space-around;
-  margin: 0;
 }
+
+body{
+  font-family: 'Poppins';
+}
+
+header{
+  height: 5vw;
+  width: 100vw;
+  background-size: cover;
+}
+
+.navbar{
+  position: absolute;
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  width: 99%;
+  box-sizing: border-box;
+  border: 1px black solid;
+
+}
+
+.navbar a{
+  color: black;
+}
+
+.navbar .logo{
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.navbar .nav-links ul{
+  display: flex;
+}
+
+.navbar .nav-links li{
+  margin:0 30px;
+}
+
+.navbar .nav-links ul li.active a{
+  color: darkred;
+  font-weight: 600;
+}
+
+.navbar .nav-links ul il{
+  margin: 0 30px;
+}
+

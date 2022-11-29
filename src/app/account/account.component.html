@@ -1,9 +1,33 @@
-<ul>
-  <li><a routerLink="." routerLinkActive="active">Planning</a></li>
-  <li><a routerLink="." routerLinkActive="active">Annonces</a></li>
-  <li><a routerLink="." routerLinkActive="active">Demandes</a></li>
-  <li><a routerLink="." routerLinkActive="active">Mon profil</a></li>
-  <li><a routerLink="/leave" routerLinkActive="active">Quitter</a></li>
-</ul>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan-It</title>
+  </head>
 
-<router-outlet></router-outlet>
+  <body>
+  <nav class="navbar">
+    <a href="#" class="logo"> PLAN-IT </a>
+    <div  class="nav-links">
+      <ul>
+        <li><a routerLink="." routerLinkActive="active" *ngIf="function == 'employee' || function == 'director'">Planning</a></li>
+        <li><a routerLink="." routerLinkActive="active" *ngIf="function == 'employee' || function == 'director'">Annonces</a></li>
+        <li><a routerLink="request" routerLinkActive="active" *ngIf="function == 'employee' || function == 'director'">Demandes</a></li>
+        <!--<li><a routerLink="." routerLinkActive="active" *ngIf="function == 'director'">Gérer mon entreprise</a></li>
+        <li><a routerLink="." routerLinkActive="active" *ngIf="function != 'employee' && function != 'director'">Créer une entreprise</a></li> -->
+        <li><a routerLink="." routerLinkActive="active">Mon profil</a></li>
+        <li><a routerLink="/leave" routerLinkActive="active">Quitter</a></li>
+      </ul>
+    </div>
+  </nav>
+  <header></header>
+
+  <router-outlet> </router-outlet>
+
+  </body>
+</html>
+
+
+

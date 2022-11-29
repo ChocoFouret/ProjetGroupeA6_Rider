@@ -122,7 +122,11 @@ export class CompanyComponent implements OnInit {
           text: event.types != "Travail" ? event.types : event.startDate.split("T")[1].slice(0, -3) + " - " + event.endDate.split("T")[1].slice(0, -3)
         });
         if (idAccount != 0) {
-          tmp[tmp.length - 1]['employee'] = event.idAccount
+          if (event.isValid){
+            tmp[tmp.length - 1]['employee'] = event.idAccount
+          } else {
+            tmp = tmp.slice(0, tmp.length - 1)
+          }
         } else {
           tmp[tmp.length - 1]['resource'] = event.idAccount
         }
