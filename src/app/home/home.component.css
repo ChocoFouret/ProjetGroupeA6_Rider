@@ -17,11 +17,13 @@ header{
 
 .navbar{
   position: absolute;
-  padding: 50px;
+  padding: 30px;
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  width: 99%;
   box-sizing: border-box;
+  border: 1px black solid;
+
 }
 
 .navbar a{

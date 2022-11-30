@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {SessionService} from "../session/session.service";
 
 @Component({
   selector: 'app-account',
@@ -6,10 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./account.component.css']
 })
 export class AccountComponent implements OnInit {
+  function: any = "employee"
 
-  constructor() { }
+
+  constructor(private _session: SessionService) { }
 
   ngOnInit(): void {
+    console.log("ID : " + this._session.getID());
   }
 
 }
