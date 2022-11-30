@@ -4,6 +4,8 @@ import {DayPilot} from "daypilot-pro-angular";
 import {HubConnection, HubConnectionBuilder} from "@microsoft/signalr";
 import {environment} from "../../environments/environment";
 import {DtoInputEvents} from "./dtos/dto-input-events";
+import {Router} from "@angular/router";
+
 
 @Component({
   selector: 'app-company',
@@ -30,7 +32,12 @@ export class CompanyComponent implements OnInit {
   eventsEmployee: DayPilot.EventData[] = [];
   private connection: HubConnection | undefined;
 
-  constructor(private ds: EventService) {
+  constructor(private ds: EventService,
+              private router: Router) {
+    this.router.events.subscribe(() => {
+      this.ds.idCompanies = parseInt(this.router.url.replace("/", "").split("/")[1])
+      this.ds.idSchedule = parseInt(this.router.url.replace("/", "").split("/")[2])
+    })
   }
 
   initWebSocket() {
@@ -51,8 +58,19 @@ export class CompanyComponent implements OnInit {
     });
 
     this.connection.start().then(() => {
-      console.log('Hub connection started');
+      // this.connection?.invoke("JoinGroup", this.ds.idCompanies.toString());
+      console.log("Join hub");
+    })
+      .then(() => {
+        this.connection?.invoke("JoinGroup", this.ds.idCompanies.toString()).then(() => {
+          console.log("Join group");
+        });
+      })
+      .catch(err => {
+      console.log(err);
     });
+
+
   }
 
   ngOnInit(): void {
@@ -62,7 +80,7 @@ export class CompanyComponent implements OnInit {
       .fetchAllEmployees(this.ds.idCompanies)
       .subscribe(employees => {
         for (let employee of employees) {
-          if(!this.employeesGroup.map(e => e.idGroup).includes(employee.idFunctions)) {
+          if (!this.employeesGroup.map(e => e.idGroup).includes(employee.idFunctions)) {
             this.employeesGroup.push({
               "name": employee.function.title,
               "idGroup": employee.idFunctions,
@@ -122,7 +140,7 @@ export class CompanyComponent implements OnInit {
           text: event.types != "Travail" ? event.types : event.startDate.split("T")[1].slice(0, -3) + " - " + event.endDate.split("T")[1].slice(0, -3)
         });
         if (idAccount != 0) {
-          if (event.isValid){
+          if (event.isValid) {
             tmp[tmp.length - 1]['employee'] = event.idAccount
           } else {
             tmp = tmp.slice(0, tmp.length - 1)
@@ -161,7 +179,7 @@ export class CompanyComponent implements OnInit {
   }
 
   updateEvent(dto: any) {
-    this.ds.update(dto).subscribe();
+    this.ds.update(dto, this.ds.idCompanies.toString()).subscribe();
   }
 
   private localDelete(id: any) {

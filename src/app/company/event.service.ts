@@ -25,12 +25,12 @@ export class EventService {
   constructor(private _httpClient: HttpClient) {
   }
 
-  create(dto: DtoOutputCreateEvents): Observable<DtoInputEvents> {
-    return this._httpClient.post<DtoInputEvents>(`${EventService.ENTRY_POINT}/create`, {events: dto});
+  create(dto: DtoOutputCreateEvents, idCompanies: string): Observable<DtoInputEvents> {
+    return this._httpClient.post<DtoInputEvents>(`${EventService.ENTRY_POINT}/create/${idCompanies}`, {events: dto});
   }
 
-  delete(dto: DtoOutputDeleteEvents): Observable<any> {
-    return this._httpClient.delete(`${EventService.ENTRY_POINT}/delete/` + dto.idEventsEmployee);
+  delete(dto: DtoOutputDeleteEvents, idCompanies: string): Observable<any> {
+    return this._httpClient.delete(`${EventService.ENTRY_POINT}/delete/` + dto.idEventsEmployee + "/" + idCompanies);
   }
 
   fetchById(id: string): Observable<DtoInputEvents> {
@@ -57,8 +57,9 @@ export class EventService {
     return this._httpClient.get<DtoInputEmployee>(`${ManagementService.ENTRY_POINT}/fetch/${id}`);
   }
 
-  update(dto: DtoOutputUpdateEvents): Observable<any> {
-    return this._httpClient.put(EventService.ENTRY_POINT + "/update/", dto);
+  update(dto: DtoOutputUpdateEvents, idCompanies: string): Observable<any> {
+    console.log(dto)
+    return this._httpClient.put(EventService.ENTRY_POINT + "/update/" + idCompanies, dto);
   }
 
   fetchByEmployee(id: number): Observable<DtoInputEvents> {

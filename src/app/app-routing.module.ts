@@ -25,7 +25,7 @@ const routes: Routes = [
   {path: 'employee', component: AccountComponent, canActivate: [AuthGuard],
     children: [{path: 'request', component: RequestComponent}]},
 
-  {path: 'company', component: CompanyComponent},
+  {path: 'company/:idCompagnie/:idSchedule', component: CompanyComponent},
   {path: 'home', component: HomeComponent, children: [{path: 'login', component: SessionComponent}]},
   {path: 'leave', component: LeaveComponent},
   {path: "**", component: NotFoundComponent}
