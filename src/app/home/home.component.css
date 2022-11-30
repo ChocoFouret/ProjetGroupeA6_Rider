@@ -1,12 +1,27 @@
+*{
+  margin:  0;
+  padding: 0;
+  text-decoration: none;
+  list-style: none;
+}
+
+body{
+  font-family: 'Poppins';
+}
+
+header{
+  height: 5vw;
+  width: 100vw;
+  background-size: cover;
+}
+
 .navbar{
   position: absolute;
-  margin: 20px;
+  padding: 50px;
   display: flex;
   justify-content: space-between;
-  width: 100px;
+  width: 100%;
   box-sizing: border-box;
-  align-items: center;
-
 }
 
 .navbar a{
@@ -14,7 +29,7 @@
 }
 
 .navbar .logo{
-  font-size: 3em;
+  font-size: 2em;
   font-weight: bold;
 }
 
@@ -27,5 +42,10 @@
 }
 
 .navbar .nav-links ul li.active a{
-  color: blue;
+  color: darkred;
+  font-weight: 600;
+}
+
+.navbar .nav-links ul il{
+  margin: 0 30px;
 }
