@@ -11,6 +11,8 @@ import {HomeComponent} from "./home/home.component";
 import {CompanyComponent} from "./company/company.component";
 import {AccountComponent} from "./account/account.component";
 import {RequestComponent} from "./account/request/request.component";
+import * as path from "path";
+import {ProfilComponent} from "./account/profil/profil.component";
 
 
 // Routes
@@ -23,7 +25,8 @@ const routes: Routes = [
     ]
   },
   {path: 'employee', component: AccountComponent, canActivate: [AuthGuard],
-    children: [{path: 'request', component: RequestComponent}]},
+    children: [{path: 'request', component: RequestComponent}, {path: 'profil', component: ProfilComponent}]},
+
 
   {path: 'company/:idCompagnie/:idSchedule', component: CompanyComponent},
   {path: 'home', component: HomeComponent, children: [{path: 'login', component: SessionComponent}]},

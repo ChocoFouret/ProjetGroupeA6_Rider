@@ -23,6 +23,7 @@ import {DirectorsComponent} from './company/directors/directors.component';
 import {AccountComponent} from "./account/account.component";
 import {EmployeeComponent} from "./company/employee/employee.component";
 import { RequestComponent } from './account/request/request.component';
+import { ProfilComponent } from './account/profil/profil.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { RequestComponent } from './account/request/request.component';
     AccountComponent,
     DirectorsComponent,
     EmployeeComponent,
-    RequestComponent
+    RequestComponent,
+    ProfilComponent
   ],
   imports: [
     BrowserModule,
