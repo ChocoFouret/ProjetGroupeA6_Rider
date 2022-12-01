@@ -4,11 +4,15 @@
   <div id="menu">
     <button (click)="visible(1) " >Faire une demande</button>
     <button (click)="visible(2) " > Voir mes demandes</button>
+
+    <button (click)="visible(3) " > Modifier une demande</button>
+    <button (click)="visible(4) " > Supprimer une demande</button>
+
   </div>
 
   <div id="corps">
     <div id="forms">
-  <form *ngIf="isVisibleForm" [formGroup]="form" (ngSubmit)="send()">
+    <form *ngIf="isVisibleForm" [formGroup]="form" (ngSubmit)="send()">
     <fieldset>
       <legend>Complétez votre demande </legend>
         <p>Type d'évènement </p>
@@ -33,6 +37,18 @@
       <input type="submit" value="Valider" [disabled]="check()">
     </fieldset>
   </form>
+
+      <div id="success-box" *ngIf="isVisibleNotice">
+        <div class="dot"></div>
+        <div class="dot two"></div>
+        <div class="face">
+          <div class="eye"></div>
+          <div class="eye right"></div>
+          <div class="mouth happy"></div>
+        </div>
+        <div class="shadow scale"></div>
+        <div class="message"><h1 class="alert">Success!</h1><p>yay, everything is working.</p></div>
+      </div>
     </div>
 
     <div id="list" *ngIf="isVisibleList">
@@ -40,13 +56,10 @@
       <ul *ngFor="let e of event">
         <li> {{e.comments}} </li>
       </ul>
-
-
     </div>
+
   </div>
   </div>
-
-
 
   </body>
 </html>
