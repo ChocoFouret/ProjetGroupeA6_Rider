@@ -13,11 +13,35 @@
     <div  class="nav-links">
       <ul>
 
-        <li><a routerLink="/company" routerLinkActive="active" *ngIf="function == 'employee' || function == 'director'">Planning</a></li>
-        <li><a routerLink="." routerLinkActive="active" *ngIf="function == 'employee' || function == 'director'">Annonces</a></li>
-        <li><a routerLink="request" routerLinkActive="active" *ngIf="function == 'employee' || function == 'director'">Demandes</a></li>
-        <li><a routerLink="." routerLinkActive="active">Mon profil</a></li>
+        <ng-container *ngIf="function == 'stagiaire'">
+          <li><a routerLink="/company" routerLinkActive="active">Planning</a></li>
+          <li><a routerLink="." routerLinkActive="active">Annonces</a></li>
+          <li><a routerLink="request" routerLinkActive="active">Demandes</a></li>
+        </ng-container>
+
+        <ng-container *ngIf="function == 'employee'">
+          <li><a routerLink="/company" routerLinkActive="active">Planning</a></li>
+          <li><a routerLink="." routerLinkActive="active">Annonces</a></li>
+          <li><a routerLink="request" routerLinkActive="active">Demandes</a></li>
+        </ng-container>
+
+        <ng-container *ngIf="function == 'director'">
+          <li><a routerLink="/company" routerLinkActive="active">Planning</a></li>
+          <li><a routerLink="." routerLinkActive="active">Annonces</a></li>
+          <li><a routerLink="request" routerLinkActive="active">Paramètres</a></li>
+        </ng-container>
+
+        <ng-container *ngIf="function == 'administrator'">
+          <li><a routerLink="/company" routerLinkActive="active">Planning</a></li>
+          <li><a routerLink="." routerLinkActive="active">Annonces</a></li>
+          <li><a routerLink="request" routerLinkActive="active">Paramètres</a></li>
+        </ng-container>
+
+        <li><a routerLink="profil" routerLinkActive="active">Mon profil</a></li>
         <li><a routerLink="/leave" routerLinkActive="active">Quitter</a></li>
+
+
+
       </ul>
     </div>
   </nav>

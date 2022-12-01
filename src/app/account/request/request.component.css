@@ -38,13 +38,6 @@ button {
   padding: auto;
 }
 
-#container {
-  position: relative;
-  margin: auto;
-  overflow: hidden;
-  width: 700px;
-  height: 250px;
-}
 
 .alert {
   font-weight: 700;
