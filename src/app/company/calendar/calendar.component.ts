@@ -173,6 +173,7 @@ export class CalendarComponent implements OnInit {
         isValid: this.events[this.events.length - 1]['isValid'],
         comments: this.events[this.events.length - 1]['comments'],
       }
+
       this.es
         .createEvent(dto, this.idCompanies.toString()).subscribe();
     },
@@ -328,6 +329,7 @@ export class CalendarComponent implements OnInit {
           comments: args.data.comments,
           eventTypes: args.data.eventTypes,
         }
+
         this.update(dto);
       }
     })
@@ -348,6 +350,7 @@ export class CalendarComponent implements OnInit {
           + " - " + dto.endDate.toString().split("T")[1].slice(0, -3)
       }
     })
+    dto.eventTypes = this.eventTypes.find((eventTypes) => eventTypes.types === dto.types)
     this.updateEvent(dto);
   }
 
@@ -437,6 +440,9 @@ export class CalendarComponent implements OnInit {
   }
 
   private updateEvent(dto: any) {
+    if(dto.eventTypes == undefined){
+      dto.eventTypes = this.eventTypes.find((eventTypes) => eventTypes.types === dto.types)
+    }
     this.es.updateEvent(dto, this.idCompanies.toString()).subscribe();
   }
 

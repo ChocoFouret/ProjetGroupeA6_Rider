@@ -21,16 +21,15 @@
 
         <ng-container *ngIf="function == 'employee'">
           <li><a routerLink="planning/1" routerLinkActive="active">Planning</a></li>
-          <li><a routerLink="/company/1" routerLinkActive="active">Gestion des plannings</a></li>
           <li><a routerLink="." routerLinkActive="active">Annonces</a></li>
           <li><a routerLink="request" routerLinkActive="active">Demandes</a></li>
         </ng-container>
 
         <ng-container *ngIf="function == 'director'">
           <li><a routerLink="planning/1" routerLinkActive="active">Planning</a></li>
-          <li><a routerLink="planning/director/1" routerLinkActive="active">Gestion des plannings</a></li>
+          <li><a routerLink="/company/1" routerLinkActive="active">Gestion de l'entreprise</a></li>
           <li><a routerLink="." routerLinkActive="active">Annonces</a></li>
-          <li><a routerLink="request" routerLinkActive="active">Paramètres</a></li>
+          <li><a routerLink="." routerLinkActive="active">Paramètres</a></li>
         </ng-container>
 
         <ng-container *ngIf="function == 'administrator'">

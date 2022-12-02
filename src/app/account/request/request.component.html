@@ -2,11 +2,11 @@
   <body>
   <div id = "global">
     <div id="menu">
-      <button (click)="visible(1) " >Faire une demande</button>
-      <button (click)="visible(2) " > Voir mes demandes</button>
+      <button (click)="visible(1)">Faire une demande</button>
+      <button (click)="visible(2)"> Voir mes demandes</button>
 
-      <button (click)="visible(3) " > Modifier une demande</button>
-      <button (click)="visible(4) " > Supprimer une demande</button>
+      <button (click)="visible(3)" *ngIf="isVisibleList"> Modifier une demande</button>
+      <button (click)="visible(4)" *ngIf="isVisibleList"> Supprimer une demande</button>
     </div>
 
     <div id="corps">

@@ -74,6 +74,7 @@ export class InfoEventComponent implements OnInit {
     modal.result.endDate = modal.result.end;
     modal.result.idEventsEmployee = modal.result.id;
     modal.result.idAccount = modal.result.resource;
+    modal.result.eventTypes = {};
 
     if (modal.result.start <= modal.result.end) {
       this.component?.update(modal.result);
