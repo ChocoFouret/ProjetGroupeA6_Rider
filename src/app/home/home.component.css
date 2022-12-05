@@ -51,3 +51,8 @@ header{
 .navbar .nav-links ul il{
   margin: 0 30px;
 }
+
+h1{
+  text-align: center;
+  text-decoration: underline;
+}

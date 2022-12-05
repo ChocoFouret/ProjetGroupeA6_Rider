@@ -79,9 +79,9 @@ export class RequestComponent implements OnInit {
     }
     if(id ==  2){
       this.isVisibleForm = false;
-      this.isVisibleList =true
+      this.isVisibleList =true;
+      this.isVisibleNotice= false;
     }
   }
-
 
 }

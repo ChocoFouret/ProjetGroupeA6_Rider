@@ -14,6 +14,7 @@ import {RequestComponent} from "./account/request/request.component";
 import {ProfilComponent} from "./account/profil/profil.component";
 import {TimesheetComponent} from "./account/timesheet/timesheet.component";
 import {CalendarComponent} from "./company/calendar/calendar.component";
+import {RegisterComponent} from "./register/register.component";
 
 
 // Routes
@@ -39,7 +40,13 @@ const routes: Routes = [
     ]
   },
   // {path: 'company/:idCompagnie/:idSchedule', component: CompanyComponent},
-  {path: 'home', component: HomeComponent, children: [{path: 'login', component: SessionComponent}]},
+  {path: 'home', component: HomeComponent,
+    children: [
+      {path: 'login', component: SessionComponent},
+      {path: 'register', component: RegisterComponent}
+    ]
+  },
+
   {path: 'leave', component: LeaveComponent},
   {path: "**", component: NotFoundComponent}
 ]

@@ -22,6 +22,7 @@ import {InfoEventComponent} from './company/calendar/info-event/info-event.compo
 import {AccountComponent} from "./account/account.component";
 import { RequestComponent } from './account/request/request.component';
 import { ProfilComponent } from './account/profil/profil.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { ProfilComponent } from './account/profil/profil.component';
     InfoEventComponent,
     AccountComponent,
     RequestComponent,
-    ProfilComponent
+    ProfilComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
