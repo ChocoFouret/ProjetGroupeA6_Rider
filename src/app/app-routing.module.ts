@@ -15,6 +15,7 @@ import {ProfilComponent} from "./account/profil/profil.component";
 import {TimesheetComponent} from "./account/timesheet/timesheet.component";
 import {CalendarComponent} from "./company/calendar/calendar.component";
 import {RegisterComponent} from "./register/register.component";
+import {WelcomeComponent} from "./welcome/welcome.component";
 
 
 // Routes
@@ -43,7 +44,8 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent,
     children: [
       {path: 'login', component: SessionComponent},
-      {path: 'register', component: RegisterComponent}
+      {path: 'register', component: RegisterComponent},
+      {path:'welcome', component: WelcomeComponent}
     ]
   },
 

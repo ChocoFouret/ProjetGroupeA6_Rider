@@ -23,6 +23,7 @@ import {AccountComponent} from "./account/account.component";
 import { RequestComponent } from './account/request/request.component';
 import { ProfilComponent } from './account/profil/profil.component';
 import { RegisterComponent } from './register/register.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { RegisterComponent } from './register/register.component';
     AccountComponent,
     RequestComponent,
     ProfilComponent,
-    RegisterComponent
+    RegisterComponent,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,
