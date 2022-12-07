@@ -24,6 +24,7 @@ import { RequestComponent } from './account/request/request.component';
 import { ProfilComponent } from './account/profil/profil.component';
 import { RegisterComponent } from './register/register.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { WelcomeComponent } from './welcome/welcome.component';
     RequestComponent,
     ProfilComponent,
     RegisterComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
