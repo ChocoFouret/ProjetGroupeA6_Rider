@@ -26,6 +26,9 @@ export class TimesheetComponent implements OnInit {
     rowEmployeeWk: "#fddada",
     borderColor: "#ff0000"
   }
+  month: string = "";
+  monthNames = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
+    "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
   e: DayPilot.EventData = {id: 0, start: "", end: "", text: "", employee: 0};
   eventsEmployee: DayPilot.EventData[] = [];
 
@@ -79,12 +82,6 @@ export class TimesheetComponent implements OnInit {
     this.schedulerViewChanged();
   }
 
-  today(): void {
-    this.config.startDate = DayPilot.Date.today().firstDayOfMonth();
-    this.config.days = this.config.startDate.daysInMonth();
-    this.schedulerViewChanged();
-  }
-
   next(): void {
     this.config.startDate = new DayPilot.Date(this.config.startDate).addMonths(1);
     this.config.days = this.config.startDate.daysInMonth();
@@ -95,6 +92,7 @@ export class TimesheetComponent implements OnInit {
     const from = new DayPilot.Date(this.config.startDate);
     const to = new DayPilot.Date(this.config.startDate).addMonths(1);
     this.loadEvents(from, to, this.employee, this.idCompanies);
+    this.month = this.monthNames[new DayPilot.Date(this.config.startDate).getMonth()];
   }
 
   constructor(private es: EventService,
@@ -159,17 +157,18 @@ export class TimesheetComponent implements OnInit {
           text: event.types != "Travail" ? event.types : event.startDate.split("T")[1].slice(0, -3) + " - " + event.endDate.split("T")[1].slice(0, -3)
         });
         this.timesheet.control.events.add(this.eventsEmployee[this.eventsEmployee.length - 1]);
+        this.month = this.monthNames[new DayPilot.Date(this.config.startDate).getMonth()];
       }
     })
   }
 
   localUpdate(dto: DtoInputEvents) {
     this.createE(dto);
-    if(this.timesheet.control.events.find(this.e.id) != null && this.e['employee'] == this.employee){
+    if (this.timesheet.control.events.find(this.e.id) != null && this.e['employee'] == this.employee) {
       this.timesheet.control.events.update(this.e);
     } else if (this.timesheet.control.events.find(this.e.id) != null && this.e['employee'] != this.employee) {
       this.timesheet.control.events.remove(this.e.id);
-    } else if (this.timesheet.control.events.find(this.e.id) == null && this.e['employee'] == this.employee){
+    } else if (this.timesheet.control.events.find(this.e.id) == null && this.e['employee'] == this.employee) {
       this.timesheet.control.events.add(this.e);
     }
   }
