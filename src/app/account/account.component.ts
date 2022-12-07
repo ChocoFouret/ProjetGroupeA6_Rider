@@ -7,8 +7,8 @@ import {SessionService} from "../session/session.service";
   styleUrls: ['./account.component.css']
 })
 export class AccountComponent implements OnInit {
-  function: any = "employee"
-  // function: any = "director"
+  // function: any = "employee"
+  function: any = "director"
 
 
   constructor(private _session: SessionService) { }

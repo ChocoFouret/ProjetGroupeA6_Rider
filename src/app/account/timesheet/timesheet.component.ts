@@ -73,6 +73,30 @@ export class TimesheetComponent implements OnInit {
     eventHoverHandling: "Disabled"
   };
 
+  previous(): void {
+    this.config.startDate = new DayPilot.Date(this.config.startDate).addMonths(-1);
+    this.config.days = this.config.startDate.daysInMonth();
+    this.schedulerViewChanged();
+  }
+
+  today(): void {
+    this.config.startDate = DayPilot.Date.today().firstDayOfMonth();
+    this.config.days = this.config.startDate.daysInMonth();
+    this.schedulerViewChanged();
+  }
+
+  next(): void {
+    this.config.startDate = new DayPilot.Date(this.config.startDate).addMonths(1);
+    this.config.days = this.config.startDate.daysInMonth();
+    this.schedulerViewChanged();
+  }
+
+  schedulerViewChanged() {
+    const from = new DayPilot.Date(this.config.startDate);
+    const to = new DayPilot.Date(this.config.startDate).addMonths(1);
+    this.loadEvents(from, to, this.employee, this.idCompanies);
+  }
+
   constructor(private es: EventService,
               private wb: WebsocketService,
               private session: SessionService,
@@ -114,7 +138,7 @@ export class TimesheetComponent implements OnInit {
     this.wb.init(this);
   }
 
-  loadEvents(from: DayPilot.Date, to: DayPilot.Date, idAccount: number, idCompanies: number) {
+  loadEvents(from: DayPilot.Date | undefined, to: DayPilot.Date, idAccount: number, idCompanies: number) {
     let request = this.es.fetchEventsFromToAccount(idCompanies, idAccount, from, to)
     request.subscribe(events => {
       let reset: any = []

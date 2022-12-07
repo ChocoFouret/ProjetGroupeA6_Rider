@@ -45,7 +45,7 @@ export class EventService {
     return this._httpClient.get<DtoInputEvents[]>(EventService.ENTRY_POINT + "/fetch/" + id + "/" + from + "/" + to);
   }
 
-  fetchEventsFromToAccount(id: number, idAccount: number, from: DayPilot.Date, to: DayPilot.Date): Observable<DtoInputEvents[]> {
+    fetchEventsFromToAccount(id: number, idAccount: number, from: DayPilot.Date | undefined, to: DayPilot.Date): Observable<DtoInputEvents[]> {
     return this._httpClient.get<DtoInputEvents[]>(EventService.ENTRY_POINT + "/fetch/" + id + "/" + idAccount + "/" + from + "/" + to);
   }
 
