@@ -34,11 +34,11 @@ const routes: Routes = [
     children: [
       {path: 'request', component: RequestComponent},
       {path: 'profil', component: ProfilComponent},
-      {path: 'planning/:idCompanies', component: TimesheetComponent}
+      {path: 'planning', component: TimesheetComponent}
     ]
   },
   {
-    path: 'company/:idCompanies', component: CompanyComponent, children: [
+    path: 'company', component: CompanyComponent, children: [
       {path: 'calendar', component: CalendarComponent}
     ]
   },

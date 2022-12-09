@@ -36,7 +36,7 @@ export class WebsocketService {
       console.log("Join hub");
     })
       .then(() => {
-        this.es.fetchHasAccount(parseInt(this.session.getID())).subscribe(res => {
+        this.es.fetchHasAccount(this.session.getID()).subscribe(res => {
           this.connection?.invoke("JoinGroup", res[0].idCompanies + "").then(() => {
             console.log("Join group");
           });

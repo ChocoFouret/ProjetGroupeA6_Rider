@@ -4,7 +4,6 @@ import ModalFormItem = DayPilot.ModalFormItem;
 import {DtoInputEventTypes} from "../../company/dtos/dto-input-eventTypes";
 import {EventService} from "../../company/event.service";
 import {WebsocketService} from "../../hubs/websocket.service";
-import {Router} from "@angular/router";
 import {DtoInputEvents} from "../../company/dtos/dto-input-events";
 import {SessionService} from "../../session/session.service";
 
@@ -14,7 +13,7 @@ import {SessionService} from "../../session/session.service";
   styleUrls: ['./timesheet.component.css']
 })
 export class TimesheetComponent implements OnInit {
-  idCompanies: number = 0;
+  idCompanies: number = this._session.getCompanies();
   employees: any[] = [];
   employee: any;
   colors = {
@@ -31,7 +30,6 @@ export class TimesheetComponent implements OnInit {
     "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
   e: DayPilot.EventData = {id: 0, start: "", end: "", text: "", employee: 0};
   eventsEmployee: DayPilot.EventData[] = [];
-
 
   @ViewChild('timesheet')
   timesheet!: DayPilotSchedulerComponent;
@@ -97,8 +95,7 @@ export class TimesheetComponent implements OnInit {
 
   constructor(private es: EventService,
               private wb: WebsocketService,
-              private session: SessionService,
-              private router: Router) {
+              private _session: SessionService) {
   }
 
   employeeSelected() {
@@ -126,13 +123,12 @@ export class TimesheetComponent implements OnInit {
         this.employees.sort((a: any, b: any) => {
           return a.name.localeCompare(b.name);
         });
-        this.employee = this.session.getID();
+        this.employee = this._session.getID();
         this.employeeSelected();
       })
   }
 
   ngOnInit(): void {
-    this.idCompanies = parseInt(this.router.url.split("/")[3]);
     this.wb.init(this);
   }
 

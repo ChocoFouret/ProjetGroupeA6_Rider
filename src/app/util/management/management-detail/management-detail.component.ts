@@ -29,7 +29,7 @@ export class ManagementDetailComponent implements OnInit {
   constructor(private _employeeService: ManagementService,
               private _route: ActivatedRoute,
               private _serviceService: SessionService) {
-    this.isAdmin = this._serviceService.getFunction()=="True";
+    this.isAdmin = this._serviceService.isAdmin()=="True";
   }
 
   ngOnInit(): void {

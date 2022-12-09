@@ -10,7 +10,7 @@ export class AdminGuard implements CanActivate {
 
   // @ts-ignore
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if(this._serviceService.getFunction()=="True"){
+    if(this._serviceService.isAdmin()=="True"){
       return true;
     } else {
       this.router.navigate(['./employee'])

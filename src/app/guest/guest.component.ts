@@ -1,7 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {DtoOutputLogin} from "../session/dtos/dto-output-login";
-import * as jwt from "jwt-decode";
 
 @Component({
   selector: 'app-guest',
@@ -28,22 +27,4 @@ export class GuestComponent implements OnInit {
     });
   }
 
-  private getCookie(name: string) {
-    let ca: Array<string> = document.cookie.split(';');
-    let caLen: number = ca.length;
-    let cookieName = `${name}=`;
-    let c: string;
-
-    for (let i: number = 0; i < caLen; i += 1) {
-      c = ca[i].replace(/^\s+/g, '');
-      if (c.indexOf(cookieName) == 0) {
-        return c.substring(cookieName.length, c.length);
-      }
-    }
-    return '';
-  }
-
-  DecodeToken(token: string): string {
-    return jwt.default(token);
-  }
 }
