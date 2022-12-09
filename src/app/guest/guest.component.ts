@@ -14,6 +14,7 @@ export class GuestComponent implements OnInit {
     password: this._fb.control("", Validators.required),
   });
   @Output() sessionLogin: EventEmitter<DtoOutputLogin> = new EventEmitter<DtoOutputLogin>();
+
   constructor(private _fb: FormBuilder) {
   }
 

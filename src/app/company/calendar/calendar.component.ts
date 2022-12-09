@@ -168,7 +168,7 @@ export class CalendarComponent implements OnInit {
         startDate: this.events[this.events.length - 1].start.toString().slice(0, 19),
         endDate: this.events[this.events.length - 1].end.toString().slice(0, 19),
         idEventsEmployee: this.events[this.events.length - 1].id.toString(),
-        idSchedule: this.idCompanies,
+        idCompanies: this.idCompanies,
         idAccount: parseInt(args.resource.toString()),
         types: this.events[this.events.length - 1]['types'],
         isValid: this.events[this.events.length - 1]['isValid'],
