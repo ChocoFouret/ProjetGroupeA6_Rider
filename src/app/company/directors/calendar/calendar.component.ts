@@ -163,8 +163,7 @@ export class CalendarComponent implements OnInit {
         comments: this.events[this.events.length - 1]['comments'],
       }
       this.ds
-        .create(dto)
-        .subscribe();
+        .create(dto, this.ds.idCompanies.toString()).subscribe();
     },
     eventMoveHandling: "Update",
     onEventMoved: (args) => {
@@ -201,7 +200,7 @@ export class CalendarComponent implements OnInit {
       let dto: DtoOutputDeleteEvents = {
         idEventsEmployee: args.e.id().toString(),
       }
-      this.ds.delete(dto).subscribe();
+      this.ds.delete(dto, this.ds.idCompanies.toString()).subscribe();
     },
     eventClickHandling: "Disabled",
     eventHoverHandling: "Bubble",
@@ -222,7 +221,7 @@ export class CalendarComponent implements OnInit {
             let dto: DtoOutputDeleteEvents = {
               idEventsEmployee: args.source.id().toString(),
             }
-            this.ds.delete(dto).subscribe();
+            this.ds.delete(dto, this.ds.idCompanies.toString()).subscribe();
           }
         }
       ]
