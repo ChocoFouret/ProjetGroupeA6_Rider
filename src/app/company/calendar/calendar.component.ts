@@ -10,6 +10,7 @@ import ModalFormItem = DayPilot.ModalFormItem;
 import {WebsocketService} from "../../hubs/websocket.service";
 import {Router} from "@angular/router";
 import {DtoInputEvents} from "../dtos/dto-input-events";
+import {SessionService} from "../../session/session.service";
 
 @Component({
   selector: 'app-calendar',
@@ -31,7 +32,7 @@ export class CalendarComponent implements OnInit {
   }
   e: DayPilot.EventData = {id: 0, start: "", end: "", text: "", resource: 0};
   events: DayPilot.EventData[] = [];
-  private idCompanies: number = 0;
+  idCompanies: number = this._session.getCompanies();
 
   @ViewChild('scheduler')
   scheduler!: DayPilotSchedulerComponent;
@@ -357,7 +358,8 @@ export class CalendarComponent implements OnInit {
   constructor(private es: EventService,
               private wb: WebsocketService,
               private router: Router,
-              private viewContainerRef: ViewContainerRef) {
+              private viewContainerRef: ViewContainerRef,
+              private _session: SessionService) {
   }
 
   ngOnInit(): void {
@@ -369,7 +371,8 @@ export class CalendarComponent implements OnInit {
         this.eventTypes = dto;
       })
 
-    this.idCompanies = parseInt(this.router.url.split("/")[2])
+    this.idCompanies = this._session.getCompanies();
+
     this.es
       .fetchAllEmployees(this.idCompanies)
       .subscribe(employees => {

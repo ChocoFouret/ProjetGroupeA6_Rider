@@ -14,13 +14,12 @@ import {EventService} from "../../company/event.service";
   styleUrls: ['./request.component.css']
 })
 export class RequestComponent implements OnInit {
-  // A CHANGER LORSQU'ON VA RECUPERER LES CALENDRIERS
-  idSchedule: number = 1;
+  idSchedule: number = this._session.getCompanies();
   request: DtoOutputCreateEvents | undefined;
   event: any;
-  isVisibleForm : boolean = false;
-  isVisibleList : boolean = false;
-  isVisibleNotice : boolean = false;
+  isVisibleForm: boolean = false;
+  isVisibleList: boolean = false;
+  isVisibleNotice: boolean = false;
 
   form: FormGroup = new FormGroup({
     type: new FormControl("", Validators.required),
@@ -30,14 +29,14 @@ export class RequestComponent implements OnInit {
   });
 
   constructor(private _session: SessionService,
-              private _httpClient: HttpClient, private _requests : EventService) {
+              private _httpClient: HttpClient,
+              private _requests: EventService) {
   }
 
   ngOnInit(): void {
 
-    this._requests.fetchByEmployee(parseInt(this._session.getID())).subscribe(event =>{
-      console.log(event)
-      this.event=event
+    this._requests.fetchByEmployee(this._session.getID()).subscribe(event => {
+      this.event = event
     })
 
   }
@@ -49,7 +48,7 @@ export class RequestComponent implements OnInit {
       comments: this.form.value.raison,
       types: this.form.value.type,
       idEventsEmployee: DayPilot.guid(),
-      idAccount: parseInt(this._session.getID()),
+      idAccount: this._session.getID(),
       idSchedule: this.idSchedule,
       isValid: false,
     }
@@ -64,23 +63,19 @@ export class RequestComponent implements OnInit {
   }
 
   check() {
-    if(this.form.invalid) return true;
-    if (this.form.value.datefin > this.form.value.datedebut) {
-      return false
-    } else {
-      return true
-    }
+    if (this.form.invalid) return true;
+    return this.form.value.datefin <= this.form.value.datedebut;
   }
 
-  visible(id:number){
-    if(id ==  1){
-      this.isVisibleForm =true
+  visible(id: number) {
+    if (id == 1) {
+      this.isVisibleForm = true
       this.isVisibleList = false;
     }
-    if(id ==  2){
+    if (id == 2) {
       this.isVisibleForm = false;
-      this.isVisibleList =true;
-      this.isVisibleNotice= false;
+      this.isVisibleList = true;
+      this.isVisibleNotice = false;
     }
   }
 

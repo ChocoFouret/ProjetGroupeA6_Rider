@@ -10,7 +10,7 @@ export class AuthGuard implements CanActivate {
 
   // @ts-ignore
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-      if(this._serviceService.getFunction()=="False"){
+      if(this._serviceService.isAdmin()=="False"){
 
         return true
       } else {

@@ -28,11 +28,11 @@ export class ManagementComponent implements OnInit {
         this.employees = employees
 
         this.employees = this.employees.filter((item) => {
-          return this._serviceService.getEmail() != item.email;
+          return this._serviceService.getID() != item.idAccount;
         })
 
         this.employees = this.employees.filter((item) => {
-          return this._serviceService.getFunction() == "True"
+          return this._serviceService.isAdmin() == "True"
             ? !item.isAdmin || item.isAdmin
             : !item.isAdmin;
         });

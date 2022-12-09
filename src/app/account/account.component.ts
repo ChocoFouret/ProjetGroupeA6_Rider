@@ -7,14 +7,11 @@ import {SessionService} from "../session/session.service";
   styleUrls: ['./account.component.css']
 })
 export class AccountComponent implements OnInit {
-  function: any = "employee"
-  //function: any = "director"
+  function: string = this._session.getFunction();
 
 
   constructor(private _session: SessionService) { }
 
-  ngOnInit(): void {
-    console.log("ID : " + this._session.getID());
-  }
+  ngOnInit(): void { }
 
 }

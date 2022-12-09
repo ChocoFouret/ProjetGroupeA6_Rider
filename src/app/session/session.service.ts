@@ -47,21 +47,27 @@ export class SessionService {
     return jwt.default(token);
   }
 
-  getFunction():string{
+  isAdmin(): string {
     let cookie = this.DecodeToken(this.getCookie("public"));
     let result = Object.entries(cookie);
-    return(result[1][1].toString().split(',')[0]);
+    return result[1][1];
   }
 
-  getEmail():string{
+  getID(): number {
     let cookie = this.DecodeToken(this.getCookie("public"));
     let result = Object.entries(cookie);
-    return(result[0][1]);
+    return (parseInt(result[0][1].toString()));
   }
 
-  getID():string{
+  getCompanies(): number {
     let cookie = this.DecodeToken(this.getCookie("public"));
     let result = Object.entries(cookie);
-    return(result[1][1].toString().split(',')[1]);
+    return (parseInt(result[2][1].toString()));
+  }
+
+  getFunction(): string {
+    let cookie = this.DecodeToken(this.getCookie("public"));
+    let result = Object.entries(cookie);
+    return result[3][1];
   }
 }
