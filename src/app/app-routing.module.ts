@@ -42,7 +42,6 @@ const routes: Routes = [
       {path: 'calendar', component: CalendarComponent}
     ]
   },
-  // {path: 'company/:idCompagnie/:idSchedule', component: CompanyComponent},
   {path: 'home', component: HomeComponent,
     children: [
       {path: 'login', component: SessionComponent},

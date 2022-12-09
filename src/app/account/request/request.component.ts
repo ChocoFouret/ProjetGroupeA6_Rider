@@ -14,7 +14,7 @@ import {EventService} from "../../company/event.service";
   styleUrls: ['./request.component.css']
 })
 export class RequestComponent implements OnInit {
-  idSchedule: number = this._session.getCompanies();
+  idCompanies: number = this._session.getCompanies();
   request: DtoOutputCreateEvents | undefined;
   event: any;
   isVisibleForm: boolean = false;
@@ -49,7 +49,7 @@ export class RequestComponent implements OnInit {
       types: this.form.value.type,
       idEventsEmployee: DayPilot.guid(),
       idAccount: this._session.getID(),
-      idSchedule: this.idSchedule,
+      idCompanies: this.idCompanies,
       isValid: false,
     }
     this.doRequest(this.request).subscribe()
