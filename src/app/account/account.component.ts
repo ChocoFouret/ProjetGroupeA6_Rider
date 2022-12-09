@@ -8,6 +8,7 @@ import {SessionService} from "../session/session.service";
 })
 export class AccountComponent implements OnInit {
   function: any = "employee"
+  //function: any = "director"
 
 
   constructor(private _session: SessionService) { }

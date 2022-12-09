@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {DayPilot} from "daypilot-pro-angular";
 import {CalendarComponent} from "../calendar.component";
-import {DtoInputEventTypes} from "../../../dtos/dto-input-eventTypes";
+import {DtoInputEventTypes} from "../../dtos/dto-input-eventTypes";
+import {EventService} from "../../event.service";
 
 @Component({
   selector: 'app-info-event',
@@ -9,30 +10,34 @@ import {DtoInputEventTypes} from "../../../dtos/dto-input-eventTypes";
   styleUrls: ['./info-event.component.css']
 })
 export class InfoEventComponent implements OnInit {
-  constructor() {
-  }
-
-  ngOnInit(): void {
-    this.inputEventTypes.forEach((inputEventType) => {
-      this.eventTypes.push({
-        id: inputEventType.types,
-        value: inputEventType.types
-      })
-    })
-  }
-
+  public formEventTypes: any[] = [];
   public component: CalendarComponent | null = null;
   public text: string = "link";
-  public eventTypes: any = [];
   public inputEventTypes: DtoInputEventTypes[] = [];
   public data: any;
   public form: any = [
-    {name: "Type d'évènement", id: "types", type: "select", options: this.eventTypes},
+    {name: "Type d'évènement", id: "types", type: "select", options: this.formEventTypes},
     {name: "Validé", id: "isValid", type: "checkbox"},
     {name: "Demandes", id: "comments", type: "text"},
     {name: "Du", id: "start", type: "datetime", dateFormat: "d-M-yyyy", timeFormat: "HH:mm"},
     {name: "Au", id: "end", type: "datetime", dateFormat: "d-M-yyyy", timeFormat: "HH:mm"}
   ];
+
+  constructor(private es: EventService) {
+  }
+
+  ngOnInit(): void {
+    this.es
+      .fetchAllEventTypes()
+      .subscribe((dto: DtoInputEventTypes[]) => {
+        dto.forEach(eventType => {
+          this.formEventTypes.push({
+            name: eventType.types,
+            id: eventType.types
+          })
+        })
+      })
+  }
 
   async click(e: MouseEvent) {
     e.preventDefault();
@@ -69,6 +74,7 @@ export class InfoEventComponent implements OnInit {
     modal.result.endDate = modal.result.end;
     modal.result.idEventsEmployee = modal.result.id;
     modal.result.idAccount = modal.result.resource;
+    modal.result.eventTypes = {};
 
     if (modal.result.start <= modal.result.end) {
       this.component?.update(modal.result);

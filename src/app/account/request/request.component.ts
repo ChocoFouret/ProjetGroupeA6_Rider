@@ -20,6 +20,7 @@ export class RequestComponent implements OnInit {
   event: any;
   isVisibleForm : boolean = false;
   isVisibleList : boolean = false;
+  isVisibleNotice : boolean = false;
 
   form: FormGroup = new FormGroup({
     type: new FormControl("", Validators.required),
@@ -33,10 +34,12 @@ export class RequestComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this._requests.fetchByEmployee(parseInt(this._session.getID())).subscribe(event =>{
       console.log(event)
       this.event=event
     })
+
   }
 
   send() {
@@ -51,6 +54,9 @@ export class RequestComponent implements OnInit {
       isValid: false,
     }
     this.doRequest(this.request).subscribe()
+    this.isVisibleNotice = true
+    this.form.reset()
+    this.event.push(this.request)
   }
 
   doRequest(dto: DtoOutputCreateEvents) {
@@ -72,11 +78,10 @@ export class RequestComponent implements OnInit {
       this.isVisibleList = false;
     }
     if(id ==  2){
-      this.isVisibleList =true
       this.isVisibleForm = false;
+      this.isVisibleList =true;
+      this.isVisibleNotice= false;
     }
-
   }
-
 
 }

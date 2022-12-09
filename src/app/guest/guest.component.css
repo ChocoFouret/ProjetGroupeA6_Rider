@@ -1,9 +1,8 @@
-body {
+.body {
   display: flex;
   justify-content: center;
   align-items: center;
   width: auto;
-  height: 300px;
   margin-top: 10%;
   margin-left: auto;
   margin-bottom: auto;
@@ -11,10 +10,14 @@ body {
   color : #cccccc;
 }
 
+.contenair{
+  background-color: rgba(0, 0, 0, 0.56);
+}
+
  div{
-   background-color: rgba(0, 0, 0, 0.56);
    text-align: center;
    padding: 5%;
+   border-radius: 15px;
  }
  h4{
    margin-top: 10%;

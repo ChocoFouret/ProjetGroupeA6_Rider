@@ -1,3 +1,5 @@
+<html>
+<body>
 <h2>Nos employées</h2>
 <div>
   <ng-container *ngIf="employees.length">
@@ -19,3 +21,7 @@
 
 <app-management-detail [employee]="employee"
                        (employeeUpdated)="update($event)" (employeeUpdatedPassword)="updatePassword($event)" (employeeDeleted)="delete($event)"></app-management-detail>
+
+</body>
+
+</html>

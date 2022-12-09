@@ -15,14 +15,16 @@ import {ManagementListComponent} from './util/management/management-list/managem
 import {LeaveComponent} from './util/leave/leave.component';
 import {HomeComponent} from './home/home.component';
 import {CompanyComponent} from './company/company.component';
-import {CalendarComponent} from './company/directors/calendar/calendar.component';
+import {CalendarComponent} from './company/calendar/calendar.component';
 import {DayPilotModule} from "daypilot-pro-angular";
-import {TimesheetComponent} from './company/employee/timesheet/timesheet.component';
-import {InfoEventComponent} from './company/directors/calendar/info-event/info-event.component';
-import {DirectorsComponent} from './company/directors/directors.component';
+import {TimesheetComponent} from './account/timesheet/timesheet.component';
+import {InfoEventComponent} from './company/calendar/info-event/info-event.component';
 import {AccountComponent} from "./account/account.component";
-import {EmployeeComponent} from "./company/employee/employee.component";
 import { RequestComponent } from './account/request/request.component';
+import { ProfilComponent } from './account/profil/profil.component';
+import { RegisterComponent } from './register/register.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -41,9 +43,11 @@ import { RequestComponent } from './account/request/request.component';
     TimesheetComponent,
     InfoEventComponent,
     AccountComponent,
-    DirectorsComponent,
-    EmployeeComponent,
-    RequestComponent
+    RequestComponent,
+    ProfilComponent,
+    RegisterComponent,
+    WelcomeComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
