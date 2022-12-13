@@ -59,7 +59,7 @@ export class RequestComponent implements OnInit {
   }
 
   doRequest(dto: DtoOutputCreateEvents) {
-    return this._httpClient.post<DtoInputEvents>(environment.apiUrlEvents + "/create", {events: dto});
+    return this._httpClient.post<DtoInputEvents>(environment.apiUrlEvents + "/create/" + this.idCompanies, {events: dto});
   }
 
   check() {
