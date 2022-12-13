@@ -25,6 +25,7 @@ import { ProfilComponent } from './account/profil/profil.component';
 import { RegisterComponent } from './register/register.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AboutComponent } from './about/about.component';
+import { AnnouncesComponent } from './announces/announces.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { AboutComponent } from './about/about.component';
     ProfilComponent,
     RegisterComponent,
     WelcomeComponent,
-    AboutComponent
+    AboutComponent,
+    AnnouncesComponent
   ],
   imports: [
     BrowserModule,
