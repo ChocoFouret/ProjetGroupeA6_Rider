@@ -2,4 +2,12 @@
 html{
   background-image: url("fond.png");
   height: 100%;
+  /*
+  overflow: scroll;
+  overflow-x: hidden;
+}
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+  */
 }

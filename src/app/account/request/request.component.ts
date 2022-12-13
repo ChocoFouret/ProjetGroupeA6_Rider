@@ -23,9 +23,13 @@ export class RequestComponent implements OnInit {
 
   form: FormGroup = new FormGroup({
     type: new FormControl("", Validators.required),
-    raison: new FormControl("", Validators.required),
-    datedebut: new FormControl("", Validators.required),
-    datefin: new FormControl("", Validators.required),
+    comments: new FormControl("", Validators.required),
+    startDate: new FormControl("", [
+      Validators.required
+    ]),
+    endDate: new FormControl("", [
+      Validators.required
+    ]),
   });
 
   constructor(private _session: SessionService,
@@ -34,49 +38,54 @@ export class RequestComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this._requests.fetchByEmployee(this._session.getID()).subscribe(event => {
       this.event = event
+      this.event = this.event.filter((event: any) => event.types != "Travail")
     })
-
   }
 
   send() {
-    this.request = {
-      startDate: this.form.value.datedebut,
-      endDate: this.form.value.datefin,
-      comments: this.form.value.raison,
-      types: this.form.value.type,
-      idEventsEmployee: DayPilot.guid(),
-      idAccount: this._session.getID(),
-      idCompanies: this.idCompanies,
-      isValid: false,
+    if (!this.form.invalid) {
+      this.request = {
+        startDate: this.form.value.startDate,
+        endDate: this.form.value.endDate,
+        comments: this.form.value.comments,
+        types: this.form.value.type,
+        idEventsEmployee: DayPilot.guid(),
+        idAccount: this._session.getID(),
+        idCompanies: this.idCompanies,
+        isValid: false,
+      }
+      this.doRequest(this.request).subscribe()
+      this.isVisibleNotice = true
+      this.form.reset()
+      this.event.push(this.request)
     }
-    this.doRequest(this.request).subscribe()
-    this.isVisibleNotice = true
-    this.form.reset()
-    this.event.push(this.request)
   }
 
   doRequest(dto: DtoOutputCreateEvents) {
     return this._httpClient.post<DtoInputEvents>(environment.apiUrlEvents + "/create/" + this.idCompanies, {events: dto});
   }
 
-  check() {
-    if (this.form.invalid) return true;
-    return this.form.value.datefin <= this.form.value.datedebut;
-  }
-
   visible(id: number) {
     if (id == 1) {
       this.isVisibleForm = true
       this.isVisibleList = false;
-    }
-    if (id == 2) {
+    } else if (id == 2) {
       this.isVisibleForm = false;
       this.isVisibleList = true;
       this.isVisibleNotice = false;
     }
   }
 
+  dateChooseValidators() {
+    let startDate = this.form.value.startDate;
+    let endDate = this.form.value.endDate;
+    if (startDate > endDate) {
+      this.form.controls['startDate'].setErrors({invalid: true});
+    } else if (startDate <= endDate) {
+      this.form.controls['startDate'].setErrors(null);
+    }
+    return null;
+  }
 }

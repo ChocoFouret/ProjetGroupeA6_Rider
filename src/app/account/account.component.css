@@ -6,7 +6,7 @@
 }
 
 body{
-  font-family: 'Poppins';
+  font-family: 'Poppins', serif;
 }
 
 header{
@@ -16,13 +16,12 @@ header{
 }
 
 .navbar{
-  position: absolute;
+  position: static;
   padding: 30px;
   display: flex;
   justify-content: space-between;
   width: 99%;
   box-sizing: border-box;
-  border: 1px black solid;
 
 }
 
@@ -50,4 +49,9 @@ header{
 
 .navbar .nav-links ul il{
   margin: 0 30px;
+}
+
+h1{
+  text-align: center;
+  text-decoration: underline;
 }
