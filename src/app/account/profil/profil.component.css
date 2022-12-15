@@ -18,16 +18,16 @@
 .container{
   text-align: center;
   width: 100%;
+  float : left;
 }
 
 .row{
-  float: left;
   width: 100%;
   display: flex;
 }
 
 .interior{
-  width: 50%;
+  width: 100%;
 }
 
 .titre{
