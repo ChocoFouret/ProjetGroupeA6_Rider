@@ -2,8 +2,6 @@
   <div id="menu">
     <button (click)="visible(1)">Faire une demande</button>
     <button (click)="visible(2)"> Voir mes demandes</button>
-    <button (click)="visible(3)" *ngIf="isVisibleList"> Modifier une demande</button>
-    <button (click)="visible(4)" *ngIf="isVisibleList"> Supprimer une demande</button>
   </div>
 
   <div id="corps" *ngIf="isVisibleForm || isVisibleList">
@@ -31,7 +29,12 @@
               <p *ngIf="this.form.controls['startDate'].errors?.['invalid']">La date doit être plus éloignée.</p>
             </label>
             <br><br>
-            <input type="submit" value="Valider" [disabled]="!this.form.valid">
+            <ng-container *ngIf="event.id == null">
+              <input type="submit" value="Envoyer" [disabled]="!this.form.valid">
+            </ng-container>
+            <ng-container *ngIf="event.id != null">
+              <input type="submit" value="Modifier" [disabled]="!this.form.valid">
+            </ng-container>
         </form>
       </fieldset>
       <div id="success-box" *ngIf="isVisibleNotice">
@@ -51,9 +54,21 @@
     <div id="list" *ngIf="isVisibleList">
       <fieldset>
         <legend>Mes demandes</legend>
-        <ul *ngFor="let e of event">
-          <li> {{e.comments}} </li>
-        </ul>
+        <ng-container class="requests" *ngFor="let e of events">
+          <div class="request">
+            <div class="infos">
+              <h3>{{e.types}}</h3>
+              <p> {{e.comments}} <br>
+                Du <span class="date">{{e.startDate.slice(0, 10)}}</span>
+                au <span class="date">{{e.endDate.slice(0, 10)}}</span>
+              </p>
+            </div>
+            <div class="action" *ngIf="!e.isValid">
+              <img src="assets/pictures/edit.png" (click)="edit(e.idEventsEmployee)" width="55" height="55" alt="image"/>
+              <img src="assets/pictures/delete.png" width="55" height="55" alt="image"/>
+            </div>
+          </div>
+        </ng-container>
       </fieldset>
     </div>
   </div>

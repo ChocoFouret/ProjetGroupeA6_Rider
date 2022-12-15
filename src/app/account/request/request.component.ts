@@ -7,6 +7,7 @@ import {DtoInputEvents} from "../../company/dtos/dto-input-events";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {EventService} from "../../company/event.service";
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-request',
@@ -17,6 +18,7 @@ export class RequestComponent implements OnInit {
   idCompanies: number = this._session.getCompanies();
   request: DtoOutputCreateEvents | undefined;
   event: any;
+  events: any;
   isVisibleForm: boolean = false;
   isVisibleList: boolean = false;
   isVisibleNotice: boolean = false;
@@ -34,13 +36,19 @@ export class RequestComponent implements OnInit {
 
   constructor(private _session: SessionService,
               private _httpClient: HttpClient,
-              private _requests: EventService) {
+              private _requests: EventService,
+              private toastr: ToastrService) {
   }
+
+  success(arg:string) { this.toastr.success(arg, 'Succès') }
+  error(arg:string) { this.toastr.error(arg, 'Erreur') }
+  info(arg:string) { this.toastr.info(arg, 'Information'); }
+  warning(arg:string) { this.toastr.warning(arg, 'Attention'); }
 
   ngOnInit(): void {
     this._requests.fetchByEmployee(this._session.getID()).subscribe(event => {
-      this.event = event
-      this.event = this.event.filter((event: any) => event.types != "Travail")
+      this.events = event;
+      this.events = this.events.filter((event: any) => event.types != "Travail")
     })
   }
 
@@ -56,21 +64,47 @@ export class RequestComponent implements OnInit {
         idCompanies: this.idCompanies,
         isValid: false,
       }
-      this.doRequest(this.request).subscribe()
+      if (this.event.id != null) {
+        this.request.idEventsEmployee = this.event.id;
+        this.doUpdate(this.request).subscribe()
+      } else {
+        this.doRequest(this.request).subscribe()
+        this.events.push(this.request)
+      }
       this.isVisibleNotice = true
       this.form.reset()
-      this.event.push(this.request)
     }
   }
 
   doRequest(dto: DtoOutputCreateEvents) {
+    this.success("Demande envoyée");
     return this._httpClient.post<DtoInputEvents>(environment.apiUrlEvents + "/create/" + this.idCompanies, {events: dto});
+  }
+
+  doUpdate(dto: DtoOutputCreateEvents) {
+    this.success("Demande modifiée");
+    this.events.find((event: any) => event.idEventsEmployee == dto.idEventsEmployee).startDate = dto.startDate;
+    this.events.find((event: any) => event.idEventsEmployee == dto.idEventsEmployee).endDate = dto.endDate;
+    this.events.find((event: any) => event.idEventsEmployee == dto.idEventsEmployee).comments = dto.comments;
+    this.events.find((event: any) => event.idEventsEmployee == dto.idEventsEmployee).types = dto.types;
+    return this._httpClient.put(environment.apiUrlEvents + "/update/" + this.idCompanies, dto);
   }
 
   visible(id: number) {
     if (id == 1) {
       this.isVisibleForm = true
       this.isVisibleList = false;
+
+      this.event = {
+        id: null,
+        startDate: "",
+        endDate: "",
+        comments: "",
+        type: ""
+      }
+
+      this.changeForm(this.event);
+
     } else if (id == 2) {
       this.isVisibleForm = false;
       this.isVisibleList = true;
@@ -87,5 +121,30 @@ export class RequestComponent implements OnInit {
       this.form.controls['startDate'].setErrors(null);
     }
     return null;
+  }
+
+  edit(id: string) {
+    let event = this.events.find((event: any) => event.idEventsEmployee == id)
+    this.event = {
+      id: event.idEventsEmployee,
+      startDate: event.startDate,
+      endDate: event.endDate,
+      comments: event.comments,
+      type: event.types
+    }
+    this.changeForm(this.event);
+
+    this.isVisibleForm = true
+    this.isVisibleList = false;
+  }
+
+  changeForm(event: any) {
+    this.form.setValue({
+      startDate: event.startDate,
+      endDate: event.endDate,
+      comments: event.comments,
+      type: event.type
+    })
+    this.form.controls['type'].setValue(event.type);
   }
 }

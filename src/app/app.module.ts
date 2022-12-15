@@ -20,11 +20,13 @@ import {DayPilotModule} from "daypilot-pro-angular";
 import {TimesheetComponent} from './account/timesheet/timesheet.component';
 import {InfoEventComponent} from './company/calendar/info-event/info-event.component';
 import {AccountComponent} from "./account/account.component";
-import { RequestComponent } from './account/request/request.component';
-import { ProfilComponent } from './account/profil/profil.component';
-import { RegisterComponent } from './register/register.component';
-import { WelcomeComponent } from './welcome/welcome.component';
-import { AboutComponent } from './about/about.component';
+import {RequestComponent} from './account/request/request.component';
+import {ProfilComponent} from './account/profil/profil.component';
+import {RegisterComponent} from './register/register.component';
+import {WelcomeComponent} from './welcome/welcome.component';
+import {AboutComponent} from './about/about.component';
+import {ToastrModule} from 'ngx-toastr';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import { AboutComponent } from './about/about.component';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    DayPilotModule
+    DayPilotModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

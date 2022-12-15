@@ -26,16 +26,19 @@ button {
 }
 
 #corps {
-  background-color: rgba(0, 0, 0, 0.50);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  background-color: rgba(0, 0, 0, 0.3);
+
   width: 78%;
   height: 1%;
 }
 
-#forms{
+#forms {
   padding: 1%;
 }
 
-#list{
+#list {
   padding: 1%;
 }
 
@@ -51,4 +54,45 @@ button {
   left: 12%;
   border-radius: 20px;
   perspective: 40px;
+}
+
+.requests {
+  display: flex;
+}
+
+
+.request {
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  background-color: rgba(255, 255, 255, 0.5);
+
+  border-radius: 20px;
+  margin: 4px auto auto;
+  display: flex;
+}
+
+.infos {
+  padding-left: 1.2%;
+  width: 100%;
+  margin-left: 1%;
+  line-height: 1.1;
+}
+
+.action {
+  display: flex;
+  margin: auto 15px auto auto;
+}
+
+h3 {
+  line-height: 0;
+  text-decoration: underline;
+}
+
+img {
+  cursor: pointer;
+}
+
+.date {
+  text-decoration: underline;
+  color: darkslategrey;
 }
