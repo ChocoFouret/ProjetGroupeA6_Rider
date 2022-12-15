@@ -1,59 +1,35 @@
-html{
-  background-image: none;
-}
-body{
-  background-image: none;
-  margin-top: 20px;
-}
-
-.row {
-  display: inline-flex;
-}
-
-.main{
-  padding: 15px;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-#container{
-  width: 900px;
-}
-
-#sidebar{
-  margin-top: -15%;
-  width: 250px;
-  float: left;
-}
-
 #corps{
+
   margin-left: 250px;
   background-color: rgba(0, 0, 0, 0.47);
   margin-top:20%;
   width: 900px;
   padding: auto;
+  height: auto;
 }
-
-.sidebar{
-  background-color: black;
-  color: white;
-  height: 100%;
-}
-
-.sidebar a{
-  margin-left: 10px;
-  display: block;
-  color: white;
-  padding-bottom: 10px;
-  font-size: 30px;
-  text-decoration: none;
-}
-
-  .card{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-  }
 
 .content{
   background-color: rgba(0, 0, 0, 0.35);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+}
+
+.container{
+  text-align: center;
+  width: 100%;
+}
+
+.row{
+  float: left;
+  width: 100%;
+  display: flex;
+}
+
+.interior{
+  width: 50%;
+}
+
+.titre{
+  font-weight: bold;
 }

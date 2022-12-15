@@ -37,23 +37,9 @@
             </ng-container>
         </form>
       </fieldset>
-      <div id="success-box" *ngIf="isVisibleNotice">
-        <div class="dot"></div>
-        <div class="dot two"></div>
-        <div class="face">
-          <div class="eye"></div>
-          <div class="eye right"></div>
-          <div class="mouth happy"></div>
-        </div>
-        <div class="shadow scale"></div>
-        <div class="message"><h1 class="alert">Success!</h1>
-          <p>Votre demande a bien été envoyée.</p></div>
-      </div>
     </div>
 
     <div id="list" *ngIf="isVisibleList">
-      <fieldset>
-        <legend>Mes demandes</legend>
         <ng-container class="requests" *ngFor="let e of events">
           <div class="request">
             <div class="infos">
@@ -64,12 +50,11 @@
               </p>
             </div>
             <div class="action" *ngIf="!e.isValid">
-              <img src="assets/pictures/edit.png" (click)="edit(e.idEventsEmployee)" width="55" height="55" alt="image"/>
-              <img src="assets/pictures/delete.png" width="55" height="55" alt="image"/>
+              <img src="assets/pictures/edit.png" (click)="edit(e.idEventsEmployee)" width="25" height="25" alt="image"/>
+              <img src="assets/pictures/delete.png" width="25" height="25" alt="image"/>
             </div>
           </div>
         </ng-container>
-      </fieldset>
     </div>
   </div>
 </div>

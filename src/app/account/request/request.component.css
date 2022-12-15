@@ -29,6 +29,7 @@ button {
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
 
   width: 78%;
   height: 1%;
@@ -45,15 +46,6 @@ button {
 .alert {
   font-weight: 700;
   letter-spacing: 5px;
-}
-
-#success-box {
-  position: absolute;
-  width: 35%;
-  height: 100%;
-  left: 12%;
-  border-radius: 20px;
-  perspective: 40px;
 }
 
 .requests {
