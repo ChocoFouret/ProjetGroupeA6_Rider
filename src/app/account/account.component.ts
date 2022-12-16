@@ -9,8 +9,8 @@ import {SessionService} from "../session/session.service";
 export class AccountComponent implements OnInit {
   function: string = this._session.getFunction();
 
-
-  constructor(private _session: SessionService) { }
+  constructor(private _session: SessionService) {
+  }
 
   ngOnInit(): void { }
 

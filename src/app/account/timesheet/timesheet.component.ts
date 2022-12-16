@@ -1,6 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {DayPilot, DayPilotSchedulerComponent} from "daypilot-pro-angular";
-import ModalFormItem = DayPilot.ModalFormItem;
 import {DtoInputEventTypes} from "../../company/dtos/dto-input-eventTypes";
 import {EventService} from "../../company/event.service";
 import {WebsocketService} from "../../hubs/websocket.service";
@@ -34,7 +33,6 @@ export class TimesheetComponent implements OnInit {
   @ViewChild('timesheet')
   timesheet!: DayPilotSchedulerComponent;
   eventTypes: DtoInputEventTypes[] = [];
-  formEventTypes: ModalFormItem[] = [];
 
   config: DayPilot.SchedulerConfig = {
     locale: "fr-be",
