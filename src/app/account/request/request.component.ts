@@ -3,11 +3,9 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {DtoOutputCreateEvents} from "../../company/dtos/dto-output-create-events";
 import {DayPilot} from "daypilot-pro-angular";
 import {SessionService} from "../../session/session.service";
-import {DtoInputEvents} from "../../company/dtos/dto-input-events";
 import {HttpClient} from "@angular/common/http";
-import {environment} from "../../../environments/environment";
 import {EventService} from "../../company/event.service";
-import {ToastrService} from 'ngx-toastr';
+import {WebsocketService} from "../../hubs/websocket.service";
 
 @Component({
   selector: 'app-request',
@@ -36,22 +34,56 @@ export class RequestComponent implements OnInit {
 
   constructor(private _session: SessionService,
               private _httpClient: HttpClient,
-              private _requests: EventService,
-              private toastr: ToastrService) {
+              private wb: WebsocketService,
+              private _requests: EventService) {
   }
 
-  success(arg:string) { this.toastr.success(arg, 'Succès') }
-  error(arg:string) { this.toastr.error(arg, 'Erreur') }
-  info(arg:string) { this.toastr.info(arg, 'Information'); }
-  warning(arg:string) { this.toastr.warning(arg, 'Attention'); }
-
   ngOnInit(): void {
+    this.wb.init(this);
+    this.loadEvents();
+  }
+
+  loadEvents() {
+    this.events = [];
     this._requests.fetchByEmployee(this._session.getID()).subscribe(event => {
       this.events = event;
       this.events = this.events.filter((event: any) => event.types != "Travail")
     })
   }
 
+  // Method for updating events. (WebSocket)
+  localUpdate(dto: any) {
+    this.events.forEach((event: any) => {
+      if (event.idEventsEmployee == dto.idEventsEmployee) {
+        event.startDate = dto.startDate;
+        event.endDate = dto.endDate;
+        event.comments = dto.comments;
+        event.types = dto.types;
+      }
+    });
+  }
+
+  // Method for deleting events. (WebSocket)
+  localDelete(id: string) {
+    this.events = this.events.filter((event: any) => event.idEventsEmployee != id)
+  }
+
+  // Method for creating events. (WebSocket)
+  localCreate(dto: any) {
+    if(!this.events.includes(dto.events.idEventsEmployee)){
+      this.event = {
+        idEventsEmployee: dto.events.idEventsEmployee,
+        startDate: dto.events.startDate,
+        endDate: dto.events.endDate,
+        comments: dto.events.comments,
+        types: dto.events.types,
+      }
+      this.events.push(this.event);
+      this.event = null;
+    }
+  }
+
+  // Method for sending events
   send() {
     if (!this.form.invalid) {
       this.request = {
@@ -66,31 +98,37 @@ export class RequestComponent implements OnInit {
       }
       if (this.event.id != null) {
         this.request.idEventsEmployee = this.event.id;
-        this.doUpdate(this.request).subscribe()
+        this.doUpdate(this.request);
       } else {
-        this.doRequest(this.request).subscribe()
-        this.events.push(this.request)
+        this.doRequest(this.request);
+        this.events.push(this.request);
       }
       this.isVisibleNotice = true
       this.form.reset()
     }
   }
 
+  // Sends the event to the service.
   doRequest(dto: DtoOutputCreateEvents) {
-    this.success("Demande envoyée");
-    return this._httpClient.post<DtoInputEvents>(environment.apiUrlEvents + "/create/" + this.idCompanies, {events: dto});
+    this._requests.createEvent(dto, dto.idCompanies.toString()).subscribe();
   }
 
+  // Sends the event to the service.
   doUpdate(dto: DtoOutputCreateEvents) {
     this.visible(2)
-    this.success("Demande modifiée");
-    this.events.find((event: any) => event.idEventsEmployee == dto.idEventsEmployee).startDate = dto.startDate;
-    this.events.find((event: any) => event.idEventsEmployee == dto.idEventsEmployee).endDate = dto.endDate;
-    this.events.find((event: any) => event.idEventsEmployee == dto.idEventsEmployee).comments = dto.comments;
-    this.events.find((event: any) => event.idEventsEmployee == dto.idEventsEmployee).types = dto.types;
-    return this._httpClient.put(environment.apiUrlEvents + "/update/" + this.idCompanies, dto);
+    this._requests.fetchEventById(dto.idEventsEmployee).subscribe(event => {
+      this.event = event;
+      this.event.startDate = dto.startDate;
+      this.event.endDate = dto.endDate;
+      this.event.comments = dto.comments;
+      this.event.types = dto.types;
+      this._requests.updateEvent(this.event, this.event.idCompanies.toString()).subscribe();
+
+      this.loadEvents();
+    });
   }
 
+  // Change the visibility of the divs
   visible(id: number) {
     if (id == 1) {
       this.isVisibleForm = true
@@ -103,7 +141,6 @@ export class RequestComponent implements OnInit {
         comments: "",
         type: ""
       }
-
       this.changeForm(this.event);
 
     } else if (id == 2) {
@@ -113,6 +150,7 @@ export class RequestComponent implements OnInit {
     }
   }
 
+  // Checking dates
   dateChooseValidators() {
     let startDate = this.form.value.startDate;
     let endDate = this.form.value.endDate;
@@ -124,6 +162,7 @@ export class RequestComponent implements OnInit {
     return null;
   }
 
+  // Allows to update an event (displays it in the form)
   edit(id: string) {
     let event = this.events.find((event: any) => event.idEventsEmployee == id)
     this.event = {
@@ -139,6 +178,7 @@ export class RequestComponent implements OnInit {
     this.isVisibleList = false;
   }
 
+  // Change view
   changeForm(event: any) {
     this.form.setValue({
       startDate: event.startDate,
