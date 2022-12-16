@@ -18,7 +18,7 @@ export class RequestComponent implements OnInit {
   event: any;
   events: any;
   isVisibleForm: boolean = false;
-  isVisibleList: boolean = false;
+  isVisibleList: boolean = true;
   isVisibleNotice: boolean = false;
 
   form: FormGroup = new FormGroup({
@@ -115,6 +115,7 @@ export class RequestComponent implements OnInit {
 
   // Sends the event to the service.
   doUpdate(dto: DtoOutputCreateEvents) {
+    this.visible(2)
     this._requests.fetchEventById(dto.idEventsEmployee).subscribe(event => {
       this.event = event;
       this.event.startDate = dto.startDate;

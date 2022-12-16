@@ -1,7 +1,6 @@
 <div id="global">
   <div id="menu">
     <button (click)="visible(1)">Faire une demande</button>
-    <button (click)="visible(2)"> Voir mes demandes</button>
   </div>
 
   <div id="corps" *ngIf="isVisibleForm || isVisibleList">
@@ -35,6 +34,8 @@
             <ng-container *ngIf="event.id != null">
               <input type="submit" value="Modifier" [disabled]="!this.form.valid">
             </ng-container>
+           <input type="reset" value="Annuler" (click)="visible(2)">
+
         </form>
       </fieldset>
     </div>
