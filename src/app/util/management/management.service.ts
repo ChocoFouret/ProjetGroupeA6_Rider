@@ -14,6 +14,14 @@ export class ManagementService {
   public static readonly ENTRY_POINT = environment.apiUrlAccount;
   constructor(private _httpClient: HttpClient) { }
 
+  fetchFunction(id: number): Observable<any[]> {
+    return this._httpClient.get<any[]>(environment.apiUrlHas + "/fetchAccount/" + id);
+  }
+
+  fetchCompany(id:number): Observable<any> {
+    return this._httpClient.get<any>(environment.apiUrlCompanies + "/fetchById/" + id);
+  }
+
   fetchAll(): Observable<DtoInputEmployee[]> {
     return this._httpClient.get<DtoInputEmployee[]>(ManagementService.ENTRY_POINT + "/fetch");
   }

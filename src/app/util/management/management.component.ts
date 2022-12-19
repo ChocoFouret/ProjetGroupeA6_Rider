@@ -13,9 +13,9 @@ import {DtoOutputUpdatePasswordEmployee} from "./dtos/dto-output-update-password
 })
 export class ManagementComponent implements OnInit {
   employees: DtoInputEmployee[] = [];
+  filter: string = "";
 
-  constructor(private _employeesService: ManagementService, private _serviceService: SessionService) {
-  }
+  constructor(private _employeesService: ManagementService, private _serviceService: SessionService) { }
 
   ngOnInit(): void {
     this.fetchAll();
@@ -25,24 +25,35 @@ export class ManagementComponent implements OnInit {
     this._employeesService
       .fetchAll()
       .subscribe(employees => {
-        this.employees = employees
-
-        this.employees = this.employees.filter((item) => {
-          return this._serviceService.getID() != item.idAccount;
+        this.employees = employees;
+        this.employees.filter(async (item) => {
+          item.firstName = item.firstName.charAt(0).toUpperCase() + item.firstName.slice(1);
+          item.lastName = item.lastName.charAt(0).toUpperCase() + item.lastName.slice(1);
+          await this._employeesService.fetchFunction(item.idAccount).subscribe(async e => {
+            if (e[0] != null) {
+              item.function = e[0].function.title
+              await this._employeesService.fetchCompany(e[0].idCompanies).subscribe(e => {
+                item.company = e.companiesName;
+              })
+            }
+          });
+          if (!item.company) {
+            item.company = "Aucune";
+          }
         })
 
-        this.employees = this.employees.filter((item) => {
-          return this._serviceService.isAdmin() == "True"
-            ? !item.isAdmin || item.isAdmin
-            : !item.isAdmin;
-        });
-
         this.employees.sort((a, b) => {
-          if (a.isAdmin > b.isAdmin) {
+          if (a.isAdmin < b.isAdmin) {
             return 1;
           } else if (a.isAdmin == b.isAdmin) {
             if (a.lastName > b.lastName) {
               return 1;
+            } else if (a.lastName == b.lastName) {
+              if (a.firstName < b.firstName) {
+                return 1;
+              } else {
+                return -1;
+              }
             }
           }
           return -1;

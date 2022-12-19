@@ -11,40 +11,21 @@ import {DtoOutputUpdatePasswordEmployee} from "../dtos/dto-output-update-passwor
 })
 export class ManagementListComponent implements OnInit {
   @Input() employees: DtoInputEmployee[] = [];
-  @Output() employee: DtoInputEmployee | undefined;
+  @Input() filter: string = "";
 
+  @Output() employee: DtoInputEmployee | undefined;
   @Output() employeeUpdated: EventEmitter<DtoOutputUpdateEmployee> = new EventEmitter<DtoOutputUpdateEmployee>();
   @Output() employeeUpdatedPassword: EventEmitter<DtoOutputUpdatePasswordEmployee> = new EventEmitter<DtoOutputUpdatePasswordEmployee>();
-
   @Output() employeeDeleted: EventEmitter<DtoOutputDeleteEmployee> = new EventEmitter<DtoOutputDeleteEmployee>();
+  detailVisible: boolean = false;
 
-  administrators: number = 0;
-  directors: number = 0;
-
-  selectedEmployee = 0;
-
-  constructor() {
-  }
+  constructor() { }
 
   ngOnInit(): void {
-  }
 
-  ngOnChanges(changes: any) {
-    if (changes.employees != null) {
-      this.administrators = this.employees.filter(employee => employee.isAdmin).length;
-      this.directors = this.employees.filter(employee => !employee.isAdmin).length;
-    }
-  }
-
-  getDetail = () => {
-    this.employee = this.employees.find(e =>
-      e.idAccount == this.selectedEmployee
-    );
-    console.log(this.employee)
   }
 
   update(dto: DtoOutputUpdateEmployee) {
-    this.selectedEmployee = 0;
     this.employeeUpdated.next({
       idAccount: dto.idAccount,
       firstName: dto.firstName,
@@ -71,9 +52,13 @@ export class ManagementListComponent implements OnInit {
 
   delete(dto: DtoOutputDeleteEmployee) {
     this.employees = this.employees.filter(e => e.idAccount != dto.idAccount);
-    this.getDetail();
     this.employeeDeleted.next({
       idAccount: dto.idAccount
     })
+    this.detailVisible = false;
+  }
+
+  select(employee: DtoInputEmployee | undefined) {
+    this.employee = employee;
   }
 }

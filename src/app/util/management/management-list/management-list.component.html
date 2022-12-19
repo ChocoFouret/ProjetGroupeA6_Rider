@@ -1,27 +1,49 @@
-<html>
-<body>
-<h2>Nos employées</h2>
-<div>
-  <ng-container *ngIf="employees.length">
-    <select [(ngModel)]="selectedEmployee" (ngModelChange)="getDetail()">
-      <optgroup label="Admins">
-        <ng-container *ngFor="let employee of employees">
-          <option *ngIf="employee.isAdmin" value="{{employee.idAccount}}">{{employee.lastName}}, {{employee.firstName}}</option>
-        </ng-container>
-      </optgroup>
-      <optgroup label="Employés">
-        <ng-container *ngFor="let employee of employees">
-          <option *ngIf="!employee.isAdmin" value="{{employee.idAccount}}">{{employee.lastName}}, {{employee.firstName}}</option>
-        </ng-container>
-      </optgroup>
-    </select>
-    <button (click)="selectedEmployee = 0">Réinitialiser</button>
-  </ng-container>
+﻿<h2>Nos membres</h2>
+<ng-container *ngIf="employees.length">
+  <div class="container user-widget-2">
+    <ng-container *ngFor="let employee of employees">
+      <label class="btn media" for="modal-info" (click)="select(employee)">
+        <div *ngIf="employee.lastName.toLowerCase().includes(filter) || employee.firstName.toLowerCase().includes(filter)">
+          <div class="upper">
+            <div class="upper-left">
+              <img class="rounded-circle d-flex align-self-center"
+                   src="{{employee.pictureURL}}"
+                   alt="">
+            </div>
+            <div class="upper-right">
+              <h5>{{employee.lastName}} {{employee.firstName}}</h5>
+              <p>{{employee.company}}</p>
+            </div>
+          </div>
+          <div class="bottom">
+            <div class="media-body">
+              <p>
+                <span *ngIf="employee.function"
+                      class="badge badge-outline badge-sm badge-info badge-pill">{{employee.function}}</span>
+                <span *ngIf="!employee.isAdmin"
+                      class="badge badge-outline badge-sm badge-primary badge-pill">Membres</span>
+                <span *ngIf="employee.isAdmin" class="badge badge-outline badge-sm badge-danger badge-pill">Administrateur</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </label>
+    </ng-container>
+  </div>
+</ng-container>
+
+<input class="modal-state" id="modal-info" type="checkbox" [checked]="detailVisible" (click)="detailVisible = true" />
+<div class="modal" [hidden]="!detailVisible">
+  <div class="modal__inner">
+    <label class="modal__close" for="modal-info">
+      <svg class="icon icon--sm" viewBox="0 0 40 40">
+        <path class="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30"></path>
+      </svg>
+    </label>
+    <app-management-detail *ngIf="employee"
+                           [employee]="employee"
+                           (employeeUpdated)="update($event)"
+                           (employeeUpdatedPassword)="updatePassword($event)"
+                           (employeeDeleted)="delete($event)"></app-management-detail>
+  </div>
 </div>
-
-<app-management-detail [employee]="employee"
-                       (employeeUpdated)="update($event)" (employeeUpdatedPassword)="updatePassword($event)" (employeeDeleted)="delete($event)"></app-management-detail>
-
-</body>
-
-</html>

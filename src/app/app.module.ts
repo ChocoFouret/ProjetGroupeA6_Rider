@@ -27,6 +27,7 @@ import {WelcomeComponent} from './welcome/welcome.component';
 import {AboutComponent} from './about/about.component';
 import {ToastrModule} from 'ngx-toastr';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {AlertComponent} from './util/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     ProfilComponent,
     RegisterComponent,
     WelcomeComponent,
-    AboutComponent
+    AboutComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,
