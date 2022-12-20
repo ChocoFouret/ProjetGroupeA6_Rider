@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+ import { Component, OnInit } from '@angular/core';
+ import {ProfilService} from "./profil.service";
+ import {DtoInputProfil} from "./dtos/dto-input-profil";
 
 @Component({
   selector: 'app-profil',
@@ -6,10 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profil.component.css']
 })
 export class ProfilComponent implements OnInit {
-
-  constructor() { }
+  profil : DtoInputProfil = {
+    firstName : "",
+    lastName : "",
+    email : "",
+    pictureURL: "",
+  };
+  constructor(private profilService : ProfilService) {}
 
   ngOnInit(): void {
+    this.profilService.fetchProfil(5).subscribe(profil=> this.profil = profil)
   }
 
 }

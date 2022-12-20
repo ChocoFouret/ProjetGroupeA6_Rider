@@ -1,5 +1,5 @@
 <div class="container">
-
+<form #form="ngForm">
   <div>
     <img src="/assets/pictures/prof.png" class="rounded-circle" width="150">
   </div>
@@ -8,10 +8,18 @@
       <h1>Informations personnelles</h1>
     <div class="row">
       <div class="interior">
-        <p><span class="titre">Nom</span> : nom</p>
+        <p><span class="titre">Nom</span> :
+          <input [(ngModel)]="this.profil.lastName"
+                 name="lastName"
+                 required
+                 #lastNameEl="ngModel">
+        </p>
       </div>
       <div class="interior">
-        <p><span class="titre">Prénom</span> : prenom</p>
+        <p><span class="titre">Prénom</span> : <input [(ngModel)]="this.profil.firstName"
+                                                      name="firstName"
+                                                      required
+                                                      #firstNameEl="ngModel"></p>
       </div>
     </div>
     <br>
@@ -35,12 +43,17 @@
         <p><span class="titre">Numéro de téléphonne</span> : 0000000000</p>
       </div>
       <div class="interior">
-        <p><span class="titre">Email</span> : xxx@xxxxx.xxx</p>
+        <p><span class="titre">Email</span> :
+          {{this.profil.email}}
+          <input [(ngModel)]="this.profil.email"
+                 name="email"
+                 required
+                 #emailEl="ngModel"></p>
       </div>
     </div>
     <br>
   </div>
-
+</form>
   <div class="content">
       <h1>Informations relatives à la société</h1>
     <div class="row">
