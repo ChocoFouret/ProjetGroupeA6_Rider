@@ -19,11 +19,9 @@ export class ManagementListComponent implements OnInit {
   @Output() employeeDeleted: EventEmitter<DtoOutputDeleteEmployee> = new EventEmitter<DtoOutputDeleteEmployee>();
   detailVisible: boolean = false;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   update(dto: DtoOutputUpdateEmployee) {
     this.employeeUpdated.next({
@@ -32,19 +30,19 @@ export class ManagementListComponent implements OnInit {
       lastName: dto.lastName,
 
       email: dto.email,
+      phone: dto.phone,
 
 //      street : dto.street,
 //      number : dto.number,
 //      postCode : dto.postCode,
 //      city : dto.city,
 
-      isAdmin : dto.isAdmin,
-
-//      pictureURL: dto.pictureURL
+      isAdmin: dto.isAdmin,
+      pictureURL: dto.pictureURL
     })
   }
 
-  updatePassword(dto: DtoOutputUpdatePasswordEmployee){
+  updatePassword(dto: DtoOutputUpdatePasswordEmployee) {
     this.employeeUpdatedPassword.next({
       idAccount: dto.idAccount
     })

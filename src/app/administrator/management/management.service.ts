@@ -31,7 +31,7 @@ export class ManagementService {
   }
 
   update(dto: DtoOutputUpdateEmployee): Observable<any>{
-    return this._httpClient.put(`${ManagementService.ENTRY_POINT}/update`, dto)
+    return this._httpClient.put(`${ManagementService.ENTRY_POINT}/update`, dto, {withCredentials : true})
   }
 
   updatePassword(dto: DtoOutputUpdatePasswordEmployee): Observable<any>{

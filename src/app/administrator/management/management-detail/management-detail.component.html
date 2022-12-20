@@ -18,8 +18,6 @@
       <button (click)="emitUpdatePassword(employee)">Nouveau mot de passe</button>
       <br>
       <button (click)="confirmDelete()">Supprimer</button>
-<!--      <button (click)="emitDelete(employee)">Supprimer</button>-->
-
     </div>
   </div>
 
@@ -40,6 +38,10 @@
     <tr>
       <td>E-Mail :</td>
       <td><input [(ngModel)]="employee.email" [disabled]="!toggleEdit"></td>
+    </tr>
+    <tr>
+      <td>Numéro de téléphone :</td>
+      <td><input [(ngModel)]="employee.phone" [disabled]="!toggleEdit"></td>
     </tr>
     <tr>
       <td>Fonction :</td>

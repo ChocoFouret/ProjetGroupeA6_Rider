@@ -5,6 +5,7 @@ export interface DtoInputEmployee {
   // Personal
   firstName: string;
   lastName: string;
+
   /*
     street: string;
     number: string;
@@ -14,6 +15,7 @@ export interface DtoInputEmployee {
 
   // Connection
   email: string;
+  phone: string;
   password: string;
 
   // Work

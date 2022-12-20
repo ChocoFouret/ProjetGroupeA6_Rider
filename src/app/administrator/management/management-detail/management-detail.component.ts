@@ -25,7 +25,7 @@ export class ManagementDetailComponent implements OnInit {
   isAdmin: boolean = false;
   alert : boolean = false;
 
-  constructor(private _employeeService: ManagementService,
+  constructor(private _managementService: ManagementService,
               private _route: ActivatedRoute,
               private _serviceService: SessionService) {
     this.isAdmin = this._serviceService.isAdmin() == "True";
@@ -41,7 +41,7 @@ export class ManagementDetailComponent implements OnInit {
   }
 
   private fetchEmployeeData(id: number) {
-    this._employeeService
+    this._managementService
       .fetchById(id)
       .subscribe(employee => this.employee = employee);
   }
@@ -53,6 +53,7 @@ export class ManagementDetailComponent implements OnInit {
       lastName: dto.lastName,
 
       email: dto.email,
+      phone : dto.phone,
 
       // street : dto.street,
       // number : dto.number,
@@ -60,8 +61,7 @@ export class ManagementDetailComponent implements OnInit {
       // city : dto.city,
 
       isAdmin: dto.isAdmin,
-
-      // pictureURL: dto.pictureURL
+      pictureURL: dto.pictureURL
     })
   }
 
