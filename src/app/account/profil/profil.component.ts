@@ -2,6 +2,7 @@
  import {ProfilService} from "./profil.service";
  import {DtoInputProfil} from "./dtos/dto-input-profil";
  import {NotificationsService} from "../../util/notifications/notifications.service";
+ import {SessionService} from "../../session/session.service";
 
 @Component({
   selector: 'app-profil',
@@ -33,10 +34,11 @@ export class ProfilComponent implements OnInit {
   };
   editMode: boolean = false;
   constructor(private profilService : ProfilService,
-              private _notification : NotificationsService) {}
+              private _notification : NotificationsService,
+              private _session : SessionService) {}
 
   ngOnInit(): void {
-    this.profilService.fetchProfil(5).subscribe(profil => {
+    this.profilService.fetchProfil(this._session.getID()).subscribe(profil => {
       this.user = profil
     })
   }
