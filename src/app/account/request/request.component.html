@@ -1,65 +1,64 @@
-<html>
-  <body>
-  <div id = "global">
-    <div id="menu">
-      <button (click)="visible(1)">Faire une demande</button>
-      <button (click)="visible(2)"> Voir mes demandes</button>
-
-      <button (click)="visible(3)" *ngIf="isVisibleList"> Modifier une demande</button>
-      <button (click)="visible(4)" *ngIf="isVisibleList"> Supprimer une demande</button>
-    </div>
-
-    <div id="corps">
-      <div id="forms">
-      <form *ngIf="isVisibleForm" [formGroup]="form" (ngSubmit)="send()">
-      <fieldset>
-        <legend>Complétez votre demande </legend>
-          <p>Type d'évènement </p>
-          <select formControlName="type">
-            <option value="" disabled [selected]="true"> -- Type d'évènements -- </option>
-            <option value ="Absence">Absence</option>
-            <option value ="Congé">Congé</option>
-            <option value ="Maladie">Maladie</option>
-            <option value ="Vacances">Vacances</option>
-            <option value ="Autres raisons">Autres raisons</option>
-          </select>
-          <label> <p>Raison</p>
-            <input type="text" formControlName="raison">
-          </label>
-          <label> <p> Date de début </p>
-            <input type="datetime-local" formControlName="datedebut">
-          </label>
-          <label> <p> Date de fin </p>
-            <input type="datetime-local" formControlName="datefin">
-          </label>
-          <br><br>
-        <input type="submit" value="Valider" [disabled]="check()">
-      </fieldset>
-    </form>
-
-        <div id="success-box" *ngIf="isVisibleNotice">
-          <div class="dot"></div>
-          <div class="dot two"></div>
-          <div class="face">
-            <div class="eye"></div>
-            <div class="eye right"></div>
-            <div class="mouth happy"></div>
-          </div>
-          <div class="shadow scale"></div>
-          <div class="message"><h1 class="alert">Success!</h1><p>Votre demande a bien été envoyée.</p></div>
-        </div>
-      </div>
-
-      <div id="list" *ngIf="isVisibleList">
-        <h3> Mes demandes </h3>
-        <ul *ngFor="let e of event">
-          <li> {{e.comments}} </li>
-        </ul>
-      </div>
-    </div>
+<div id="global">
+  <div id="menu">
+    <button (click)="visible(1)">Faire une demande</button>
   </div>
 
-  </body>
-</html>
+  <div id="corps" *ngIf="isVisibleForm || isVisibleList">
+    <div id="forms" *ngIf="isVisibleForm" >
+      <fieldset>
+      <legend>Complétez votre demande</legend>
+        <form [formGroup]="form" (ngSubmit)="send()">
+            <p>Type d'évènement </p>
+            <select formControlName="type">
+              <option value="" disabled [selected]="true"> -- Type d'évènements --</option>
+              <option value="Absence">Absence</option>
+              <option value="Congé">Congé</option>
+              <option value="Maladie">Maladie</option>
+              <option value="Vacances">Vacances</option>
+              <option value="Autres raisons">Autres raisons</option>
+            </select>
+            <label><p>Raison</p>
+              <input type="text" formControlName="comments">
+            </label>
+            <label><p> Date de début </p>
+              <input type="datetime-local" formControlName="startDate" (change)="dateChooseValidators()">
+            </label>
+            <label><p> Date de fin </p>
+              <input type="datetime-local" formControlName="endDate" (change)="dateChooseValidators()">
+              <p *ngIf="this.form.controls['startDate'].errors?.['invalid']">La date doit être plus éloignée.</p>
+            </label>
+            <br><br>
+            <ng-container *ngIf="event.id == null">
+              <input type="submit" value="Envoyer" [disabled]="!this.form.valid">
+            </ng-container>
+            <ng-container *ngIf="event.id != null">
+              <input type="submit" value="Modifier" [disabled]="!this.form.valid">
+            </ng-container>
+           <input type="reset" value="Annuler" (click)="visible(2)">
 
+        </form>
+      </fieldset>
+    </div>
 
+    <div id="list" *ngIf="isVisibleList">
+        <ng-container class="requests" *ngFor="let e of events">
+          <div class="request">
+            <div class="infos">
+              <h3>{{e.types}}</h3>
+              <p> {{e.comments}} <br>
+                Du <span class="date">{{e.startDate.slice(0, 10)}}</span>
+                au <span class="date">{{e.endDate.slice(0, 10)}}</span>
+              </p>
+            </div>
+            <div class="action" *ngIf="!e.isValid">
+              <img src="assets/pictures/edit.png" (click)="edit(e.idEventsEmployee)" width="25" height="25" alt="image"/>
+              <img src="assets/pictures/delete.png" (click)="confirmDelete(e.idEventsEmployee)" width="25" height="25" alt="image"/>
+            </div>
+          </div>
+        </ng-container>
+    </div>
+  </div>
+</div>
+
+<!--Alerte de suppression-->
+<app-alert *ngIf="alert" [isVisible]="alert" (emitChoose)="emitChoose($event)"></app-alert>
