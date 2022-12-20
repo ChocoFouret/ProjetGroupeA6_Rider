@@ -15,24 +15,24 @@ export class ManagementComponent implements OnInit {
   employees: DtoInputEmployee[] = [];
   filter: string = "";
 
-  constructor(private _employeesService: ManagementService, private _serviceService: SessionService) { }
+  constructor(private _usersService: ManagementService, private _serviceService: SessionService) { }
 
   ngOnInit(): void {
     this.fetchAll();
   }
 
   private fetchAll() {
-    this._employeesService
+    this._usersService
       .fetchAll()
       .subscribe(employees => {
         this.employees = employees;
         this.employees.filter(async (item) => {
           item.firstName = item.firstName.charAt(0).toUpperCase() + item.firstName.slice(1);
           item.lastName = item.lastName.charAt(0).toUpperCase() + item.lastName.slice(1);
-          await this._employeesService.fetchFunction(item.idAccount).subscribe(async e => {
+          await this._usersService.fetchFunction(item.idAccount).subscribe(async e => {
             if (e[0] != null) {
               item.function = e[0].function.title
-              await this._employeesService.fetchCompany(e[0].idCompanies).subscribe(e => {
+              await this._usersService.fetchCompany(e[0].idCompanies).subscribe(e => {
                 item.company = e.companiesName;
               })
             }
@@ -62,13 +62,13 @@ export class ManagementComponent implements OnInit {
   }
 
   update(dto: DtoOutputUpdateEmployee) {
-    this._employeesService
+    this._usersService
       .update(dto)
       .subscribe();
   }
 
   updatePassword(dto: DtoOutputUpdatePasswordEmployee) {
-    this._employeesService
+    this._usersService
       .updatePassword(dto)
       .subscribe(value => {
         alert("Votre nouveau mot de passe est : " + value.password);
@@ -76,7 +76,7 @@ export class ManagementComponent implements OnInit {
   }
 
   delete(dto: DtoOutputDeleteEmployee) {
-    this._employeesService
+    this._usersService
       .delete(dto)
       .subscribe();
   }
