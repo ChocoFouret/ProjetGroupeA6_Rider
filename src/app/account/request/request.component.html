@@ -52,10 +52,13 @@
             </div>
             <div class="action" *ngIf="!e.isValid">
               <img src="assets/pictures/edit.png" (click)="edit(e.idEventsEmployee)" width="25" height="25" alt="image"/>
-              <img src="assets/pictures/delete.png" width="25" height="25" alt="image"/>
+              <img src="assets/pictures/delete.png" (click)="confirmDelete(e.idEventsEmployee)" width="25" height="25" alt="image"/>
             </div>
           </div>
         </ng-container>
     </div>
   </div>
 </div>
+
+<!--Alerte de suppression-->
+<app-alert *ngIf="alert" [isVisible]="alert" (emitChoose)="emitChoose($event)"></app-alert>
