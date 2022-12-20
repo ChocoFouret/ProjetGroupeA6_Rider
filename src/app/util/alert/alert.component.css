@@ -1,0 +1,22 @@
+.modal__inner {
+  transition: top .25s ease;
+  position: absolute;
+  top: -20%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  margin: auto;
+  overflow: auto;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  background-color: rgba(255, 255, 255, 0.5);
+  border : black 2px solid;
+  border-radius: 20px;
+  padding: 1em 2em;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 1.30vw;
+  height: 15%;
+}

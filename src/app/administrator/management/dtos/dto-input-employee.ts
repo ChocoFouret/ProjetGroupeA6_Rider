@@ -5,19 +5,22 @@ export interface DtoInputEmployee {
   // Personal
   firstName: string;
   lastName: string;
-/*
-  street: string;
-  number: string;
-  postCode: number;
-  city: string;
-*/
+  /*
+    street: string;
+    number: string;
+    postCode: number;
+    city: string;
+  */
+
   // Connection
   email: string;
   password: string;
 
   // Work
   isAdmin: boolean;
+  function: string;
+  company: string;
 
   // Other
-//  pictureURL:string;
+  pictureURL: string;
 }

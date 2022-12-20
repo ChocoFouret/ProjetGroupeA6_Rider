@@ -1,4 +1,4 @@
-import {DtoInputEmployee} from "../../util/management/dtos/dto-input-employee";
+import {DtoInputEmployee} from "../../administrator/management/dtos/dto-input-employee";
 import {DtoInputFunction} from "./dto-input-function";
 
 export interface DtoInputEmployeeOfCompany {

@@ -21,15 +21,14 @@ export class ManagementDetailComponent implements OnInit {
   @Output() employeeDeleted: EventEmitter<DtoOutputDeleteEmployee> = new EventEmitter<DtoOutputDeleteEmployee>();
 
   found: boolean = false;
-
-  isLocked: boolean = true;
-
+  toggleEdit: boolean = false;
   isAdmin: boolean = false;
+  alert : boolean = false;
 
   constructor(private _employeeService: ManagementService,
               private _route: ActivatedRoute,
               private _serviceService: SessionService) {
-    this.isAdmin = this._serviceService.isAdmin()=="True";
+    this.isAdmin = this._serviceService.isAdmin() == "True";
   }
 
   ngOnInit(): void {
@@ -60,13 +59,13 @@ export class ManagementDetailComponent implements OnInit {
       // postCode : dto.postCode,
       // city : dto.city,
 
-      isAdmin : dto.isAdmin,
+      isAdmin: dto.isAdmin,
 
       // pictureURL: dto.pictureURL
     })
   }
 
-  emitUpdatePassword(dto: DtoOutputUpdatePasswordEmployee){
+  emitUpdatePassword(dto: DtoOutputUpdatePasswordEmployee) {
     this.employeeUpdatedPassword.next({
       idAccount: dto.idAccount
     })
@@ -76,5 +75,16 @@ export class ManagementDetailComponent implements OnInit {
     this.employeeDeleted.next({
       idAccount: dto.idAccount
     })
+  }
+
+  confirmDelete() {
+    this.alert = true;
+  }
+
+  emitChoose(choose : any) {
+    if(choose){
+      this.emitDelete(this.employee!);
+    }
+    this.alert = false;
   }
 }
