@@ -17,9 +17,11 @@ export class RequestComponent implements OnInit {
   request: DtoOutputCreateEvents | undefined;
   event: any;
   events: any;
+  eventDelete : any;
   isVisibleForm: boolean = false;
   isVisibleList: boolean = true;
   isVisibleNotice: boolean = false;
+  alert : boolean = false;
 
   form: FormGroup = new FormGroup({
     type: new FormControl("", Validators.required),
@@ -187,5 +189,17 @@ export class RequestComponent implements OnInit {
       type: event.type
     })
     this.form.controls['type'].setValue(event.type);
+  }
+
+  emitChoose(choose : any) {
+    if(choose){
+      this._requests.deleteEvent(this.eventDelete, this.idCompanies.toString()).subscribe();
+    }
+    this.alert = false;
+  }
+
+  confirmDelete(id: string) {
+    this.eventDelete = this.events.find((event: any) => event.idEventsEmployee == id);
+    this.alert = true;
   }
 }
