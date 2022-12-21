@@ -9,7 +9,7 @@ export const environment = {
   apiUrlEvents : "https://localhost:7119/api/v1/Events",
   apiUrlHas : "https://localhost:7119/api/v1/Has",
   apiUrlEventTypes : "https://localhost:7119/api/v1/EventTypes",
-  apiUrlCompanies : "https://localhost:7119/api/v1/Companies",
+  apiUrlCompanies: "https://localhost:7119/api/v1/Companies"
 };
 
 /*

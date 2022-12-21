@@ -20,6 +20,12 @@ import {DayPilotModule} from "daypilot-pro-angular";
 import {TimesheetComponent} from './account/timesheet/timesheet.component';
 import {InfoEventComponent} from './company/calendar/info-event/info-event.component';
 import {AccountComponent} from "./account/account.component";
+import { RequestComponent } from './account/request/request.component';
+import { ProfilComponent } from './account/profil/profil.component';
+import { RegisterComponent } from './register/register.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { AboutComponent } from './about/about.component';
+import {CreateCompaniesComponent} from "./company/createCompanies/create-companies/create-companies.component";
 import {RequestComponent} from './account/request/request.component';
 import {ProfilComponent} from './account/profil/profil.component';
 import {RegisterComponent} from './register/register.component';
@@ -54,6 +60,7 @@ import { ManagementCompaniesDetailComponent } from './administrator/management-c
     RegisterComponent,
     WelcomeComponent,
     AboutComponent,
+    CreateCompaniesComponent,
     AlertComponent,
     ManagementCompaniesComponent,
     ManagementCompaniesListComponent,

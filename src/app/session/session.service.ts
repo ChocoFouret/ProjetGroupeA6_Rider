@@ -54,8 +54,10 @@ export class SessionService {
   }
 
   getID(): number {
+
     let cookie = this.DecodeToken(this.getCookie("public"));
     let result = Object.entries(cookie);
+
     return (parseInt(result[0][1].toString()));
   }
 
