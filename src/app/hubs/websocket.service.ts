@@ -3,6 +3,7 @@ import {HubConnection, HubConnectionBuilder} from "@microsoft/signalr";
 import {environment} from "../../environments/environment";
 import {EventService} from "../company/event.service";
 import {SessionService} from "../session/session.service";
+import {NotificationsService} from "../util/notifications/notifications.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class WebsocketService {
   private component: any;
 
   constructor(private es: EventService,
-              private session: SessionService) {
+              private session: SessionService,
+              private notifications : NotificationsService) {
   }
 
   initWebSocket() {
@@ -21,6 +23,7 @@ export class WebsocketService {
       .build();
 
     this.connection.on('updated', (dto) => {
+      this.notifications.info("Modification de la demande.");
       this.component.localUpdate(dto);
     });
 
@@ -29,16 +32,17 @@ export class WebsocketService {
     });
 
     this.connection.on('created', (dto) => {
+      this.notifications.success("Création d'une demande.");
       this.component.localCreate(dto);
     });
 
     this.connection.start().then(() => {
-      console.log("Join hub");
+      console.log("Serveur connecté");
     })
       .then(() => {
         this.es.fetchHasAccount(this.session.getID()).subscribe(res => {
           this.connection?.invoke("JoinGroup", res[0].idCompanies + "").then(() => {
-            console.log("Join group");
+            console.log("Groupe de la compagnie rejoint");
           });
         })
       })
@@ -49,6 +53,8 @@ export class WebsocketService {
 
   init(component: any){
     this.component = component;
-    this.initWebSocket();
+    if(this.connection == undefined){
+      this.initWebSocket();
+    }
   }
 }

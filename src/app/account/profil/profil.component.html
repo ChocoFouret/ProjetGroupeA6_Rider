@@ -1,114 +1,130 @@
-<html>
-<body>
 <div class="container">
-  <div class="main">
-    <div class = "row">
-      <div class = "card text-center  sidebar">
-        <div class="card-body">
-          <img src="prof.png" class="rounded-circle" width="512">
+  <div>
+    <img src="{{user.pictureURL}}" class="rounded-circle" width="150" alt="">
+  </div>
+  <button (click)="edit()">Mode édition</button>
+  <div class="content">
+    <form #form="ngForm" (ngSubmit)="send()">
+      <h1>Informations personnelles</h1>
+      <input type="submit" [hidden]="!editMode" [disabled]="form.invalid">
+      <div class="row">
+        <div class="interior">
+          <p><span class="titre">Nom</span> :
+            <span [hidden]="editMode">{{user.lastName}}</span>
+            <input [(ngModel)]="user.lastName"
+                   [hidden]="!editMode"
+                   name="lastName"
+                   required
+                   #lastNameEl="ngModel"></p>
+          <span *ngIf="lastNameEl.dirty &&  lastNameEl.invalid">Doit être complété</span>
+        </div>
+        <div class="interior">
+          <p><span class="titre">Prénom</span> :
+            <span [hidden]="editMode">{{user.firstName}}</span>
+            <input [(ngModel)]="user.firstName"
+                   [hidden]="!editMode"
+                   name="firstName"
+                   required
+                   #firstNameEl="ngModel"></p>
+          <span *ngIf="firstNameEl.dirty &&  firstNameEl.invalid">Doit être complété</span>
         </div>
       </div>
-
-      <br><br>
-      <div>
-        <div class="col-md-8 mt-1">
-          <div class="card mn-3 content">
-            <h1>Informations personnelles</h1>
-            <div class="row">
-              <div class="col-md-3">
-                <h5>Nom : </h5>
-              </div>
-              <div  class="col-md-9 text-secondary">
-                nom de l'employé
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-md-3">
-                <h5> Prénom:</h5>
-              </div>
-              <div class="col-md-9 text-secondary">
-                prénom de l'employé
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-md-3">
-                <h5>Email : </h5>
-              </div>
-              <div  class="col-md-9 text-secondary">
-                adresse mail de l'employé
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-md-3">
-                <h5>Numéro de téléphonne : </h5>
-              </div>
-              <div  class="col-md-9 text-secondary">
-                num de l'employé
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-md-3">
-                <h5>Adresse : </h5>
-              </div>
-              <div  class="col-md-9 text-secondary">
-                adresse de l'employé
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-md-3">
-                <h5>Date de naissance : </h5>
-              </div>
-              <div  class="col-md-9 text-secondary">
-                date de naissance de l'employé
-              </div>
-            </div>
-            <hr>
-          </div>
+      <br>
+      <div class="row">
+        <div class="interior">
+          <p><span class="titre">Rue</span> :
+            <span [hidden]="editMode">{{user.address.street}}</span>
+            <input [(ngModel)]="user.address.street"
+                   [hidden]="!editMode"
+                   name="street"
+                   required
+                   #streetEl="ngModel"></p>
+          <span *ngIf="streetEl.dirty &&  streetEl.invalid">Doit être complété</span>
         </div>
-
-        <br><br>
-
-        <div class="col-md-8 mt-1">
-          <div class="card mn-3 content">
-            <h1>Informations relatives à la société</h1>
-            <div class="row">
-              <div class="col-md-3">
-                <h5>Nom de la société : </h5>
-              </div>
-              <div  class="col-md-9 text-secondary">
-                nom de de société
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-md-3">
-                <h5> Email de la société:</h5>
-              </div>
-              <div class="col-md-9 text-secondary">
-                Email de la société
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-md-3">
-                <h5> Fonction : </h5>
-              </div>
-              <div  class="col-md-9 text-secondary">
-                fonction occupée dans la société
-              </div>
-            </div>
-            <hr>
-          </div>
+        <div class="interior">
+          <p><span class="titre">Numéro</span> :
+            <span [hidden]="editMode">{{user.address.number}}</span>
+            <input [(ngModel)]="user.address.number"
+                   [hidden]="!editMode"
+                   name="number"
+                   required
+                   #numberEl="ngModel"></p>
+          <span *ngIf="numberEl.dirty &&  numberEl.invalid">Doit être complété</span>
         </div>
+        <div class="interior">
+          <p><span class="titre">Code Postal</span> :
+            <span [hidden]="editMode">{{user.address.postCode}}</span>
+            <input [(ngModel)]="user.address.postCode"
+                   [hidden]="!editMode"
+                   name="postCode"
+                   pattern="[0-9]{4}"
+                   required
+                   #postCodeEl="ngModel"> </p>
+          <span *ngIf="postCodeEl.dirty &&  postCodeEl.invalid">4 chiffres uniquement</span>
+        </div>
+        <div class="interior">
+          <p><span class="titre">Ville</span> :
+            <span [hidden]="editMode">{{user.address.city}}</span>
+            <input [(ngModel)]="user.address.city"
+                   [hidden]="!editMode"
+                   name="city"
+                   required
+                   #cityEl="ngModel"></p>
+          <span *ngIf="cityEl.dirty &&  cityEl.invalid">Doit être complété</span>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="interior">
+          <p><span class="titre">Photo de profil</span> :
+            <input [(ngModel)]="user.pictureURL"
+                   [hidden]="!editMode"
+                   name="pictureURL"
+                   pattern="[^@\s]+\.[^@\s]+"
+                   required
+                   #pictureURLEl="ngModel"></p>
+          <span *ngIf="pictureURLEl.dirty &&  pictureURLEl.invalid">Doit être complété</span>
+        </div>
+        <div class="interior">
+          <p><span class="titre">Numéro de téléphone</span> :
+            <span [hidden]="editMode">{{user.phone}}</span>
+            <input [(ngModel)]="user.phone"
+                   [hidden]="!editMode"
+                   pattern="[0][4][0-9]{8}"
+                   name="phone"
+                   required
+                   #phoneEl="ngModel"></p>
+          <span *ngIf="phoneEl.dirty &&  phoneEl.invalid">Format : 04xxxxxxxx</span>
+        </div>
+        <div class="interior">
+          <p><span class="titre">Email</span> :
+            <span [hidden]="editMode">{{user.email}}</span>
+            <input [(ngModel)]="user.email"
+                   [hidden]="!editMode"
+                   name="email"
+                   type="email"
+                   pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+                   required
+                   #emailEl="ngModel"></p>
+          <span *ngIf="emailEl.dirty &&  emailEl.invalid">Format : x@x.x</span>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="content">
+    <h1>Informations relatives à la société</h1>
+    <div class="row">
+      <div class="interior">
+        <p><span class="titre">Nom de la société </span> : {{user.companies.companiesName}}</p>
+      </div>
+      <div class="interior">
+        <p><span class="titre">E-Mail de la direction</span> : {{user.companies.directorEmail}}</p>
+      </div>
+      <div class="interior">
+        <p><span class="titre">Fonction dans la société </span> : {{user.function}}</p>
       </div>
     </div>
+    <br>
   </div>
 </div>
 
-</body>
-</html>

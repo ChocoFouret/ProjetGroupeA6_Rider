@@ -11,7 +11,7 @@ export interface DtoOutputCreateEvents {
   // Numéro de l'employé
   idAccount: number;
 
-  idSchedule: number;
+  idCompanies: number;
 
   types: string;
   isValid: boolean;

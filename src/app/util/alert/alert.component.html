@@ -1,0 +1,10 @@
+<input class="modal-state" id="modal-info" type="checkbox" [checked]="isVisible"/>
+<div class="modal">
+  <label class="modal__bg" for="modal-info" (click)="updateChoose(false)"></label>
+  <div class="modal__inner">
+    Voulez-vous vraiment supprimer ? <br>
+
+    <button (click)="updateChoose(true)">Oui</button>
+    <button (click)="updateChoose(false)">Non</button>
+  </div>
+</div>

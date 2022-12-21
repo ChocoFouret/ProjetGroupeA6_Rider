@@ -1,0 +1,25 @@
+<h2>Nos entreprises</h2>
+<ng-container *ngIf="companies.length">
+  <div class="container user-widget-2">
+    <ng-container *ngFor="let company of companies">
+      <!-- <label class="btn media" for="modal-info" (click)="select(company)"> -->
+      <label class="btn media">
+        <div *ngIf="company.companiesName.toLowerCase().includes(filter) || company.companiesName.toLowerCase().includes(filter)">
+          <div class="upper">
+            <div class="upper-left">
+              <p>{{company.idCompanies}}</p>
+            </div>
+            <div class="upper-right">
+              <p>{{company.companiesName}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="bottom">
+          <div class="upper-right">
+            <p>{{company.directorEmail}}</p>
+          </div>
+        </div>
+      </label>
+    </ng-container>
+  </div>
+</ng-container>

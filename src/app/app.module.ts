@@ -9,9 +9,9 @@ import {NotFoundComponent} from './not-found/not-found.component';
 import {SessionComponent} from './session/session.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
-import {ManagementComponent} from './util/management/management.component';
-import {ManagementDetailComponent} from './util/management/management-detail/management-detail.component';
-import {ManagementListComponent} from './util/management/management-list/management-list.component';
+import {ManagementComponent} from './administrator/management/management.component';
+import {ManagementDetailComponent} from './administrator/management/management-detail/management-detail.component';
+import {ManagementListComponent} from './administrator/management/management-list/management-list.component';
 import {LeaveComponent} from './util/leave/leave.component';
 import {HomeComponent} from './home/home.component';
 import {CompanyComponent} from './company/company.component';
@@ -26,7 +26,17 @@ import { RegisterComponent } from './register/register.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AboutComponent } from './about/about.component';
 import {CreateCompaniesComponent} from "./company/createCompanies/create-companies/create-companies.component";
-import { JoinCompanieComponent } from './company/joinCompanie/join-companie/join-companie.component';
+import {RequestComponent} from './account/request/request.component';
+import {ProfilComponent} from './account/profil/profil.component';
+import {RegisterComponent} from './register/register.component';
+import {WelcomeComponent} from './welcome/welcome.component';
+import {AboutComponent} from './about/about.component';
+import {ToastrModule} from 'ngx-toastr';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {AlertComponent} from './util/alert/alert.component';
+import { ManagementCompaniesComponent } from './administrator/management-companies/management-companies.component';
+import { ManagementCompaniesListComponent } from './administrator/management-companies/management-companies-list/management-companies-list.component';
+import { ManagementCompaniesDetailComponent } from './administrator/management-companies/management-companies-detail/management-companies-detail.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +61,10 @@ import { JoinCompanieComponent } from './company/joinCompanie/join-companie/join
     WelcomeComponent,
     AboutComponent,
     CreateCompaniesComponent,
-    JoinCompanieComponent
+    AlertComponent,
+    ManagementCompaniesComponent,
+    ManagementCompaniesListComponent,
+    ManagementCompaniesDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,7 +72,9 @@ import { JoinCompanieComponent } from './company/joinCompanie/join-companie/join
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    DayPilotModule
+    DayPilotModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -10,7 +10,6 @@ export const environment = {
   apiUrlHas : "https://localhost:7119/api/v1/Has",
   apiUrlEventTypes : "https://localhost:7119/api/v1/EventTypes",
   apiUrlCompanies: "https://localhost:7119/api/v1/Companies"
-
 };
 
 /*
