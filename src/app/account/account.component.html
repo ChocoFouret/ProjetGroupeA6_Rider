@@ -32,7 +32,10 @@
           <li><a routerLink="." routerLinkActive="active">Paramètres</a></li>
         </ng-container>
 
-        <li><a routerLink="profil" routerLinkActive="active">Mon profil</a></li>
+        <ng-container *ngIf="function!= 'Stagiaire' && function!='Employe' && function!='Directeur'">
+          <li> <a routerLink="../home/createCompanie"> Créer ou rejoindre une entreprise </a></li>
+        </ng-container>
+          <li><a routerLink="profil" routerLinkActive="active">Mon profil</a></li>
         <li><a routerLink="/leave" routerLinkActive="active">Quitter</a></li>
 
       </ul>

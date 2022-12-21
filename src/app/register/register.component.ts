@@ -50,7 +50,6 @@ export class RegisterComponent implements OnInit {
       Email:this.form.value.email,
       IsAdmin:false
     })
-    console.log(this.account);
     this._accountService.create(this.account).subscribe(account=>this.accounts.push(account));
     this.router.navigateByUrl('home/createCompanie')
   }

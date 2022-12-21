@@ -26,6 +26,7 @@ import { RegisterComponent } from './register/register.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AboutComponent } from './about/about.component';
 import {CreateCompaniesComponent} from "./company/createCompanies/create-companies/create-companies.component";
+import { JoinCompanieComponent } from './company/joinCompanie/join-companie/join-companie.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import {CreateCompaniesComponent} from "./company/createCompanies/create-compani
     RegisterComponent,
     WelcomeComponent,
     AboutComponent,
-    CreateCompaniesComponent
+    CreateCompaniesComponent,
+    JoinCompanieComponent
   ],
   imports: [
     BrowserModule,
