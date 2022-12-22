@@ -2,7 +2,6 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {DtoInputEmployee} from "../dtos/dto-input-employee";
 import {DtoOutputUpdateEmployee} from "../dtos/dto-output-update-employee";
 import {DtoOutputDeleteEmployee} from "../dtos/dto-output-delete-employee";
-import {DtoOutputUpdatePasswordEmployee} from "../dtos/dto-output-update-password-employee";
 
 @Component({
   selector: 'app-management-list',
@@ -15,7 +14,6 @@ export class ManagementListComponent implements OnInit {
 
   @Output() employee: DtoInputEmployee | undefined;
   @Output() employeeUpdated: EventEmitter<DtoOutputUpdateEmployee> = new EventEmitter<DtoOutputUpdateEmployee>();
-  @Output() employeeUpdatedPassword: EventEmitter<DtoOutputUpdatePasswordEmployee> = new EventEmitter<DtoOutputUpdatePasswordEmployee>();
   @Output() employeeDeleted: EventEmitter<DtoOutputDeleteEmployee> = new EventEmitter<DtoOutputDeleteEmployee>();
   detailVisible: boolean = false;
 
@@ -39,12 +37,6 @@ export class ManagementListComponent implements OnInit {
 
       isAdmin: dto.isAdmin,
       pictureURL: dto.pictureURL
-    })
-  }
-
-  updatePassword(dto: DtoOutputUpdatePasswordEmployee) {
-    this.employeeUpdatedPassword.next({
-      idAccount: dto.idAccount
     })
   }
 

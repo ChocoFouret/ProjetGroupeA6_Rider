@@ -5,7 +5,6 @@ import {ActivatedRoute} from "@angular/router";
 import {ManagementService} from "../management.service";
 import {SessionService} from "../../../session/session.service";
 import {DtoOutputDeleteEmployee} from "../dtos/dto-output-delete-employee";
-import {DtoOutputUpdatePasswordEmployee} from "../dtos/dto-output-update-password-employee";
 
 @Component({
   selector: 'app-management-detail',
@@ -16,7 +15,6 @@ export class ManagementDetailComponent implements OnInit {
   @Input() employee: DtoInputEmployee | undefined;
 
   @Output() employeeUpdated: EventEmitter<DtoOutputUpdateEmployee> = new EventEmitter<DtoOutputUpdateEmployee>();
-  @Output() employeeUpdatedPassword: EventEmitter<DtoOutputUpdatePasswordEmployee> = new EventEmitter<DtoOutputUpdatePasswordEmployee>();
 
   @Output() employeeDeleted: EventEmitter<DtoOutputDeleteEmployee> = new EventEmitter<DtoOutputDeleteEmployee>();
 
@@ -62,12 +60,6 @@ export class ManagementDetailComponent implements OnInit {
 
       isAdmin: dto.isAdmin,
       pictureURL: dto.pictureURL
-    })
-  }
-
-  emitUpdatePassword(dto: DtoOutputUpdatePasswordEmployee) {
-    this.employeeUpdatedPassword.next({
-      idAccount: dto.idAccount
     })
   }
 

@@ -1,0 +1,40 @@
+<nav class="navbar">
+  <a href="#" class="logo"> PLAN-IT </a>
+  <div class="nav-links">
+    <ul>
+      <ng-container *ngIf="home">
+        <li><a routerLink="welcome">Accueil</a></li>
+        <ng-container *ngIf="!isLogged">
+          <li><a routerLink="login">Connexion</a></li>
+          <li><a routerLink="register">Inscription</a></li>
+        </ng-container>
+        <ng-container *ngIf="isLogged">
+          <li><a routerLink="/employee">Mon compte</a></li>
+        </ng-container>
+        <li><a href="#">Informations</a></li>
+        <li><a routerLink="about">A propos</a></li>
+      </ng-container>
+
+      <ng-container *ngIf="!home">
+        <ng-container *ngIf="function == 'Employe' && isAdmin == false">
+          <li><a routerLink="planning" routerLinkActive="active">Planning</a></li>
+          <li><a routerLink="request" routerLinkActive="active">Demandes</a></li>
+        </ng-container>
+
+        <ng-container *ngIf="function == 'Directeur' && isAdmin == false">
+          <li><a routerLink="planning" routerLinkActive="active">Planning</a></li>
+          <li><a routerLink="/company" routerLinkActive="active">Gestion de l'entreprise</a></li>
+        </ng-container>
+
+        <ng-container *ngIf="isAdmin == true">
+          <li><a routerLink="users-management" routerLinkActive="active">Gestion des utilisateurs</a></li>
+          <li><a routerLink="companies-management" routerLinkActive="active">Gestion des entreprises</a></li>
+        </ng-container>
+
+        <li><a routerLink="profil" routerLinkActive="active">Mon profil</a></li>
+        <li><a routerLink="/leave" routerLinkActive="active">Quitter</a></li>
+      </ng-container>
+    </ul>
+    <hr>
+  </div>
+</nav>

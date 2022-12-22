@@ -5,7 +5,6 @@ import {Observable} from "rxjs";
 import {DtoInputEmployee} from "./dtos/dto-input-employee";
 import {DtoOutputUpdateEmployee} from "./dtos/dto-output-update-employee";
 import {DtoOutputDeleteEmployee} from "./dtos/dto-output-delete-employee";
-import {DtoOutputUpdatePasswordEmployee} from "./dtos/dto-output-update-password-employee";
 
 @Injectable({
   providedIn: 'root'
@@ -32,10 +31,6 @@ export class ManagementService {
 
   update(dto: DtoOutputUpdateEmployee): Observable<any>{
     return this._httpClient.put(`${ManagementService.ENTRY_POINT}/update`, dto, {withCredentials : true})
-  }
-
-  updatePassword(dto: DtoOutputUpdatePasswordEmployee): Observable<any>{
-    return this._httpClient.put(`${ManagementService.ENTRY_POINT}/update/password`, dto)
   }
 
   delete(dto: DtoOutputDeleteEmployee): Observable<any>{

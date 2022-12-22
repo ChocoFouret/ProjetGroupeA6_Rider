@@ -43,6 +43,21 @@ export class SessionService {
     return '';
   }
 
+  existCookie(name:string): boolean {
+    let ca: Array<string> = document.cookie.split(';');
+    let caLen: number = ca.length;
+    let cookieName = `${name}=`;
+    let c: string;
+
+    for (let i: number = 0; i < caLen; i += 1) {
+      c = ca[i].replace(/^\s+/g, '');
+      if (c.indexOf(cookieName) == 0) {
+        return true
+      }
+    }
+    return false
+  }
+
   private DecodeToken(token: string): string {
     return jwt.default(token);
   }

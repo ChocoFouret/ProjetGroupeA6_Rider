@@ -8,7 +8,7 @@ import {SessionService} from "../session/session.service";
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private _session: SessionService) {
+  constructor(public _session: SessionService) {
   }
 
   ngOnInit(): void {

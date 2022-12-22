@@ -1,17 +1,6 @@
-<nav class="navbar">
-  <a href="#" class="logo"> PLAN-IT </a>
-  <div class="nav-links">
-    <ul>
-      <li><a routerLink="welcome">Accueil</a></li>
-      <li><a routerLink="login">Connexion</a></li>
-      <li><a routerLink="register">Inscription</a></li>
-      <li><a href="#">Informations</a></li>
-      <li><a routerLink="about">A propos</a></li>
-    </ul>
-    <hr>
-  </div>
-</nav>
-<header></header>
+<app-header [function]="''"
+            [isAdmin]="false"
+            [home]="true"></app-header>
 <router-outlet></router-outlet>
 
 

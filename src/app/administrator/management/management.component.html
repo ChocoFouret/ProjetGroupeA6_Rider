@@ -2,5 +2,4 @@ Filter : <input [(ngModel)]="filter">
 <app-management-list [employees]="employees"
                      [filter]="filter"
                      (employeeUpdated)="update($event)"
-                     (employeeUpdatedPassword)="updatePassword($event)"
                      (employeeDeleted)="delete($event)"></app-management-list>

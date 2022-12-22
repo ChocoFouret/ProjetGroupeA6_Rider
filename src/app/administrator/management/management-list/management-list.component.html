@@ -43,7 +43,6 @@
     <app-management-detail *ngIf="employee"
                            [employee]="employee"
                            (employeeUpdated)="update($event)"
-                           (employeeUpdatedPassword)="updatePassword($event)"
                            (employeeDeleted)="delete($event)"></app-management-detail>
   </div>
 </div>

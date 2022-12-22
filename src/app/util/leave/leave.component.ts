@@ -15,7 +15,6 @@ export class LeaveComponent implements OnInit {
     // Ne peut pas supprimer car HTTP Only
     // this.cookieService.delete("session");
     this.cookieService.delete("public");
-
     this.router.navigate(['./home'])
   }
 

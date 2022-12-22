@@ -31,6 +31,7 @@ import {AlertComponent} from './util/alert/alert.component';
 import { ManagementCompaniesComponent } from './administrator/management-companies/management-companies.component';
 import { ManagementCompaniesListComponent } from './administrator/management-companies/management-companies-list/management-companies-list.component';
 import { ManagementCompaniesDetailComponent } from './administrator/management-companies/management-companies-detail/management-companies-detail.component';
+import { HeaderComponent } from './util/header/header.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { ManagementCompaniesDetailComponent } from './administrator/management-c
     ManagementCompaniesComponent,
     ManagementCompaniesListComponent,
     ManagementCompaniesDetailComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,

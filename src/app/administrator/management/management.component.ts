@@ -4,7 +4,6 @@ import {DtoInputEmployee} from "./dtos/dto-input-employee";
 import {DtoOutputUpdateEmployee} from "./dtos/dto-output-update-employee";
 import {DtoOutputDeleteEmployee} from "./dtos/dto-output-delete-employee";
 import {ManagementService} from "./management.service";
-import {DtoOutputUpdatePasswordEmployee} from "./dtos/dto-output-update-password-employee";
 
 @Component({
   selector: 'app-management',
@@ -65,14 +64,6 @@ export class ManagementComponent implements OnInit {
     this._usersService
       .update(dto)
       .subscribe();
-  }
-
-  updatePassword(dto: DtoOutputUpdatePasswordEmployee) {
-    this._usersService
-      .updatePassword(dto)
-      .subscribe(value => {
-        alert("Votre nouveau mot de passe est : " + value.password);
-      });
   }
 
   delete(dto: DtoOutputDeleteEmployee) {
