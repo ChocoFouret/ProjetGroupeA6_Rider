@@ -16,6 +16,7 @@
       <ng-container *ngIf="!home">
         <ng-container *ngIf="function == 'Employe' && _session.isAdmin() == 'False'">
           <li><a routerLink="planning" routerLinkActive="active">Planning</a></li>
+          <li><a routerLink="announcements" routerLinkActive="active">Annonces</a></li>
           <li><a routerLink="request" routerLinkActive="active">Demandes</a></li>
         </ng-container>
 

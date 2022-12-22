@@ -18,6 +18,7 @@ import {CreateCompaniesComponent} from "./company/createCompanies/create-compani
 import {ManagementCompaniesComponent} from "./administrator/management-companies/management-companies.component";
 import {AnnouncementsComponent} from "./company/announcements/announcements.component";
 import {DirectorGuard} from "./auth/director.guard";
+import {AnnouncementsEmployeeComponent} from "./account/announcements-employee/announcements-employee.component";
 
 // Routes
 const routes: Routes = [
@@ -26,6 +27,7 @@ const routes: Routes = [
     path: 'account', component: AccountComponent, canActivate: [AuthGuard],
     children: [
       {path: 'request', component: RequestComponent},
+      {path: 'announcements', component: AnnouncementsEmployeeComponent},
       {path: 'profil', component: ProfilComponent},
       {path: 'planning', component: TimesheetComponent},
       {path: 'users-management', component: ManagementComponent},
