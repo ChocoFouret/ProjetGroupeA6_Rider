@@ -1,4 +1,3 @@
-import {DtoInputEmployee} from "../../../util/management/dtos/dto-input-employee";
 import {DtoInputFunctions} from "./dto-input-functions";
 
 export interface DtoInputHas {
@@ -6,6 +5,6 @@ export interface DtoInputHas {
   idAccount:number;
   idFunctions:number;
   idHas:number;
-  account:DtoInputEmployee;
+  account:null;
   function:DtoInputFunctions;
 }

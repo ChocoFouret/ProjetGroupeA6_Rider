@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {DtoOutputCreateAccount} from "./dtos/dto-output-create-account";
 import {DtoInputAccount} from "./dtos/dto-input-account";
+import {DtoOutputCreateAddress} from "./dtos/dto-output-create-address";
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +12,20 @@ import {DtoInputAccount} from "./dtos/dto-input-account";
 export class AccountService {
 
   private static readonly ENTRY_POINT_URL_ACCOUNT_CREATE=environment.apiUrlAccount+"/create";
+  private static readonly ENTRY_POINT_URL_ADDRESS_CREATE=environment.apiUrlAddress+"/create";
 
   constructor(private _httpClient: HttpClient) { }
-  create(dto: DtoOutputCreateAccount): Observable<DtoInputAccount>{
-    return this._httpClient.post<DtoInputAccount>(AccountService.ENTRY_POINT_URL_ACCOUNT_CREATE, {account: dto},
+  create(dto: DtoOutputCreateAccount, confirmPassword:string): Observable<DtoInputAccount>{
+    return this._httpClient.post<DtoInputAccount>(AccountService.ENTRY_POINT_URL_ACCOUNT_CREATE+"/"+confirmPassword, {account: dto},
       {
         withCredentials: true
       });
     //return this._httpClient.post<DtoInputAccount>(AccountService.ENTRY_POINT_URL_ACCOUNT_LOGIN, {account: dto} );
+  }
+  createAddress(dto:DtoOutputCreateAddress):Observable<any>{
+    return this._httpClient.post(AccountService.ENTRY_POINT_URL_ADDRESS_CREATE, {address: dto},
+      {
+        withCredentials: true
+      });
   }
 }

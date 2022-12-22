@@ -6,6 +6,8 @@ import {environment} from "../../../environments/environment";
 import {DtoOutputUpdateEmployee} from "../../administrator/management/dtos/dto-output-update-employee";
 import {ManagementService} from "../../administrator/management/management.service";
 import {SessionService} from "../../session/session.service";
+import {DtoInputAddress} from "./dtos/dto-input-address";
+import {DtoOutputUpdateAddress} from "./dtos/dto-output-update-address";
 
 @Injectable({
   providedIn: 'root'
@@ -29,8 +31,20 @@ export class ProfilService {
       isAdmin: null,
       phone: dto.phone,
       lastName: dto.lastName,
-      pictureURL: dto.pictureURL
+      pictureURL: dto.pictureURL,
     }
     return this._management.update(dtoUpdate).subscribe();
+  }
+
+  updateAddress(dto:DtoInputAddress){
+    console.log(dto);
+    let dtoAddress:DtoOutputUpdateAddress={
+      idAddress:dto.idAddress,
+        city:dto.city,
+      street:dto.street,
+      number:dto.number,
+      postCode:dto.postCode
+    }
+    return this._management.updateAddress(dtoAddress).subscribe();
   }
 }

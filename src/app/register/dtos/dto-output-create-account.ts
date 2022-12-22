@@ -7,4 +7,5 @@ FirstName:string
 IdAddress:number
 IsAdmin:boolean
 PictureURL:string
+  Phone:string
 }

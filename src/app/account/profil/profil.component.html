@@ -80,7 +80,6 @@
             <input [(ngModel)]="user.pictureURL"
                    [hidden]="!editMode"
                    name="pictureURL"
-                   pattern="[^@\s]+\.[^@\s]+"
                    required
                    #pictureURLEl="ngModel"></p>
           <span *ngIf="pictureURLEl.dirty &&  pictureURLEl.invalid">Doit être complété</span>
