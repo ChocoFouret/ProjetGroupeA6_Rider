@@ -109,7 +109,7 @@ export class CreateCompaniesComponent implements OnInit {
     if(confirm("Etes vous sûr de vouloir passer cette étape ? (vous pouvez y revenir par après)"))
     {
       console.log("salut");
-      this.router.navigateByUrl('employee');
+      this.router.navigateByUrl('account');
     }
 
   }
