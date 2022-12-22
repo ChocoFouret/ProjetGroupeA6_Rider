@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --ssl true --ssl-cert cert/localhost.crt --ssl-key cert/localhost.key",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -22,9 +22,11 @@
     "coreui": "^0.1.5",
     "coreui-angular-dev": "github:coreui/angular",
     "daypilot-pro-angular": "https://npm.daypilot.org/daypilot-pro-angular/trial/2022.4.5465.tar.gz",
+    "install": "^0.13.0",
     "jwt-decode": "^3.1.2",
     "ngx-cookie-service": "^15.0.0",
     "ngx-toastr": "^16.0.1",
+    "openssl": "^2.0.0",
     "rxjs": "~7.6.0",
     "tslib": "^2.4.1",
     "zone.js": "~0.12.0"

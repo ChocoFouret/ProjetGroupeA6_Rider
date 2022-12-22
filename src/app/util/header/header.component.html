@@ -16,17 +16,17 @@
       </ng-container>
 
       <ng-container *ngIf="!home">
-        <ng-container *ngIf="function == 'Employe' && isAdmin == false">
+        <ng-container *ngIf="function == 'Employe' && _session.isAdmin() == 'False'">
           <li><a routerLink="planning" routerLinkActive="active">Planning</a></li>
           <li><a routerLink="request" routerLinkActive="active">Demandes</a></li>
         </ng-container>
 
-        <ng-container *ngIf="function == 'Directeur' && isAdmin == false">
+        <ng-container *ngIf="function == 'Directeur' && _session.isAdmin() == 'False'">
           <li><a routerLink="planning" routerLinkActive="active">Planning</a></li>
           <li><a routerLink="/company" routerLinkActive="active">Gestion de l'entreprise</a></li>
         </ng-container>
 
-        <ng-container *ngIf="isAdmin == true">
+        <ng-container *ngIf="_session.isAdmin() == 'True'">
           <li><a routerLink="users-management" routerLinkActive="active">Gestion des utilisateurs</a></li>
           <li><a routerLink="companies-management" routerLinkActive="active">Gestion des entreprises</a></li>
         </ng-container>

@@ -4,6 +4,7 @@ import {environment} from "../../environments/environment";
 import {DtoOutputLogin} from "./dtos/dto-output-login";
 import * as jwt from "jwt-decode";
 import {Observable} from "rxjs";
+import {CookieService} from "ngx-cookie-service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class SessionService {
   // Entries from C#
   private static readonly ENTRY_POINT_URL = environment.apiUrlAccount
 
-  constructor(private _httpClient: HttpClient) {
+  constructor(private _httpClient: HttpClient,
+              private cookieService: CookieService) {
   }
 
   // Create session
@@ -43,19 +45,8 @@ export class SessionService {
     return '';
   }
 
-  existCookie(name:string): boolean {
-    let ca: Array<string> = document.cookie.split(';');
-    let caLen: number = ca.length;
-    let cookieName = `${name}=`;
-    let c: string;
-
-    for (let i: number = 0; i < caLen; i += 1) {
-      c = ca[i].replace(/^\s+/g, '');
-      if (c.indexOf(cookieName) == 0) {
-        return true
-      }
-    }
-    return false
+  existCookie(): boolean {
+    return this.cookieService.get("public") != ""
   }
 
   private DecodeToken(token: string): string {
