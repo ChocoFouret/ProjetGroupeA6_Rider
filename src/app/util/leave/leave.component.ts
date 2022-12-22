@@ -12,9 +12,8 @@ export class LeaveComponent implements OnInit {
   constructor(private router: Router, private cookieService: CookieService) { }
 
   ngOnInit(): void {
-    // Ne peut pas supprimer car HTTP Only
-    // this.cookieService.delete("session");
-    this.cookieService.delete("public");
+    this.cookieService.set("session", "")
+    this.cookieService.set("public", "")
     this.router.navigate(['./home'])
   }
 

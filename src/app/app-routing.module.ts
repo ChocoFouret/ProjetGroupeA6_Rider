@@ -1,10 +1,8 @@
 import {NgModule} from '@angular/core';
-import {AdministratorComponent} from "./administrator/administrator.component";
 import {RouterModule, Routes} from "@angular/router";
 import {NotFoundComponent} from "./not-found/not-found.component";
 import {SessionComponent} from "./session/session.component";
 import {AuthGuard} from "./auth/auth.guard";
-import {AdminGuard} from "./auth/admin.guard";
 import {ManagementComponent} from "./administrator/management/management.component";
 import {LeaveComponent} from "./util/leave/leave.component";
 import {HomeComponent} from "./home/home.component";
@@ -24,19 +22,13 @@ import {ManagementCompaniesComponent} from "./administrator/management-companies
 const routes: Routes = [
   {path: '', redirectTo: 'home/welcome', pathMatch: 'full'},
   {
-    path: 'administrator', component: AdministratorComponent, canActivate: [AdminGuard],
-    children: [
-      {path: 'users-management', component: ManagementComponent},
-      {path: 'companies-management', component: ManagementCompaniesComponent},
-      {path: 'profil', component: ProfilComponent}
-    ]
-  },
-  {
     path: 'employee', component: AccountComponent, canActivate: [AuthGuard],
     children: [
       {path: 'request', component: RequestComponent},
       {path: 'profil', component: ProfilComponent},
-      {path: 'planning', component: TimesheetComponent}
+      {path: 'planning', component: TimesheetComponent},
+      {path: 'users-management', component: ManagementComponent},
+      {path: 'companies-management', component: ManagementCompaniesComponent}
     ]
   },
   {

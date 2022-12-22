@@ -3,7 +3,6 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
 import {GuestComponent} from './guest/guest.component';
-import {AdministratorComponent} from './administrator/administrator.component';
 import {AppRoutingModule} from "./app-routing.module";
 import {NotFoundComponent} from './not-found/not-found.component';
 import {SessionComponent} from './session/session.component';
@@ -37,7 +36,6 @@ import { HeaderComponent } from './util/header/header.component';
   declarations: [
     AppComponent,
     GuestComponent,
-    AdministratorComponent,
     NotFoundComponent,
     SessionComponent,
     ManagementComponent,
