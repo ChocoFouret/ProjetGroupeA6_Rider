@@ -13,7 +13,6 @@
         </ng-container>
         <li><a routerLink="about">A propos</a></li>
       </ng-container>
-
       <ng-container *ngIf="!home">
         <ng-container *ngIf="function == 'Employe' && _session.isAdmin() == 'False'">
           <li><a routerLink="planning" routerLinkActive="active">Planning</a></li>
@@ -22,7 +21,7 @@
 
         <ng-container *ngIf="function == 'Directeur' && _session.isAdmin() == 'False'">
           <li><a routerLink="planning" routerLinkActive="active">Planning</a></li>
-          <li><a routerLink="/company" routerLinkActive="active">Gestion de l'entreprise</a></li>
+          <li><a routerLink="director/calendar" routerLinkActive="active">Gestion des plannings</a></li>
         </ng-container>
 
         <ng-container *ngIf="_session.isAdmin() == 'True'">

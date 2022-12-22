@@ -13,7 +13,6 @@ import {ManagementDetailComponent} from './administrator/management/management-d
 import {ManagementListComponent} from './administrator/management/management-list/management-list.component';
 import {LeaveComponent} from './util/leave/leave.component';
 import {HomeComponent} from './home/home.component';
-import {CompanyComponent} from './company/company.component';
 import {CalendarComponent} from './company/calendar/calendar.component';
 import {DayPilotModule} from "daypilot-pro-angular";
 import {TimesheetComponent} from './account/timesheet/timesheet.component';
@@ -44,7 +43,6 @@ import { HeaderComponent } from './util/header/header.component';
     ManagementListComponent,
     LeaveComponent,
     HomeComponent,
-    CompanyComponent,
     CalendarComponent,
     TimesheetComponent,
     InfoEventComponent,

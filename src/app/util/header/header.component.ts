@@ -8,8 +8,9 @@ import {SessionService} from "../../session/session.service";
 })
 export class HeaderComponent {
   @Input() function : string = ""
-  @Input() home: boolean = true;
-  isLogged: boolean = this._session.existCookie();
+  @Input() home: boolean = true
+  @Input() pageDirector: boolean = false
+  isLogged: boolean = this._session.existCookie()
 
   constructor(public _session : SessionService) {
   }

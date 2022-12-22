@@ -6,7 +6,6 @@ import {AuthGuard} from "./auth/auth.guard";
 import {ManagementComponent} from "./administrator/management/management.component";
 import {LeaveComponent} from "./util/leave/leave.component";
 import {HomeComponent} from "./home/home.component";
-import {CompanyComponent} from "./company/company.component";
 import {AccountComponent} from "./account/account.component";
 import {RequestComponent} from "./account/request/request.component";
 import {ProfilComponent} from "./account/profil/profil.component";
@@ -17,7 +16,6 @@ import {WelcomeComponent} from "./welcome/welcome.component";
 import {AboutComponent} from "./about/about.component";
 import {CreateCompaniesComponent} from "./company/createCompanies/create-companies/create-companies.component";
 import {ManagementCompaniesComponent} from "./administrator/management-companies/management-companies.component";
-
 
 // Routes
 const routes: Routes = [
@@ -30,11 +28,7 @@ const routes: Routes = [
       {path: 'planning', component: TimesheetComponent},
       {path: 'users-management', component: ManagementComponent},
       {path: 'companies-management', component: ManagementCompaniesComponent},
-    ]
-  },
-  {
-    path: 'company', component: CompanyComponent, children: [
-      {path: 'calendar', component: CalendarComponent}
+      {path: 'director/calendar', component: CalendarComponent},
     ]
   },
   {
@@ -42,9 +36,9 @@ const routes: Routes = [
     children: [
       {path: 'login', component: SessionComponent},
       {path: 'register', component: RegisterComponent},
-      {path:'welcome', component: WelcomeComponent},
-      {path:'about', component: AboutComponent},
-      {path:'createCompanie', component: CreateCompaniesComponent}
+      {path: 'welcome', component: WelcomeComponent},
+      {path: 'about', component: AboutComponent},
+      {path: 'createCompanie', component: CreateCompaniesComponent}
     ]
   },
 
