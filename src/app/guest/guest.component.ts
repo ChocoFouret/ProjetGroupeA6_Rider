@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {DtoOutputLogin} from "../session/dtos/dto-output-login";
 
@@ -14,6 +14,7 @@ export class GuestComponent implements OnInit {
     password: this._fb.control("", Validators.required),
   });
   @Output() sessionLogin: EventEmitter<DtoOutputLogin> = new EventEmitter<DtoOutputLogin>();
+  @Input() error: boolean = false;
 
   constructor(private _fb: FormBuilder) {
   }

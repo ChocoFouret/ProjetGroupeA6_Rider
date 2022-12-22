@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {CookieService} from "ngx-cookie-service";
+import {SessionService} from "../../session/session.service";
+import {NotificationsService} from "../notifications/notifications.service";
 
 @Component({
   selector: 'app-leave',
@@ -9,12 +10,17 @@ import {CookieService} from "ngx-cookie-service";
 })
 export class LeaveComponent implements OnInit {
 
-  constructor(private router: Router, private cookieService: CookieService) { }
+  constructor(private router: Router,
+              private _session: SessionService,
+              private _notification: NotificationsService) {}
 
   ngOnInit(): void {
-    this.cookieService.set("session", "")
-    this.cookieService.set("public", "")
-    this.router.navigate(['./home'])
+    this._session.disconnect().subscribe(
+      () => {
+        this._notification.success("Déconnexion réussie");
+        this.router.navigate(['./home'])
+      }
+    );
   }
 
 

@@ -37,18 +37,16 @@ export class WebsocketService {
     });
 
     this.connection.start().then(() => {
-      console.log("Serveur connecté");
+      // console.log("Serveur connecté");
     })
       .then(() => {
         this.es.fetchHasAccount(this.session.getID()).subscribe(res => {
           this.connection?.invoke("JoinGroup", res[0].idCompanies + "").then(() => {
-            console.log("Groupe de la compagnie rejoint");
+            // console.log("Groupe de la compagnie rejoint");
           });
         })
       })
-      .catch(err => {
-        console.log(err);
-      });
+      .catch(() => {});
   }
 
   init(component: any){

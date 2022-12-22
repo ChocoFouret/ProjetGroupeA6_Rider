@@ -37,7 +37,6 @@ export class ProfilService {
   }
 
   updateAddress(dto:DtoInputAddress){
-    console.log(dto);
     let dtoAddress:DtoOutputUpdateAddress={
       idAddress:dto.idAddress,
         city:dto.city,

@@ -30,6 +30,10 @@ export class SessionService {
       })
   }
 
+  disconnect() {
+    return this._httpClient.post(SessionService.ENTRY_POINT_URL + "/disconnect", {}, {withCredentials: true})
+  }
+
   private getCookie(name: string) {
     let ca: Array<string> = document.cookie.split(';');
     let caLen: number = ca.length;
