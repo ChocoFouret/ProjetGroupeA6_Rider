@@ -3,6 +3,7 @@
  import {DtoInputProfil} from "./dtos/dto-input-profil";
  import {NotificationsService} from "../../util/notifications/notifications.service";
  import {SessionService} from "../../session/session.service";
+ import {DtoInputAddress} from "./dtos/dto-input-address";
 
 @Component({
   selector: 'app-profil',
@@ -32,6 +33,14 @@ export class ProfilComponent implements OnInit {
       password: "",
     }
   };
+
+  public address:DtoInputAddress={
+    idAddress:0,
+    street:"",
+    city:"",
+    number:"",
+    postCode:""
+  }
   editMode: boolean = false;
   constructor(private profilService : ProfilService,
               private _notification : NotificationsService,
@@ -41,6 +50,7 @@ export class ProfilComponent implements OnInit {
     this.profilService.fetchProfil(this._session.getID()).subscribe(profil => {
       this.user = profil
     })
+
   }
 
   edit() {
@@ -50,6 +60,7 @@ export class ProfilComponent implements OnInit {
   send() {
     this._notification.success("Changement effectué");
     this.profilService.updateProfil(this.user);
+    this.profilService.updateAddress(this.user.address);
     this.edit();
   }
 }

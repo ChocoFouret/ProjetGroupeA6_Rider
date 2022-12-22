@@ -17,6 +17,7 @@ import {CalendarComponent} from "./company/calendar/calendar.component";
 import {RegisterComponent} from "./register/register.component";
 import {WelcomeComponent} from "./welcome/welcome.component";
 import {AboutComponent} from "./about/about.component";
+import {CreateCompaniesComponent} from "./company/createCompanies/create-companies/create-companies.component";
 import {ManagementCompaniesComponent} from "./administrator/management-companies/management-companies.component";
 
 
@@ -49,8 +50,9 @@ const routes: Routes = [
     children: [
       {path: 'login', component: SessionComponent},
       {path: 'register', component: RegisterComponent},
-      {path: 'welcome', component: WelcomeComponent},
-      {path: 'about', component: AboutComponent}
+      {path:'welcome', component: WelcomeComponent},
+      {path:'about', component: AboutComponent},
+      {path:'createCompanie', component: CreateCompaniesComponent}
     ]
   },
 

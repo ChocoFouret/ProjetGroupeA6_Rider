@@ -1,0 +1,32 @@
+.divCreate{
+  display: flex;
+  flex-direction: column;
+}
+.divJoin{
+  display: flex;
+  flex-direction: column;
+}
+.inputCreate{
+  width:50%;
+}
+.inputJoin{
+  width:64%;
+}
+.mainDiv{
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  top:30px;
+  left:30px;
+}
+.skip {
+  display: inline-block;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  cursor: pointer;
+  color: #3A6CFC;
+}
+label{
+  font-size: 20px;
+}
+
