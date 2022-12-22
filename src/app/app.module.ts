@@ -27,10 +27,11 @@ import {AboutComponent} from './about/about.component';
 import {ToastrModule} from 'ngx-toastr';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AlertComponent} from './util/alert/alert.component';
-import { ManagementCompaniesComponent } from './administrator/management-companies/management-companies.component';
-import { ManagementCompaniesListComponent } from './administrator/management-companies/management-companies-list/management-companies-list.component';
-import { ManagementCompaniesDetailComponent } from './administrator/management-companies/management-companies-detail/management-companies-detail.component';
-import { HeaderComponent } from './util/header/header.component';
+import {ManagementCompaniesComponent} from './administrator/management-companies/management-companies.component';
+import {ManagementCompaniesListComponent} from './administrator/management-companies/management-companies-list/management-companies-list.component';
+import {ManagementCompaniesDetailComponent} from './administrator/management-companies/management-companies-detail/management-companies-detail.component';
+import {HeaderComponent} from './util/header/header.component';
+import {AnnouncementsComponent} from './company/announcements/announcements.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { HeaderComponent } from './util/header/header.component';
     ManagementCompaniesListComponent,
     ManagementCompaniesDetailComponent,
     HeaderComponent,
+    AnnouncementsComponent,
   ],
   imports: [
     BrowserModule,

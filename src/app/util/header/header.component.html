@@ -22,6 +22,7 @@
         <ng-container *ngIf="function == 'Directeur' && _session.isAdmin() == 'False'">
           <li><a routerLink="planning" routerLinkActive="active">Planning</a></li>
           <li><a routerLink="director/calendar" routerLinkActive="active">Gestion des plannings</a></li>
+          <li><a routerLink="director/announcements" routerLinkActive="active">Gestion des annonces</a></li>
         </ng-container>
 
         <ng-container *ngIf="_session.isAdmin() == 'True'">

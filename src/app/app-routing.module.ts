@@ -16,6 +16,8 @@ import {WelcomeComponent} from "./welcome/welcome.component";
 import {AboutComponent} from "./about/about.component";
 import {CreateCompaniesComponent} from "./company/createCompanies/create-companies/create-companies.component";
 import {ManagementCompaniesComponent} from "./administrator/management-companies/management-companies.component";
+import {AnnouncementsComponent} from "./company/announcements/announcements.component";
+import {DirectorGuard} from "./auth/director.guard";
 
 // Routes
 const routes: Routes = [
@@ -28,7 +30,8 @@ const routes: Routes = [
       {path: 'planning', component: TimesheetComponent},
       {path: 'users-management', component: ManagementComponent},
       {path: 'companies-management', component: ManagementCompaniesComponent},
-      {path: 'director/calendar', component: CalendarComponent},
+      {path: 'director/calendar', component: CalendarComponent, canActivate: [DirectorGuard]},
+      {path: 'director/announcements', component: AnnouncementsComponent, canActivate: [DirectorGuard]},
     ]
   },
   {
