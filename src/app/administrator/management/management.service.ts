@@ -40,7 +40,6 @@ export class ManagementService {
     })
   }
 
-
   delete(dto: DtoOutputDeleteEmployee): Observable<any>{
     return this._httpClient.delete(`${ManagementService.ENTRY_POINT}/delete/` + dto.idAccount)
   }

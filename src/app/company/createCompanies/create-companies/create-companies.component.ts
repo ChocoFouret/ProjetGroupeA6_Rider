@@ -76,7 +76,7 @@ export class CreateCompaniesComponent implements OnInit {
         })
         this._hasService
           .create(this.hasCreated)
-          .subscribe(() => this.router.navigateByUrl('employee'));
+          .subscribe(() => this.router.navigateByUrl('account'));
       });
 
   }
@@ -104,7 +104,7 @@ export class CreateCompaniesComponent implements OnInit {
             })
             this._hasService
               .create(this.hasCreated)
-              .subscribe(() => this.router.navigateByUrl('employee'))
+              .subscribe(() => this.router.navigateByUrl('account'))
           })
       })
 
