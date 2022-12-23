@@ -2,32 +2,34 @@
 <ng-container *ngIf="employees.length">
   <div class="container user-widget-2">
     <ng-container *ngFor="let employee of employees">
-      <label class="btn media" for="modal-info" (click)="select(employee)">
-        <div *ngIf="employee.lastName.toLowerCase().includes(filter) || employee.firstName.toLowerCase().includes(filter)">
-          <div class="upper">
-            <div class="upper-left">
-              <img class="rounded-circle d-flex align-self-center"
-                   src="{{employee.pictureURL}}"
-                   alt="">
+      <ng-container *ngIf="employee.lastName.toLowerCase().includes(filter.toLowerCase()) || employee.firstName.toLowerCase().includes(filter.toLowerCase())">
+        <label class="btn media" for="modal-info" (click)="select(employee)">
+          <div>
+            <div class="upper">
+              <div class="upper-left">
+                <img class="rounded-circle d-flex align-self-center"
+                     src="{{employee.pictureURL}}"
+                     alt="">
+              </div>
+              <div class="upper-right">
+                <h5>{{employee.lastName}} {{employee.firstName}}</h5>
+                <p>{{employee.company}}</p>
+              </div>
             </div>
-            <div class="upper-right">
-              <h5>{{employee.lastName}} {{employee.firstName}}</h5>
-              <p>{{employee.company}}</p>
+            <div class="bottom">
+              <div class="media-body">
+                <p>
+                  <span *ngIf="employee.function"
+                        class="badge badge-outline badge-sm badge-info badge-pill">{{employee.function}}</span>
+                  <span *ngIf="!employee.isAdmin"
+                        class="badge badge-outline badge-sm badge-primary badge-pill">Membres</span>
+                  <span *ngIf="employee.isAdmin" class="badge badge-outline badge-sm badge-danger badge-pill">Administrateur</span>
+                </p>
+              </div>
             </div>
           </div>
-          <div class="bottom">
-            <div class="media-body">
-              <p>
-                <span *ngIf="employee.function"
-                      class="badge badge-outline badge-sm badge-info badge-pill">{{employee.function}}</span>
-                <span *ngIf="!employee.isAdmin"
-                      class="badge badge-outline badge-sm badge-primary badge-pill">Membres</span>
-                <span *ngIf="employee.isAdmin" class="badge badge-outline badge-sm badge-danger badge-pill">Administrateur</span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </label>
+        </label>
+      </ng-container>
     </ng-container>
   </div>
 </ng-container>

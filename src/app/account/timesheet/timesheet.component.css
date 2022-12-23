@@ -26,3 +26,17 @@
 .header {
   text-align: center;
 }
+
+.toolbar {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.left {
+  width: 50%;
+}
+
+.right {
+  width: 50%;
+}

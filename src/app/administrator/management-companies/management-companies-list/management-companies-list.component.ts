@@ -9,4 +9,11 @@ import {DtoInputCompany} from "../dtos/dto-input-company";
 export class ManagementCompaniesListComponent {
   @Input() companies: DtoInputCompany[] = [];
   @Input() filter: string = "";
+
+  company: DtoInputCompany | undefined;
+  detailVisible: boolean = false;
+
+  select(company: DtoInputCompany | undefined) {
+    this.company = company;
+  }
 }

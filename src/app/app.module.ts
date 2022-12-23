@@ -13,7 +13,6 @@ import {ManagementDetailComponent} from './administrator/management/management-d
 import {ManagementListComponent} from './administrator/management/management-list/management-list.component';
 import {LeaveComponent} from './util/leave/leave.component';
 import {HomeComponent} from './home/home.component';
-import {CompanyComponent} from './company/company.component';
 import {CalendarComponent} from './company/calendar/calendar.component';
 import {DayPilotModule} from "daypilot-pro-angular";
 import {TimesheetComponent} from './account/timesheet/timesheet.component';
@@ -28,10 +27,12 @@ import {AboutComponent} from './about/about.component';
 import {ToastrModule} from 'ngx-toastr';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AlertComponent} from './util/alert/alert.component';
-import { ManagementCompaniesComponent } from './administrator/management-companies/management-companies.component';
-import { ManagementCompaniesListComponent } from './administrator/management-companies/management-companies-list/management-companies-list.component';
-import { ManagementCompaniesDetailComponent } from './administrator/management-companies/management-companies-detail/management-companies-detail.component';
-import { HeaderComponent } from './util/header/header.component';
+import {ManagementCompaniesComponent} from './administrator/management-companies/management-companies.component';
+import {ManagementCompaniesListComponent} from './administrator/management-companies/management-companies-list/management-companies-list.component';
+import {ManagementCompaniesDetailComponent} from './administrator/management-companies/management-companies-detail/management-companies-detail.component';
+import {HeaderComponent} from './util/header/header.component';
+import {AnnouncementsComponent} from './company/announcements/announcements.component';
+import {AnnouncementsEmployeeComponent} from "./account/announcements-employee/announcements-employee.component";
 
 @NgModule({
   declarations: [
@@ -44,7 +45,6 @@ import { HeaderComponent } from './util/header/header.component';
     ManagementListComponent,
     LeaveComponent,
     HomeComponent,
-    CompanyComponent,
     CalendarComponent,
     TimesheetComponent,
     InfoEventComponent,
@@ -60,6 +60,8 @@ import { HeaderComponent } from './util/header/header.component';
     ManagementCompaniesListComponent,
     ManagementCompaniesDetailComponent,
     HeaderComponent,
+    AnnouncementsComponent,
+    AnnouncementsEmployeeComponent
   ],
   imports: [
     BrowserModule,

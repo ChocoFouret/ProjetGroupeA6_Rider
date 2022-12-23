@@ -30,11 +30,6 @@ export class ManagementListComponent implements OnInit {
       email: dto.email,
       phone: dto.phone,
 
-//      street : dto.street,
-//      number : dto.number,
-//      postCode : dto.postCode,
-//      city : dto.city,
-
       isAdmin: dto.isAdmin,
       pictureURL: dto.pictureURL
     })
