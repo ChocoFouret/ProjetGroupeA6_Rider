@@ -30,6 +30,9 @@
           <li><a routerLink="companies-management" routerLinkActive="active">Gestion des entreprises</a></li>
         </ng-container>
 
+        <ng-container *ngIf="function=='' && _session.isAdmin()=='False'">
+          <li> <a routerLink="../home/createCompanie" routerLinkActive="active"> Créer ou rejoindre une entreprise</a></li>
+        </ng-container>
         <li><a routerLink="profil" routerLinkActive="active">Mon profil</a></li>
         <li><a routerLink="/leave" routerLinkActive="active">Quitter</a></li>
       </ng-container>
