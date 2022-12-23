@@ -17,14 +17,14 @@ export class RequestComponent implements OnInit {
   request: DtoOutputCreateEvents | undefined;
   event: any;
   events: any;
-  eventDelete : any;
+  eventDelete: any;
   isVisibleForm: boolean = false;
   isVisibleList: boolean = true;
   isVisibleNotice: boolean = false;
-  alert : boolean = false;
+  alert: boolean = false;
 
   form: FormGroup = new FormGroup({
-    type: new FormControl("", Validators.required),
+    types: new FormControl("", Validators.required),
     comments: new FormControl("", Validators.required),
     startDate: new FormControl("", [
       Validators.required
@@ -66,13 +66,13 @@ export class RequestComponent implements OnInit {
   }
 
   // Method for deleting events. (WebSocket)
-  localDelete(id: string) {
-    this.events = this.events.filter((event: any) => event.idEventsEmployee != id)
+  localDelete(idEventsEmployee: string) {
+    this.events = this.events.filter((event: any) => event.idEventsEmployee != idEventsEmployee)
   }
 
   // Method for creating events. (WebSocket)
   localCreate(dto: any) {
-    if(!this.events.includes(dto.events.idEventsEmployee)){
+    if (!this.events.includes(dto.events.idEventsEmployee)) {
       this.event = {
         idEventsEmployee: dto.events.idEventsEmployee,
         startDate: dto.events.startDate,
@@ -92,18 +92,17 @@ export class RequestComponent implements OnInit {
         startDate: this.form.value.startDate,
         endDate: this.form.value.endDate,
         comments: this.form.value.comments,
-        types: this.form.value.type,
+        types: this.form.value.types,
         idEventsEmployee: DayPilot.guid(),
         idAccount: this._session.getID(),
         idCompanies: this.idCompanies,
         isValid: false,
       }
-      if (this.event.id != null) {
-        this.request.idEventsEmployee = this.event.id;
+      if (this.event.idEventsEmployee != null) {
+        this.request.idEventsEmployee = this.event.idEventsEmployee;
         this.doUpdate(this.request);
       } else {
         this.doRequest(this.request);
-        this.events.push(this.request);
       }
       this.isVisibleNotice = true
       this.form.reset()
@@ -112,6 +111,7 @@ export class RequestComponent implements OnInit {
 
   // Sends the event to the service.
   doRequest(dto: DtoOutputCreateEvents) {
+    this.visible(2)
     this._requests.createEvent(dto, dto.idCompanies.toString()).subscribe();
   }
 
@@ -125,27 +125,23 @@ export class RequestComponent implements OnInit {
       this.event.comments = dto.comments;
       this.event.types = dto.types;
       this._requests.updateEvent(this.event, this.event.idCompanies.toString()).subscribe();
-
-      this.loadEvents();
     });
   }
 
   // Change the visibility of the divs
-  visible(id: number) {
-    if (id == 1) {
+  visible(idEventsEmployee: number) {
+    if (idEventsEmployee == 1) {
       this.isVisibleForm = true
       this.isVisibleList = false;
-
       this.event = {
-        id: null,
+        idEventsEmployee: null,
         startDate: "",
         endDate: "",
         comments: "",
-        type: ""
+        types: ""
       }
       this.changeForm(this.event);
-
-    } else if (id == 2) {
+    } else if (idEventsEmployee == 2) {
       this.isVisibleForm = false;
       this.isVisibleList = true;
       this.isVisibleNotice = false;
@@ -165,14 +161,14 @@ export class RequestComponent implements OnInit {
   }
 
   // Allows to update an event (displays it in the form)
-  edit(id: string) {
-    let event = this.events.find((event: any) => event.idEventsEmployee == id)
+  edit(idEventsEmployee: string) {
+    let event = this.events.find((event: any) => event.idEventsEmployee == idEventsEmployee)
     this.event = {
-      id: event.idEventsEmployee,
+      idEventsEmployee: event.idEventsEmployee,
       startDate: event.startDate,
       endDate: event.endDate,
       comments: event.comments,
-      type: event.types
+      types: event.types
     }
     this.changeForm(this.event);
 
@@ -186,20 +182,19 @@ export class RequestComponent implements OnInit {
       startDate: event.startDate,
       endDate: event.endDate,
       comments: event.comments,
-      type: event.type
+      types: event.types
     })
-    this.form.controls['type'].setValue(event.type);
   }
 
-  emitChoose(choose : any) {
-    if(choose){
+  emitChoose(choose: any) {
+    if (choose) {
       this._requests.deleteEvent(this.eventDelete, this.idCompanies.toString()).subscribe();
     }
     this.alert = false;
   }
 
-  confirmDelete(id: string) {
-    this.eventDelete = this.events.find((event: any) => event.idEventsEmployee == id);
+  confirmDelete(idEventsEmployee: string) {
+    this.eventDelete = this.events.find((event: any) => event.idEventsEmployee == idEventsEmployee);
     this.alert = true;
   }
 }

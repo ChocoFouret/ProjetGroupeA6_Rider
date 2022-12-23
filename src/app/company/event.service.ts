@@ -21,6 +21,7 @@ export class EventService {
   constructor(private _httpClient: HttpClient) { }
 
   createEvent(dto: DtoOutputCreateEvents, idCompanies: string): Observable<DtoInputEvents> {
+    console.log("create")
     return this._httpClient.post<DtoInputEvents>(`${EventService.ENTRY_POINT}/create/${idCompanies}`, {events: dto}, {withCredentials: true});
   }
 

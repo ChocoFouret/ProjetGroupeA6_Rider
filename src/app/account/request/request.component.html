@@ -9,7 +9,7 @@
       <legend>Complétez votre demande</legend>
         <form [formGroup]="form" (ngSubmit)="send()">
             <p>Type d'évènement </p>
-            <select formControlName="type">
+            <select formControlName="types">
               <option value="" disabled [selected]="true"> -- Type d'évènements --</option>
               <option value="Absence">Absence</option>
               <option value="Congé">Congé</option>
@@ -28,10 +28,10 @@
               <p *ngIf="this.form.controls['startDate'].errors?.['invalid']">La date doit être plus éloignée.</p>
             </label>
             <br><br>
-            <ng-container *ngIf="event.id == null">
+            <ng-container *ngIf="event.idEventsEmployee == null">
               <input type="submit" value="Envoyer" [disabled]="!this.form.valid">
             </ng-container>
-            <ng-container *ngIf="event.id != null">
+            <ng-container *ngIf="event.idEventsEmployee != null">
               <input type="submit" value="Modifier" [disabled]="!this.form.valid">
             </ng-container>
            <input type="reset" value="Annuler" (click)="visible(2)">
@@ -51,8 +51,8 @@
               </p>
             </div>
             <div class="action" *ngIf="!e.isValid">
-              <img src="assets/pictures/edit.png" (click)="edit(e.idEventsEmployee)" width="25" height="25" alt="image"/>
-              <img src="assets/pictures/delete.png" (click)="confirmDelete(e.idEventsEmployee)" width="25" height="25" alt="image"/>
+              <img src="./assets/pictures/edit.png" (click)="edit(e.idEventsEmployee)" width="25" height="25" alt="image"/>
+              <img src="./assets/pictures/delete.png" (click)="confirmDelete(e.idEventsEmployee)" width="25" height="25" alt="image"/>
             </div>
           </div>
         </ng-container>
