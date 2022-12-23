@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {DtoOutputLogin} from "./dtos/dto-output-login";
 import {SessionService} from "./session.service";
 import {Router} from "@angular/router";
+import {NotificationsService} from "../util/notifications/notifications.service";
 
 @Component({
   selector: 'app-session',
@@ -9,8 +10,10 @@ import {Router} from "@angular/router";
   styleUrls: ['./session.component.css']
 })
 export class SessionComponent implements OnInit {
-
-  constructor(private _sessionService: SessionService, private router: Router) { }
+  error : boolean = false;
+  constructor(private _sessionService: SessionService,
+              private router: Router,
+              private _notification: NotificationsService) { }
 
   ngOnInit(): void {
   }
@@ -18,9 +21,13 @@ export class SessionComponent implements OnInit {
   login(dto: DtoOutputLogin) {
     this._sessionService.login(dto).subscribe(
       () => {
-        this.router.navigate(['administrator'])
+        this._notification.success("Connexion réussie");
+        this.router.navigate(['account'])
       },
-      error => console.error(error)
+      () => {
+        this._notification.error("Connexion échouée");
+        this.error = true
+      }
     );
   }
 }

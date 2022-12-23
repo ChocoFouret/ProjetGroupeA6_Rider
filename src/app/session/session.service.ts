@@ -4,6 +4,7 @@ import {environment} from "../../environments/environment";
 import {DtoOutputLogin} from "./dtos/dto-output-login";
 import * as jwt from "jwt-decode";
 import {Observable} from "rxjs";
+import {CookieService} from "ngx-cookie-service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class SessionService {
   // Entries from C#
   private static readonly ENTRY_POINT_URL = environment.apiUrlAccount
 
-  constructor(private _httpClient: HttpClient) {
+  constructor(private _httpClient: HttpClient,
+              private cookieService: CookieService) {
   }
 
   // Create session
@@ -26,6 +28,10 @@ export class SessionService {
       {
         withCredentials: true
       })
+  }
+
+  disconnect() {
+    return this._httpClient.post(SessionService.ENTRY_POINT_URL + "/disconnect", {}, {withCredentials: true})
   }
 
   private getCookie(name: string) {
@@ -43,25 +49,37 @@ export class SessionService {
     return '';
   }
 
+  existCookie(): boolean {
+    return this.cookieService.get("public") != ""
+  }
+
   private DecodeToken(token: string): string {
     return jwt.default(token);
   }
 
-  getFunction():string{
+  isAdmin(): string {
     let cookie = this.DecodeToken(this.getCookie("public"));
     let result = Object.entries(cookie);
-    return(result[1][1].toString().split(',')[0]);
+    return result[1][1];
   }
 
-  getEmail():string{
+  getID(): number {
+
     let cookie = this.DecodeToken(this.getCookie("public"));
     let result = Object.entries(cookie);
-    return(result[0][1]);
+
+    return (parseInt(result[0][1].toString()));
   }
 
-  getID():string{
+  getCompanies(): number {
     let cookie = this.DecodeToken(this.getCookie("public"));
     let result = Object.entries(cookie);
-    return(result[1][1].toString().split(',')[1]);
+    return (parseInt(result[2][1].toString()));
+  }
+
+  getFunction(): string {
+    let cookie = this.DecodeToken(this.getCookie("public"));
+    let result = Object.entries(cookie);
+    return result[3][1];
   }
 }

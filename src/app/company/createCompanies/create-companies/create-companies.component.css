@@ -1,0 +1,74 @@
+.divCreate{
+  display: flex;
+  flex-direction: column;
+  padding: 10%;
+}
+.divJoin{
+  display: flex;
+  flex-direction: column;
+  padding: 10%;
+
+}
+.mainDiv{
+  margin: auto;
+}
+.skip {
+  display: inline-block;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  cursor: pointer;
+  color: #24242a;
+}
+label{
+  font-size: 20px;
+}
+
+button {
+  display: inline-block;
+  background-color: black;
+  border-radius: 10px;
+  border: 2px double #cccccc;
+  color: #eeeeee;
+  text-align: center;
+  font-size: 16px;
+  padding: 10px;
+  width: 200px;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 30px;
+}
+
+.choiceDiv{
+  text-align: center;
+}
+
+.body {
+  width: 50%;
+  margin-left: auto;
+  margin-bottom: auto;
+  margin-right: auto;
+  color: #cccccc;
+}
+
+.contenair {
+  background-color: rgba(0, 0, 0, 0.56);
+}
+
+div {
+  text-align: center;
+  border-radius: 15px;
+}
+
+h4 {
+  margin-top: 10%;
+  text-align: center;
+}
+
+error {
+  border : 2px solid red;
+}
+
+

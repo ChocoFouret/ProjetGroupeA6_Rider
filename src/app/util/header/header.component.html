@@ -1,0 +1,44 @@
+<nav class="navbar">
+  <a href="#" class="logo"> PLAN-IT </a>
+  <div class="nav-links">
+    <ul>
+      <ng-container *ngIf="home">
+        <li><a routerLink="welcome">Accueil</a></li>
+        <ng-container *ngIf="!isLogged">
+          <li><a routerLink="login">Connexion</a></li>
+          <li><a routerLink="register">Inscription</a></li>
+        </ng-container>
+        <ng-container *ngIf="isLogged">
+          <li><a routerLink="/account">Mon compte</a></li>
+        </ng-container>
+        <li><a routerLink="aboutus">Qui sommes-nous</a></li>
+        <li><a routerLink="about">A propos</a></li>
+      </ng-container>
+      <ng-container *ngIf="!home">
+        <ng-container *ngIf="function == 'Employe' && _session.isAdmin() == 'False'">
+          <li><a routerLink="planning" routerLinkActive="active">Planning</a></li>
+          <li><a routerLink="announcements" routerLinkActive="active">Annonces</a></li>
+          <li><a routerLink="request" routerLinkActive="active">Demandes</a></li>
+        </ng-container>
+
+        <ng-container *ngIf="function == 'Directeur' && _session.isAdmin() == 'False'">
+          <li><a routerLink="planning" routerLinkActive="active">Planning</a></li>
+          <li><a routerLink="director/calendar" routerLinkActive="active">Gestion des plannings</a></li>
+          <li><a routerLink="director/announcements" routerLinkActive="active">Gestion des annonces</a></li>
+        </ng-container>
+
+        <ng-container *ngIf="_session.isAdmin() == 'True'">
+          <li><a routerLink="users-management" routerLinkActive="active">Gestion des utilisateurs</a></li>
+          <li><a routerLink="companies-management" routerLinkActive="active">Gestion des entreprises</a></li>
+        </ng-container>
+
+        <ng-container *ngIf="function=='' && _session.isAdmin()=='False'">
+          <li> <a routerLink="../home/createCompanie" routerLinkActive="active"> Créer ou rejoindre une entreprise</a></li>
+        </ng-container>
+        <li><a routerLink="profil" routerLinkActive="active">Mon profil</a></li>
+        <li><a routerLink="/leave" routerLinkActive="active">Quitter</a></li>
+      </ng-container>
+    </ul>
+    <hr>
+  </div>
+</nav>

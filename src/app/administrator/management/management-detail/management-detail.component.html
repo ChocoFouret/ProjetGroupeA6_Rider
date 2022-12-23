@@ -1,0 +1,59 @@
+<div *ngIf="employee; else employeeNotFound">
+  <div class="upper">
+    <div class="upper-left">
+      <img src="{{employee.pictureURL}}" width="150" height="150" alt="">
+      <div>
+        <h2>{{employee.lastName}}, {{employee.firstName}}</h2>
+        <p class="bold">ID-Pe : {{employee.idAccount}}</p>
+      </div>
+    </div>
+    <div class="upper-right">
+      <label class="toggle">
+        <input class="toggle-checkbox" type="checkbox" [(ngModel)]="toggleEdit" (change)="emitUpdate(employee)">
+        <div class="toggle-switch"></div>
+        <span class="toggle-label">Modification des données</span>
+      </label>
+      <br>
+      <button (click)="confirmDelete()">Supprimer</button>
+    </div>
+  </div>
+  <h3>Informations personnelles</h3>
+  <table>
+    <tr>
+      <td>Numéro de personnel :</td>
+      <td>{{employee.idAccount}}</td>
+    </tr>
+    <tr>
+      <td>Nom :</td>
+      <td><input [(ngModel)]="employee.lastName" [disabled]="!toggleEdit"></td>
+    </tr>
+    <tr>
+      <td>Prénom :</td>
+      <td><input [(ngModel)]="employee.firstName" [disabled]="!toggleEdit"></td>
+    </tr>
+    <tr>
+      <td>E-Mail :</td>
+      <td><input [(ngModel)]="employee.email" [disabled]="!toggleEdit"></td>
+    </tr>
+    <tr>
+      <td>Numéro de téléphone :</td>
+      <td><input [(ngModel)]="employee.phone" [disabled]="!toggleEdit"></td>
+    </tr>
+    <tr>
+      <td>Fonction :</td>
+      <td>
+        <select [(ngModel)]="employee.isAdmin" [disabled]="!toggleEdit">
+          <option [ngValue]="false">Employé</option>
+          <option *ngIf="isAdmin" [ngValue]="true">Administrateur</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<ng-template #employeeNotFound>
+  <h3>Aucun profil</h3>
+</ng-template>
+
+<!--Alerte de suppression-->
+<app-alert *ngIf="alert" [isVisible]="alert" (emitChoose)="emitChoose($event)"></app-alert>

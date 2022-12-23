@@ -1,0 +1,8 @@
+<div class="center">
+  <button (click)="previous()">Précédent</button>
+  <button (click)="today()">Aujourd'hui</button>
+  <button (click)="next()">Suivant</button>
+</div>
+
+<daypilot-scheduler [config]="config" [events]="events" (viewChange)="schedulerViewChanged($event)" #scheduler></daypilot-scheduler>
+

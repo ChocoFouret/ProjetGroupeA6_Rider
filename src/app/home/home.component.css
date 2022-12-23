@@ -11,7 +11,6 @@ body{
 
 header{
   height: 5vw;
-  width: 100vw;
   background-size: cover;
 }
 
@@ -22,7 +21,6 @@ header{
   justify-content: space-between;
   width: 99%;
   box-sizing: border-box;
-  border: 1px black solid;
 
 }
 
@@ -50,4 +48,9 @@ header{
 
 .navbar .nav-links ul il{
   margin: 0 30px;
+}
+
+h1{
+  text-align: center;
+  text-decoration: underline;
 }

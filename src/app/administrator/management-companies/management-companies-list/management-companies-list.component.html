@@ -1,0 +1,41 @@
+<h2>Nos entreprises</h2>
+<ng-container *ngIf="companies.length">
+  <div class="container user-widget-2">
+    <ng-container *ngFor="let company of companies">
+      <ng-container *ngIf="company.companiesName.toLowerCase().includes(filter.toLowerCase())">
+        <label class="btn media" for="modal-info" (click)="select(company)">
+          <div>
+            <div class="upper">
+              <div class="upper-left">
+                <p>{{company.idCompanies}}</p>
+              </div>
+              <div class="upper-right">
+                <p>{{company.companiesName}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="bottom">
+            <div class="upper-right">
+              <p>{{company.directorEmail}}</p>
+            </div>
+          </div>
+        </label>
+      </ng-container>
+    </ng-container>
+  </div>
+</ng-container>
+
+
+<input class="modal-state" id="modal-info" type="checkbox" [checked]="detailVisible" (click)="detailVisible = true"/>
+<div class="modal" [hidden]="!detailVisible">
+  <div class="modal__inner">
+    <label class="modal__close" for="modal-info">
+      <svg class="icon icon--sm" viewBox="0 0 40 40">
+        <path class="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30"></path>
+      </svg>
+    </label>
+    <app-management-companies-detail *ngIf="company"
+                                     [company]="company">
+    </app-management-companies-detail>
+  </div>
+</div>

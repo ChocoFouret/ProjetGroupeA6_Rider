@@ -1,29 +1,32 @@
-<body>
-
-<div>
-  <h3> Connexion </h3>
-  <br> <br>
-  <form [formGroup]="form" (ngSubmit)="emitLogin()">
-    <label>
-      Email :
-      <input type="text" formControlName="email" placeholder="Nom">
-      <select formControlName="address">
-        <option value="">autre domaine</option>
-        <option value="@employee.planit.be">@employee.planit.be</option>
-        <option value="@admin.planit.be">@admin.planit.be</option>
-        <option value="@hotmail.com"> @hotmail.com</option>
-      </select>
-    </label>
-    <br><br><br>
-    <label>
-      Password : <input type="password" formControlName="password" placeholder="Mot de passe">
-    </label>
-    <br><br><br><br>
-    <input type="submit" [disabled]="form.invalid">
-  </form>
+<div class="body">
+  <div class="contenair">
+    <h3> Connexion </h3>
+    <form [formGroup]="form" (ngSubmit)="emitLogin()">
+      <label>
+        Email :
+        <input type="text" formControlName="email" placeholder="Nom">
+        <select formControlName="address">
+          <option value="">autre domaine</option>
+          <option value="@employee.planit.be">@employee.planit.be</option>
+          <option value="@admin.planit.be">@admin.planit.be</option>
+          <option value="@hotmail.com"> @hotmail.com</option>
+        </select>
+      </label>
+      <br><br><br>
+      <label>
+        Password : <input type="password" formControlName="password" placeholder="Mot de passe">
+      </label>
+      <br><br>
+      <span *ngIf="error" class="error">
+          <strong>Adresse ou mot de passe incorrect</strong>
+      </span>
+      <br><br>
+      <input type="submit" [disabled]="form.invalid">
+    </form>
+  </div>
 </div>
-</body>
-<h4>En vous connectant, vous accpetez notre Politique Générales et Conditions d'utilisation  </h4>
+<h4>En vous connectant, vous accpetez notre <a href="#">Politique Générales</a> et <a href="#">Conditions
+  d'utilisation </a></h4>
 
 
 

@@ -1,0 +1,56 @@
+<div id="global">
+  <div id="menu">
+    <button (click)="visible(1)">Ajouter une annonce</button>
+  </div>
+
+  <div id="corps" *ngIf="isVisibleForm || isVisibleList">
+    <div id="forms" *ngIf="isVisibleForm">
+      <fieldset>
+        <legend>Complétez votre demande</legend>
+        <form [formGroup]="form" (ngSubmit)="send()">
+          <p>Qui peut voir </p>
+          <select formControlName="idFunctions">
+            <option value="2">Employé</option>
+            <option value="5">Directeur</option>
+          </select>
+          <label><p>Contenue de l'annonce</p>
+            <input type="text" formControlName="content">
+          </label>
+          <br><br>
+          <ng-container *ngIf="announcement.idAnnouncements == null">
+            <input type="submit" value="Envoyer" [disabled]="!this.form.valid">
+          </ng-container>
+          <ng-container *ngIf="announcement.idAnnouncements != null">
+            <input type="submit" value="Modifier" [disabled]="!this.form.valid">
+          </ng-container>
+          <input type="reset" value="Annuler" (click)="visible(2)">
+        </form>
+      </fieldset>
+    </div>
+
+    <div id="list" *ngIf="isVisibleList">
+      <ng-container class="requests" *ngFor="let a of announcements">
+        <div class="request">
+          <div class="infos">
+            <ng-container *ngIf="a.idFunctions == 2">
+              <h3>Employés</h3>
+            </ng-container>
+            <ng-container *ngIf="a.idFunctions == 5">
+              <h3>Directeurs</h3>
+            </ng-container>
+
+            <p>{{a.content}}</p>
+          </div>
+          <div class="action">
+            <img src="assets/pictures/edit.png" (click)="edit(a.idAnnouncements)" width="25" height="25" alt="image"/>
+            <img src="assets/pictures/delete.png" (click)="confirmDelete(a.idAnnouncements)" width="25" height="25"
+                 alt="image"/>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<!--Alerte de suppression-->
+<app-alert *ngIf="alert" [isVisible]="alert" (emitChoose)="emitChoose($event)"></app-alert>

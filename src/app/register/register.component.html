@@ -1,0 +1,48 @@
+<div class="body">
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <h4>Inscription</h4>
+  <br><br>
+  <div class="name-field">
+    <div>
+      <label>Nom</label>
+      <input type="text" formControlName="name" required>
+    </div>
+    <div>
+      <label>Prénom</label>
+      <input type="text" formControlName="firstName" required>
+    </div>
+  </div>
+  <div class="name-field">
+    <div>
+      <Label> Rue</Label>
+      <input class="inputmax" type="text" formControlName="street" required>
+    </div>
+
+    <div>
+      <Label> Numero</Label>
+      <input class="inputmax" type="text" formControlName="number" required>
+    </div>
+  </div>
+    <div class="name-field">
+      <div>
+        <Label> Ville</Label>
+        <input type="text" formControlName="city" required>
+      </div>
+      <div>
+        <Label> Code Postal </Label>
+        <input type="text" formControlName="postalCode" required>
+      </div>
+  </div>
+  <br>
+  <label>Email</label>
+  <input type="text" formControlName="email" required><br>
+  <label>Mot de passe</label>
+  <input type="password" formControlName="password" required><br>
+  <label>Confirmer votre mot de passe</label>
+  <input type="password" formControlName="password2" required><br><br>
+  <div *ngIf="f['password2'].errors?.['mustMatch']" class="error_equality"> Les mots de passes doivent être égaux</div>
+  <input type="submit" value="S'inscrire" [disabled]="form.invalid">
+
+  <p>Vous avez déjà un compte ? <a routerLink="../login">Connectez-vous</a></p>
+</form>
+</div>

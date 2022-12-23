@@ -1,0 +1,39 @@
+<div class="mainDiv body">
+    <div class="choiceDiv">
+      <button (click)="this.choiceCompanie.choice='create'">Créer une entreprise</button>
+      <button (click)="this.choiceCompanie.choice='join'">Rejoindre une entreprise existante</button>
+      <br>
+      <div class="skip">
+        <a (click)="skip()"> <u> Passer pour le moment </u> </a>
+      </div>
+    </div>
+
+      <div class="contenair">
+        <form [formGroup]="form">
+          <div *ngIf="choiceCompanie.choice=='create'" class="divCreate">
+            <Label> Nom de votre entreprise: </Label>
+            <input type="text" formControlName="name" class="inputCreate"><br><br>
+            <Label> Choisissez un mot de passe pour votre entreprise</Label>
+            <input type="password" class="inputCreate" formControlName="password"><br>
+            <div>
+              <input type="submit" value="Valider" (click)="createCompanies()" [disabled]="form.invalid">
+            </div>
+          </div>
+
+        </form>
+        <form [formGroup]="joinForm">
+          <div *ngIf="choiceCompanie.choice=='join'" class="divJoin">
+            <Label> Nom de l'entreprise: </Label>
+            <input type="text" formControlName="nameJoin" class="inputJoin"><br><br>
+            <Label> Mot de passe de l'entreprise: </Label>
+            <input type="password" class="inputJoin" formControlName="passwordJoin"><br>
+            <div>
+              <input type="submit" value="Valider" (click)="joinCompanie()" [disabled]="joinForm.invalid">
+            </div>
+          </div>
+        </form>
+      </div>
+</div>
+
+
+

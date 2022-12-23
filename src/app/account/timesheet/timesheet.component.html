@@ -1,0 +1,21 @@
+<div class="toolbar">
+  <div class="left">
+    <div class="header container">
+      <a (click)="previous()" class="arrow arrow-left" role="button"></a>
+      <span class="header-label">{{month}}</span>
+      <a (click)="next()" class="arrow arrow-right" role="button"></a>
+    </div>
+  </div>
+  <div class="right">
+    <div class="toolbar-item">
+      Employee: &nbsp;
+      <select [(ngModel)]="employee" (change)="employeeSelected()">
+        <option *ngFor="let e of employees" [selected]="true" [value]="e.id">{{e.name}}</option>
+      </select>
+    </div>
+    <div class="toolbar-item">
+      <input type="checkbox" id="nonbusiness" [(ngModel)]="config.showNonBusiness"> <label for="nonbusiness">Montrer les heures de fermetures</label>
+    </div>
+  </div>
+</div>
+<daypilot-scheduler [config]="config" #timesheet></daypilot-scheduler>

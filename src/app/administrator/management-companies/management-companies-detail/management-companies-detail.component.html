@@ -1,0 +1,36 @@
+<div *ngIf="company; else companyNotFound">
+  <div class="upper">
+    <div class="upper-left">
+      <div>
+        <h2>Entreprise : {{company.companiesName}}</h2>
+        <p class="bold">ID-Co : {{company.idCompanies}}</p>
+      </div>
+    </div>
+    <!--
+    <div class="upper-right">
+      <label class="toggle">
+        <input class="toggle-checkbox" type="checkbox" [(ngModel)]="toggleEdit" (change)="emitUpdate(company)">
+        <div class="toggle-switch"></div>
+        <span class="toggle-label">Modification des données</span>
+      </label>
+      <br>
+      <button (click)="confirmDelete()">Supprimer</button>
+    </div>
+    --->
+  </div>
+  <h3>Informations sur l'entreprise</h3>
+  <table>
+    <tr>
+      <td>Nom de la compagnie :</td>
+      <td><p>{{company.companiesName}}</p></td>
+    </tr>
+    <tr>
+      <td>Email du directeur :</td>
+      <td><p>{{company.directorEmail}}</p></td>
+    </tr>
+  </table>
+</div>
+
+<ng-template #companyNotFound>
+  <h3>Aucune compagnie</h3>
+</ng-template>
