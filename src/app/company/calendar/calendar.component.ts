@@ -6,7 +6,6 @@ import {DtoOutputCreateEvents} from "../dtos/dto-output-create-events";
 import {DtoOutputUpdateEvents} from "../dtos/dto-output-update-events";
 import {DtoOutputDeleteEvents} from "../dtos/dto-output-delete-events";
 import {DtoInputEventTypes} from "../dtos/dto-input-eventTypes";
-import ModalFormItem = DayPilot.ModalFormItem;
 import {WebsocketService} from "../../hubs/websocket.service";
 import {Router} from "@angular/router";
 import {DtoInputEvents} from "../dtos/dto-input-events";
@@ -37,9 +36,7 @@ export class CalendarComponent implements OnInit {
   @ViewChild('scheduler')
   scheduler!: DayPilotSchedulerComponent;
   eventTypes: DtoInputEventTypes[] = [];
-  formEventTypes: ModalFormItem[] = [];
-
-  // themes :             https://javascript.daypilot.org/demo/scheduler/themetraditional.html
+// themes :             https://javascript.daypilot.org/demo/scheduler/themetraditional.html
   // https://themes.daypilot.org/scheduler/create#cdu5so
   config: DayPilot.SchedulerConfig = {
     locale: "fr-be",

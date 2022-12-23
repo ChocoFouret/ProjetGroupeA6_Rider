@@ -14,7 +14,8 @@ export class ManagementComponent implements OnInit {
   employees: DtoInputEmployee[] = [];
   filter: string = "";
 
-  constructor(private _usersService: ManagementService, private _serviceService: SessionService) { }
+  constructor(private _usersService: ManagementService, private _serviceService: SessionService) {
+  }
 
   ngOnInit(): void {
     this.fetchAll();
@@ -24,6 +25,7 @@ export class ManagementComponent implements OnInit {
     this._usersService
       .fetchAll()
       .subscribe(employees => {
+        employees = employees.filter(employee => employee.idAccount != this._serviceService.getID())
         this.employees = employees;
         this.employees.filter(async (item) => {
           item.firstName = item.firstName.charAt(0).toUpperCase() + item.firstName.slice(1);
