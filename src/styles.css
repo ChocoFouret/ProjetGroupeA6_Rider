@@ -98,3 +98,8 @@ html{
     box-sizing: border-box;
   }
 }
+
+
+.scheduler_default_timeheader_float_inner{
+  font-size: 20px;
+}
