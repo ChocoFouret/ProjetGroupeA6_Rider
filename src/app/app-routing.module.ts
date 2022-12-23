@@ -19,6 +19,7 @@ import {ManagementCompaniesComponent} from "./administrator/management-companies
 import {AnnouncementsComponent} from "./company/announcements/announcements.component";
 import {DirectorGuard} from "./auth/director.guard";
 import {AnnouncementsEmployeeComponent} from "./account/announcements-employee/announcements-employee.component";
+import {AboutusComponent} from "./aboutus/aboutus.component";
 
 // Routes
 const routes: Routes = [
@@ -43,6 +44,7 @@ const routes: Routes = [
       {path: 'register', component: RegisterComponent},
       {path: 'welcome', component: WelcomeComponent},
       {path: 'about', component: AboutComponent},
+      {path: 'aboutus', component: AboutusComponent},
       {path: 'createCompanie', component: CreateCompaniesComponent}
     ]
   },

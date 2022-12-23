@@ -33,6 +33,7 @@ import {ManagementCompaniesDetailComponent} from './administrator/management-com
 import {HeaderComponent} from './util/header/header.component';
 import {AnnouncementsComponent} from './company/announcements/announcements.component';
 import {AnnouncementsEmployeeComponent} from "./account/announcements-employee/announcements-employee.component";
+import { AboutusComponent } from './aboutus/aboutus.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import {AnnouncementsEmployeeComponent} from "./account/announcements-employee/a
     ManagementCompaniesDetailComponent,
     HeaderComponent,
     AnnouncementsComponent,
-    AnnouncementsEmployeeComponent
+    AnnouncementsEmployeeComponent,
+    AboutusComponent
   ],
   imports: [
     BrowserModule,

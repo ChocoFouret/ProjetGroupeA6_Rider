@@ -4,6 +4,7 @@ import {DtoInputEmployee} from "./dtos/dto-input-employee";
 import {DtoOutputUpdateEmployee} from "./dtos/dto-output-update-employee";
 import {DtoOutputDeleteEmployee} from "./dtos/dto-output-delete-employee";
 import {ManagementService} from "./management.service";
+import {NotificationsService} from "../../util/notifications/notifications.service";
 
 @Component({
   selector: 'app-management',
@@ -14,7 +15,9 @@ export class ManagementComponent implements OnInit {
   employees: DtoInputEmployee[] = [];
   filter: string = "";
 
-  constructor(private _usersService: ManagementService, private _serviceService: SessionService) {
+  constructor(private _usersService: ManagementService,
+              private _serviceService: SessionService,
+              private _notifcation : NotificationsService) {
   }
 
   ngOnInit(): void {
@@ -71,6 +74,8 @@ export class ManagementComponent implements OnInit {
   delete(dto: DtoOutputDeleteEmployee) {
     this._usersService
       .delete(dto)
-      .subscribe();
+      .subscribe(() =>
+        this._notifcation.success("Suppresion effectuée.")
+      );
   }
 }
